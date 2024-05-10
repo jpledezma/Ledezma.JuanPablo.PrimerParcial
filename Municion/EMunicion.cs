@@ -1,0 +1,19 @@
+﻿public enum EMunicion
+{
+    OTAN_5_56x45,
+    SOVIET_7_62X39,
+    SOVIET_5_45X39,
+    REM_223,
+    WIN_308,
+    LC_45,
+    MAGNUM_44,
+    MAGNUM_357,
+    LR_22,
+    PARABELLUM_9x19,
+    AE_50,
+    ACP_45,
+    ACP_380,
+    SHELL_12g,
+    SHELL_10g,
+    SHELL_20g
+}
