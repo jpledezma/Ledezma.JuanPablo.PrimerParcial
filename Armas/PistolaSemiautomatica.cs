@@ -13,5 +13,14 @@ namespace Armas
         private bool seguroActivo;
         private Cargador cargador;
         private List<EAccesorioPistola> accesorios;
+
+        public PistolaSemiautomatica(string fabricante,
+                           string numeroSerie,
+                           double pesoKg,
+                           EMunicion calibreMunicion,
+                           List<EMaterial> materialesConstruccion) : base(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
+        {
+
+        }
     }
 }
