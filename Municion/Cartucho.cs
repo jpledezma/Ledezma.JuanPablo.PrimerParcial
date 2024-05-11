@@ -6,6 +6,7 @@
         private EProyectil tipoProyectil;
         private bool subsonico;
 
+        #region Propiedades
         public EMunicion Calibre
         {
             get { return this.calibre; }
@@ -18,7 +19,9 @@
         {
             get { return this.subsonico; }
         }
+        #endregion
 
+        #region Constructores
         public Cartucho(EMunicion calibre)
         {
             this.calibre = calibre;
@@ -33,7 +36,9 @@
         {
             this.subsonico = subsonico;
         }
+        #endregion
 
+        #region Sobrecarga de operadores
         public static bool operator ==(Cartucho c1, Cartucho c2)
         {
             return (c1.calibre == c2.calibre && c1.subsonico == c2.subsonico && c1.tipoProyectil == c2.tipoProyectil);
@@ -42,5 +47,6 @@
         {
             return !(c1 == c2);
         }
+        #endregion
     }
 }

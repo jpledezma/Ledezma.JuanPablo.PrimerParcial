@@ -11,11 +11,12 @@ namespace Armas
 {
     public class Cargador
     {
-        private int capacidad;
+        private uint capacidad;
         private EMunicion calibreMunicion;
         private Stack<Cartucho> cartuchos;
 
-        public int Capacidad
+        #region Propiedades
+        public uint Capacidad
         {
             get { return this.capacidad; }
         }
@@ -25,25 +26,19 @@ namespace Armas
         }
         public Stack<Cartucho> Cartuchos
         {
-            get { return cartuchos; }
+            get { return new Stack<Cartucho>(this.cartuchos); }
         }
+        #endregion
 
-        public Cargador(int capacidad, EMunicion calibreMunicion)
+        #region Constructores
+        public Cargador(uint capacidad, EMunicion calibreMunicion)
         {
             this.capacidad = capacidad;
             this.calibreMunicion = calibreMunicion;
             this.cartuchos = new Stack<Cartucho>();
         }
-        /*
-         * En lugar de pasar un Stack, es mejor pasar una lista;
-         * para simular que se pasa un conjunto de balas y la persona
-         * las va metiendo al cargador una por una
-        public Cargador(int capacidad, EMunicion calibreMunicion, Stack<Cartucho> cartuchos) : this(capacidad, calibreMunicion)
-        {
-            this.cartuchos = new Stack<Cartucho>(cartuchos);
-        }
-        */
-        public Cargador(int capacidad, EMunicion calibreMunicion, List<Cartucho> cartuchos) : this(capacidad, calibreMunicion)
+
+        public Cargador(uint capacidad, EMunicion calibreMunicion, List<Cartucho> cartuchos) : this(capacidad, calibreMunicion)
         {
             foreach(Cartucho c in cartuchos)
             {
@@ -53,6 +48,12 @@ namespace Armas
                 }
             }
         }
+        public Cargador(Cargador c)
+        {
+            this.capacidad = c.capacidad;
+            this.calibreMunicion = c.calibreMunicion;
+            this.cartuchos = new Stack<Cartucho>(c.Cartuchos);
+        }
 
         public void AgregarCartucho(Cartucho cartucho)
         {
@@ -61,19 +62,21 @@ namespace Armas
                 this.cartuchos.Push(cartucho);
             }
         }
+        #endregion
 
-        public void AgregarCartucho(Cartucho cartucho, int cantidad)
+        #region Metodos
+        public void AgregarCartucho(Cartucho cartucho, uint cantidad)
         {
             if (cartucho.Calibre != this.calibreMunicion)
             {
                 return;
             }
 
-            int contador = cantidad;
-            while(contador > 0 && this.cartuchos.Count < this.capacidad)
+            int contador = 0;
+            while(contador < cantidad && this.cartuchos.Count < this.capacidad)
             {
                 this.cartuchos.Push(cartucho);
-                contador--;
+                contador++;
             }
         }
 
@@ -106,7 +109,9 @@ namespace Armas
         {
             this.AgregarCartucho(cartucho, this.capacidad);
         }
+        #endregion
 
+        #region Sobrecargas de operadores
         public static int operator +(Cargador c1, Cargador c2)
         {
             int cartuchosTotales = c1.cartuchos.Count;
@@ -118,5 +123,6 @@ namespace Armas
 
             return c1.cartuchos.Count + c2.cartuchos.Count;
         }
+        #endregion
     }
 }
