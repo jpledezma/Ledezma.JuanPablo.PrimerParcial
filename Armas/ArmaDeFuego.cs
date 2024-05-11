@@ -4,12 +4,12 @@
     {
         private string fabricante;
         private string numeroSerie;
-        private double precio;
-        private double pesoKg;
+        protected double precio;
+        protected double pesoKg;
         private EMunicion calibreMunicion;
         private List<EMaterial> materialesConstruccion;
-        private DateTime fechaIngreso;
 
+        #region Propiedades
         public string Fabricante
         {
             get { return this.fabricante; }
@@ -35,11 +35,9 @@
         {
             get { return new List<EMaterial>(this.materialesConstruccion); }
         }
-        public DateTime FechaIngreso
-        {
-            get { return this.fechaIngreso; }
-        }
+        #endregion
 
+        #region Constructores
         public ArmaDeFuego(string fabricante, 
                            string numeroSerie, 
                            double pesoKg,
@@ -52,7 +50,6 @@
             this.calibreMunicion = calibreMunicion;
             this.materialesConstruccion = new List<EMaterial>();
             this.precio = 0;
-            this.fechaIngreso = DateTime.Now;
 
             foreach(EMaterial material in materialesConstruccion)
             {
@@ -72,16 +69,6 @@
         {
             this.precio = precio >= 0 ? precio : 0;
         }
-
-        public ArmaDeFuego(string fabricante,
-                           string numeroSerie,
-                           double pesoKg,
-                           EMunicion calibreMunicion,
-                           List<EMaterial> materialesConstruccion,
-                           double precio,
-                           DateTime fechaIngreso) : this(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, precio)
-        {
-            this.fechaIngreso = fechaIngreso;
-        }
+        #endregion
     }
 }
