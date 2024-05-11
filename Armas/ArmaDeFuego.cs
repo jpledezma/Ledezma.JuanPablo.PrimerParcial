@@ -78,5 +78,17 @@
             this.precio = precio >= 0 ? precio : 0;
         }
         #endregion
+
+        #region Sobrecarga de operadores
+        public static bool operator ==(ArmaDeFuego arma1, ArmaDeFuego arma2)
+        {
+            return arma1.numeroSerie == arma2.numeroSerie;
+        }
+
+        public static bool operator !=(ArmaDeFuego arma1, ArmaDeFuego arma2)
+        {
+            return !(arma1 == arma2);
+        }
+        #endregion
     }
 }
