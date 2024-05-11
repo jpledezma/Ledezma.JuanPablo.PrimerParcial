@@ -1,6 +1,6 @@
 namespace CRUD
 {
-    public partial class Login : Form
+    public partial class FrmLogin : Form
     {
         /*
          * fondo: 38, 40, 51
@@ -15,7 +15,7 @@ namespace CRUD
          */
 
         private List<Usuario> usuarios;
-        public Login()
+        public FrmLogin()
         {
             InitializeComponent();
             this.usuarios = new List<Usuario>();
@@ -37,14 +37,26 @@ namespace CRUD
                     break;
                 }
             }
-            if (loginValido)
-            {
-                MessageBox.Show("Exito");
-            }
-            else
+
+
+            if (!loginValido)
             {
                 MessageBox.Show("Error");
+                return;
+                
             }
+
+            FrmCRUD frmCRUD = new FrmCRUD();
+
+            this.Hide();
+            DialogResult resultado = frmCRUD.ShowDialog();
+
+            if (resultado == DialogResult.Cancel) 
+            {
+                this.Close();
+            }
+            // Si lo quiero mostrar de nuevo le mando este
+            //this.Show();
         }
 
         private void DeserializarJson()

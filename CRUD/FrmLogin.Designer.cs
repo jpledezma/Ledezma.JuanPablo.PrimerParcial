@@ -1,6 +1,6 @@
 ﻿namespace CRUD
 {
-    partial class Login
+    partial class FrmLogin
     {
         /// <summary>
         ///  Required designer variable.
@@ -102,7 +102,7 @@
             btnIngresar.UseVisualStyleBackColor = false;
             btnIngresar.Click += btnIngresar_Click;
             // 
-            // Login
+            // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
