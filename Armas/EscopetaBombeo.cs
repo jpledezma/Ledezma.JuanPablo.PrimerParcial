@@ -39,31 +39,34 @@ namespace Armas
         #region Constructores
         public EscopetaBombeo(
                               string fabricante,
+                              string modelo,
                               string numeroSerie,
                               double pesoKg,
                               EMunicion calibreMunicion,
                               List<EMaterial> materialesConstruccion,
                               uint capacidad
-                             ) : base(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
+                             ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
         {
             this.capacidad = capacidad;
         }
 
         public EscopetaBombeo(
                               string fabricante,
+                              string modelo,
                               string numeroSerie,
                               double pesoKg,
                               EMunicion calibreMunicion,
                               List<EMaterial> materialesConstruccion,
                               uint capacidad,
                               double precio
-                             ) : this(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidad)
+                             ) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidad)
         {
             base.precio = precio > 0 ? precio : 0;
         }
 
         public EscopetaBombeo(
                               string fabricante,
+                              string modelo,
                               string numeroSerie,
                               double pesoKg,
                               EMunicion calibreMunicion,
@@ -71,7 +74,7 @@ namespace Armas
                               uint capacidad,
                               double precio,
                               List<EAccesorioEscopeta> accesorios
-                             ) : this(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidad, precio)
+                             ) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidad, precio)
         {
             foreach (EAccesorioEscopeta a in accesorios)
             {

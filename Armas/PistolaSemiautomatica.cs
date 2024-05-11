@@ -40,12 +40,13 @@ namespace Armas
         #region Constructores
         public PistolaSemiautomatica(
                             string fabricante,
+                            string modelo,
                             string numeroSerie,
                             double pesoKg,
                             EMunicion calibreMunicion,
                             List<EMaterial> materialesConstruccion,
                             uint capacidadCargador
-                            ) : base(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
+                            ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
         {
             this.capacidadCargador = capacidadCargador;
             this.cargador = new Cargador(capacidadCargador, calibreMunicion);
@@ -55,13 +56,14 @@ namespace Armas
 
         public PistolaSemiautomatica(
                             string fabricante,
+                            string modelo,
                             string numeroSerie,
                             double pesoKg,
                             EMunicion calibreMunicion,
                             List<EMaterial> materialesConstruccion,
                             uint capacidadCargador,
                             double precio
-                            ) : this(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidadCargador)
+                            ) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidadCargador)
         {
             base.precio = precio > 0 ? precio : 0;
         }
@@ -69,6 +71,7 @@ namespace Armas
         public PistolaSemiautomatica
                             (
                             string fabricante,
+                            string modelo,
                             string numeroSerie,
                             double pesoKg,
                             EMunicion calibreMunicion,
@@ -76,7 +79,7 @@ namespace Armas
                             uint capacidadCargador,
                             double precio,
                             List<EAccesorioPistola> accesorios
-                            ) : this(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidadCargador, precio)
+                            ) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidadCargador, precio)
         {
             // Aumentar la capacidad del cargador si contiene el accesorio "cargador ampliado"
             if (accesorios.Contains(EAccesorioPistola.CargadorAmpliado))

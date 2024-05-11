@@ -46,13 +46,14 @@ namespace Armas
         #region Constructores
         public FusilAsalto(
                            string fabricante,
+                           string modelo,
                            string numeroSerie,
                            double pesoKg,
                            EMunicion calibreMunicion,
                            List<EMaterial> materialesConstruccion,
                            uint capacidadCargador,
                            uint cadencia
-                          ) : base(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
+                          ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
         {
             this.capacidadCargador = capacidadCargador;
             this.cadencia = cadencia;
@@ -63,6 +64,7 @@ namespace Armas
 
         public FusilAsalto(
                            string fabricante,
+                           string modelo,
                            string numeroSerie,
                            double pesoKg,
                            EMunicion calibreMunicion,
@@ -70,13 +72,14 @@ namespace Armas
                            uint capacidadCargador,
                            uint cadencia,
                            double precio
-                          ) : this(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidadCargador, cadencia)
+                          ) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidadCargador, cadencia)
         {
             base.precio = precio > 0 ? precio : 0;
         }
 
         public FusilAsalto(
                            string fabricante,
+                           string modelo,
                            string numeroSerie,
                            double pesoKg,
                            EMunicion calibreMunicion,
@@ -85,7 +88,7 @@ namespace Armas
                            uint cadencia,
                            double precio,
                            List<EAccesorioFusil> accesorios
-                          ) : this(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidadCargador, cadencia, precio)
+                          ) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidadCargador, cadencia, precio)
         {
             // Aumentar la capacidad del cargador si contiene el accesorio "cargador ampliado"
             if (accesorios.Contains(EAccesorioFusil.CargadorTambor))

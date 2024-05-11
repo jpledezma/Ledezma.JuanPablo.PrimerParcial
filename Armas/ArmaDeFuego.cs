@@ -3,6 +3,7 @@
     public class ArmaDeFuego
     {
         private string fabricante;
+        private string modelo;
         private string numeroSerie;
         protected double precio;
         protected double pesoKg;
@@ -13,6 +14,10 @@
         public string Fabricante
         {
             get { return this.fabricante; }
+        }
+        public string Modelo
+        {
+            get { return this.modelo; }
         }
         public string NumeroSerie
         {
@@ -39,12 +44,14 @@
 
         #region Constructores
         public ArmaDeFuego(string fabricante, 
+                           string modelo,
                            string numeroSerie, 
                            double pesoKg,
                            EMunicion calibreMunicion,
                            List<EMaterial> materialesConstruccion)
         {
             this.fabricante = fabricante;
+            this.modelo = modelo;
             this.numeroSerie = numeroSerie;
             this.pesoKg = pesoKg >= 0 ? pesoKg : 0;
             this.calibreMunicion = calibreMunicion;
@@ -61,11 +68,12 @@
         }
         
         public ArmaDeFuego(string fabricante,
+                           string modelo,
                            string numeroSerie,
                            double pesoKg,
                            EMunicion calibreMunicion,
                            List<EMaterial> materialesConstruccion,
-                           double precio) : this(fabricante, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
+                           double precio) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
         {
             this.precio = precio >= 0 ? precio : 0;
         }
