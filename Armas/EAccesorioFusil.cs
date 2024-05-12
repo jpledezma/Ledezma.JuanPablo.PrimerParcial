@@ -1,11 +1,11 @@
 ﻿public enum EAccesorioFusil
 {
+    Bipode,
     CargadorTambor,
-    MiraTelescopica,
-    MiraLaser,
-    Linterna,
-    FrenoDeBoca,
-    CulataPlegable,
     Correa,
-    Bipode
+    CulataPlegable,
+    FrenoDeBoca,
+    Linterna,
+    MiraLaser,
+    MiraTelescopica
 }

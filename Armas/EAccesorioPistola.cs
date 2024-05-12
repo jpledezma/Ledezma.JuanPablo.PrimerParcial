@@ -1,8 +1,8 @@
 ﻿public enum EAccesorioPistola
 {
+    CargadorAmpliado,
+    Linterna,
     MiraHolografica,
     MiraLaser,
-    Linterna,
-    Supresor,
-    CargadorAmpliado
+    Supresor
 }

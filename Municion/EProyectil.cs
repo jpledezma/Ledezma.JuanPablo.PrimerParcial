@@ -1,9 +1,9 @@
 ﻿public enum EProyectil
 {
-    PuntaRedonda,
-    PuntaHueca,
-    PuntaSuave,
-    Trazador,
+    Antimaterial,
     Incendiario,
-    Antimaterial
+    PuntaHueca,
+    PuntaRedonda,
+    PuntaSuave,
+    Trazador
 }
