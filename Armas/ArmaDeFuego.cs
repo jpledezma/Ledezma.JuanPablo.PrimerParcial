@@ -1,4 +1,6 @@
-﻿namespace Armas
+﻿using System.Text;
+
+namespace Armas
 {
     public class ArmaDeFuego
     {
@@ -78,6 +80,18 @@
             this.precio = precio >= 0 ? precio : 0;
         }
         #endregion
+
+        public string Mostrar()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"{this.fabricante} - ");
+            sb.Append($"{this.modelo} - ");
+            sb.Append($"{this.numeroSerie} - ");
+            sb.Append($"{this.precio.ToString()} - ");
+            sb.Append($"{this.pesoKg.ToString()} - ");
+
+            return sb.ToString();
+        }
 
         #region Sobrecarga de operadores
         public static bool operator ==(ArmaDeFuego arma1, ArmaDeFuego arma2)
