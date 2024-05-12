@@ -96,6 +96,7 @@
             Controls.Add(btnEliminar);
             Controls.Add(btnModificar);
             Controls.Add(btnAgregar);
+            ForeColor = SystemColors.ButtonFace;
             Name = "FrmCRUD";
             Text = "Principal";
             ResumeLayout(false);

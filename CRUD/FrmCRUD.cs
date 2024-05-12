@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Armas;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,8 @@ namespace CRUD
      * blanco-azul: (224, 242, 241)
      */
     {
+
+        List<ArmaDeFuego> armas = new List<ArmaDeFuego>();
         public FrmCRUD()
         {
             InitializeComponent();
@@ -34,6 +37,29 @@ namespace CRUD
             // A la clase ArmaDeFuego agregarle un método ObtenerDatos()
             // que devuelva un array con cada uno de los datos,
             // después las clases heredadas lo sobreescriben.
+            
+            FrmAgregarSeleccion frmSeleccion = new FrmAgregarSeleccion();
+            DialogResult resultado = frmSeleccion.ShowDialog();
+
+            if (resultado == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            if(frmSeleccion.ArmaSeleccionada == "pistola")
+            {
+                MessageBox.Show("Pistola semiautomática");
+            }
+            else if (frmSeleccion.ArmaSeleccionada == "fusil")
+            {
+                MessageBox.Show("Fusil de asalto");
+            }
+            else if (frmSeleccion.ArmaSeleccionada == "escopeta")
+            { 
+                MessageBox.Show("Escopeta de bombeo");
+            }
+            FrmAgregarBase frm = new FrmAgregarBase();
+            frm.ShowDialog();
         }
     }
 }
