@@ -163,7 +163,7 @@
             Controls.Add(lblCapacidad);
             Controls.Add(txtCapacidad);
             Name = "FrmAgregarEscopeta";
-            Text = "FrmAgregarEscopeta";
+            Text = "Agregar escopeta de bombeo";
             Controls.SetChildIndex(txtCapacidad, 0);
             Controls.SetChildIndex(lblCapacidad, 0);
             Controls.SetChildIndex(lblAccesorios, 0);
