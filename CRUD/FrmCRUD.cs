@@ -58,7 +58,7 @@ namespace CRUD
             { 
                 MessageBox.Show("Escopeta de bombeo");
             }
-            FrmAgregarBase frm = new FrmAgregarBase();
+            FrmAgregarPistola frm = new FrmAgregarPistola();
             frm.ShowDialog();
         }
     }

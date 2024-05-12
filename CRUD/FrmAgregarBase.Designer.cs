@@ -247,13 +247,14 @@
             btnCancelar.TabIndex = 21;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // FrmAgregarBase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 40, 51);
-            ClientSize = new Size(457, 494);
+            ClientSize = new Size(464, 501);
             Controls.Add(btnCancelar);
             Controls.Add(btnAceptar);
             Controls.Add(chkPolimero);
