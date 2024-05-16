@@ -84,11 +84,13 @@ namespace Armas
         public string Mostrar()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"{this.fabricante} - ");
-            sb.Append($"{this.modelo} - ");
-            sb.Append($"{this.numeroSerie} - ");
-            sb.Append($"{this.precio.ToString()} - ");
-            sb.Append($"{this.pesoKg.ToString()} - ");
+            sb.Append($"{this.GetType().Name}\t\t");
+            sb.Append($"{this.fabricante}\t\t");
+            sb.Append($"{this.modelo}\t\t");
+            sb.Append($"{this.numeroSerie}\t\t");
+            sb.Append($"${this.precio.ToString()}\t\t");
+            sb.Append($"{this.pesoKg.ToString()} Kg\t\t");
+            sb.Append($"{this.calibreMunicion.ToString()}");
 
             return sb.ToString();
         }
