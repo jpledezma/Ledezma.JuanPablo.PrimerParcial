@@ -79,11 +79,12 @@
             // 
             // lstVisor
             // 
+            lstVisor.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             lstVisor.FormattingEnabled = true;
             lstVisor.ItemHeight = 15;
             lstVisor.Location = new Point(12, 56);
             lstVisor.Name = "lstVisor";
-            lstVisor.Size = new Size(788, 319);
+            lstVisor.Size = new Size(1108, 319);
             lstVisor.TabIndex = 9;
             // 
             // FrmCRUD
@@ -91,7 +92,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 40, 51);
-            ClientSize = new Size(812, 495);
+            ClientSize = new Size(1132, 495);
             Controls.Add(lstVisor);
             Controls.Add(btnEliminar);
             Controls.Add(btnModificar);
@@ -99,6 +100,7 @@
             ForeColor = SystemColors.ButtonFace;
             Name = "FrmCRUD";
             Text = "Principal";
+            Load += FrmCRUD_Load;
             ResumeLayout(false);
         }
 

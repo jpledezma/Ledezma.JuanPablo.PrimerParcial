@@ -38,6 +38,10 @@
             chkSupresor = new CheckBox();
             SuspendLayout();
             // 
+            // cboCalibre
+            // 
+            cboCalibre.Items.AddRange(new object[] { EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g, EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g });
+            // 
             // lblCapacidadCargador
             // 
             lblCapacidadCargador.AutoSize = true;
@@ -46,7 +50,7 @@
             lblCapacidadCargador.Location = new Point(230, 9);
             lblCapacidadCargador.Name = "lblCapacidadCargador";
             lblCapacidadCargador.Size = new Size(120, 40);
-            lblCapacidadCargador.TabIndex = 23;
+            lblCapacidadCargador.TabIndex = 39;
             lblCapacidadCargador.Text = "Capacidad del\r\ncargador (base):";
             // 
             // txtCapacidadCargador
@@ -55,7 +59,7 @@
             txtCapacidadCargador.Location = new Point(230, 52);
             txtCapacidadCargador.Name = "txtCapacidadCargador";
             txtCapacidadCargador.Size = new Size(161, 23);
-            txtCapacidadCargador.TabIndex = 22;
+            txtCapacidadCargador.TabIndex = 10;
             // 
             // lblAccesorios
             // 
@@ -65,7 +69,7 @@
             lblAccesorios.Location = new Point(230, 78);
             lblAccesorios.Name = "lblAccesorios";
             lblAccesorios.Size = new Size(85, 20);
-            lblAccesorios.TabIndex = 24;
+            lblAccesorios.TabIndex = 40;
             lblAccesorios.Text = "Accesorios:";
             // 
             // chkCargadorAmpliado
@@ -75,7 +79,7 @@
             chkCargadorAmpliado.Location = new Point(230, 101);
             chkCargadorAmpliado.Name = "chkCargadorAmpliado";
             chkCargadorAmpliado.Size = new Size(130, 19);
-            chkCargadorAmpliado.TabIndex = 25;
+            chkCargadorAmpliado.TabIndex = 11;
             chkCargadorAmpliado.Text = "Cargador Ampliado";
             chkCargadorAmpliado.UseVisualStyleBackColor = true;
             // 
@@ -86,7 +90,7 @@
             chkLinterna.Location = new Point(230, 126);
             chkLinterna.Name = "chkLinterna";
             chkLinterna.Size = new Size(69, 19);
-            chkLinterna.TabIndex = 26;
+            chkLinterna.TabIndex = 12;
             chkLinterna.Text = "Linterna";
             chkLinterna.UseVisualStyleBackColor = true;
             // 
@@ -97,7 +101,7 @@
             chkMiraHolografica.Location = new Point(230, 151);
             chkMiraHolografica.Name = "chkMiraHolografica";
             chkMiraHolografica.Size = new Size(113, 19);
-            chkMiraHolografica.TabIndex = 27;
+            chkMiraHolografica.TabIndex = 13;
             chkMiraHolografica.Text = "Mira holográfica";
             chkMiraHolografica.UseVisualStyleBackColor = true;
             // 
@@ -108,7 +112,7 @@
             chkMiraLaser.Location = new Point(230, 176);
             chkMiraLaser.Name = "chkMiraLaser";
             chkMiraLaser.Size = new Size(80, 19);
-            chkMiraLaser.TabIndex = 28;
+            chkMiraLaser.TabIndex = 14;
             chkMiraLaser.Text = "Mira Láser";
             chkMiraLaser.UseVisualStyleBackColor = true;
             // 
@@ -119,7 +123,7 @@
             chkSupresor.Location = new Point(230, 201);
             chkSupresor.Name = "chkSupresor";
             chkSupresor.Size = new Size(72, 19);
-            chkSupresor.TabIndex = 29;
+            chkSupresor.TabIndex = 15;
             chkSupresor.Text = "Supresor";
             chkSupresor.UseVisualStyleBackColor = true;
             // 
@@ -138,6 +142,16 @@
             Controls.Add(txtCapacidadCargador);
             Name = "FrmAgregarPistola";
             Text = "Agregar Pistola Semiautomática";
+            Controls.SetChildIndex(txtFabricante, 0);
+            Controls.SetChildIndex(txtModelo, 0);
+            Controls.SetChildIndex(txtPrecio, 0);
+            Controls.SetChildIndex(txtNumeroSerie, 0);
+            Controls.SetChildIndex(txtPeso, 0);
+            Controls.SetChildIndex(cboCalibre, 0);
+            Controls.SetChildIndex(chkAluminio, 0);
+            Controls.SetChildIndex(chkAcero, 0);
+            Controls.SetChildIndex(chkMadera, 0);
+            Controls.SetChildIndex(chkPolimero, 0);
             Controls.SetChildIndex(txtCapacidadCargador, 0);
             Controls.SetChildIndex(lblCapacidadCargador, 0);
             Controls.SetChildIndex(lblAccesorios, 0);

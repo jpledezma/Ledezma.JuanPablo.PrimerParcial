@@ -32,12 +32,17 @@ namespace CRUD
             InitializeComponent();
         }
 
+        private void FrmCRUD_Load(object sender, EventArgs e)
+        {
+            this.LimpiarVisor();
+        }
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             // A la clase ArmaDeFuego agregarle un método ObtenerDatos()
             // que devuelva un array con cada uno de los datos,
             // después las clases heredadas lo sobreescriben.
-            
+
             FrmAgregarSeleccion frmSeleccion = new FrmAgregarSeleccion();
             DialogResult resultado = frmSeleccion.ShowDialog();
 
@@ -45,21 +50,49 @@ namespace CRUD
             {
                 return;
             }
+            this.MostrarForm(frmSeleccion.ArmaSeleccionada);
+            this.ActualizarVisor();
+        }
 
-            if(frmSeleccion.ArmaSeleccionada == "pistola")
+        private void MostrarForm(string armaSeleccionada)
+        {
+            DialogResult resultado;
+            switch (armaSeleccionada)
             {
-                MessageBox.Show("Pistola semiautomática");
+                case "pistola":
+                    FrmAgregarPistola frmAgregarPistola = new FrmAgregarPistola();
+                    resultado = frmAgregarPistola.ShowDialog();
+                    if (resultado == DialogResult.OK)
+                        this.armas.Add(frmAgregarPistola.PistolaCreada);
+                    break;
+                case "fusil":
+                    FrmAgregarFusil frmAgregarFusil = new FrmAgregarFusil();
+                    resultado = frmAgregarFusil.ShowDialog();
+                    if (resultado == DialogResult.OK)
+                        this.armas.Add(frmAgregarFusil.FusilCreado);
+                    break;
+                case "escopeta":
+                    FrmAgregarEscopeta frmAgregarEscopeta = new FrmAgregarEscopeta();
+                    resultado = frmAgregarEscopeta.ShowDialog();
+                    if (resultado == DialogResult.OK)
+                        this.armas.Add(frmAgregarEscopeta.EscopetaCreada);
+                    break;
             }
-            else if (frmSeleccion.ArmaSeleccionada == "fusil")
+        }
+
+        private void ActualizarVisor()
+        {
+            this.LimpiarVisor();
+            foreach (var arma in this.armas)
             {
-                MessageBox.Show("Fusil de asalto");
+                this.lstVisor.Items.Add(arma.Mostrar());
             }
-            else if (frmSeleccion.ArmaSeleccionada == "escopeta")
-            { 
-                MessageBox.Show("Escopeta de bombeo");
-            }
-            FrmAgregarPistola frm = new FrmAgregarPistola();
-            frm.ShowDialog();
+        }
+
+        private void LimpiarVisor()
+        {
+            this.lstVisor.Items.Clear();
+            this.lstVisor.Items.Add("Tipo\t\tFabricante\t\tModelo\t\tNúmero de serie\t\tPrecio\t\tPeso\t\tCalibre");
         }
     }
 }

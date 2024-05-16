@@ -40,8 +40,12 @@
             chkCorrea = new CheckBox();
             chkBipode = new CheckBox();
             lblCadencia = new Label();
-            textBox1 = new TextBox();
+            txtCadencia = new TextBox();
             SuspendLayout();
+            // 
+            // cboCalibre
+            // 
+            cboCalibre.Items.AddRange(new object[] { EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g, EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g, EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g });
             // 
             // lblCapacidadCargador
             // 
@@ -51,7 +55,7 @@
             lblCapacidadCargador.Location = new Point(230, 9);
             lblCapacidadCargador.Name = "lblCapacidadCargador";
             lblCapacidadCargador.Size = new Size(120, 40);
-            lblCapacidadCargador.TabIndex = 25;
+            lblCapacidadCargador.TabIndex = 39;
             lblCapacidadCargador.Text = "Capacidad del\r\ncargador (base):";
             // 
             // txtCapacidadCargador
@@ -60,7 +64,7 @@
             txtCapacidadCargador.Location = new Point(230, 52);
             txtCapacidadCargador.Name = "txtCapacidadCargador";
             txtCapacidadCargador.Size = new Size(161, 23);
-            txtCapacidadCargador.TabIndex = 24;
+            txtCapacidadCargador.TabIndex = 10;
             // 
             // chkFrenoBoca
             // 
@@ -69,7 +73,7 @@
             chkFrenoBoca.Location = new Point(230, 250);
             chkFrenoBoca.Name = "chkFrenoBoca";
             chkFrenoBoca.Size = new Size(101, 19);
-            chkFrenoBoca.TabIndex = 35;
+            chkFrenoBoca.TabIndex = 16;
             chkFrenoBoca.Text = "Freno de boca";
             chkFrenoBoca.UseVisualStyleBackColor = true;
             // 
@@ -80,7 +84,7 @@
             chkMiraLaser.Location = new Point(230, 300);
             chkMiraLaser.Name = "chkMiraLaser";
             chkMiraLaser.Size = new Size(80, 19);
-            chkMiraLaser.TabIndex = 34;
+            chkMiraLaser.TabIndex = 18;
             chkMiraLaser.Text = "Mira Láser";
             chkMiraLaser.UseVisualStyleBackColor = true;
             // 
@@ -91,7 +95,7 @@
             chkMiraTelescopica.Location = new Point(230, 325);
             chkMiraTelescopica.Name = "chkMiraTelescopica";
             chkMiraTelescopica.Size = new Size(112, 19);
-            chkMiraTelescopica.TabIndex = 33;
+            chkMiraTelescopica.TabIndex = 19;
             chkMiraTelescopica.Text = "Mira telescópica";
             chkMiraTelescopica.UseVisualStyleBackColor = true;
             // 
@@ -102,7 +106,7 @@
             chkLinterna.Location = new Point(230, 275);
             chkLinterna.Name = "chkLinterna";
             chkLinterna.Size = new Size(69, 19);
-            chkLinterna.TabIndex = 32;
+            chkLinterna.TabIndex = 17;
             chkLinterna.Text = "Linterna";
             chkLinterna.UseVisualStyleBackColor = true;
             // 
@@ -113,7 +117,7 @@
             chkCargadorTambor.Location = new Point(230, 175);
             chkCargadorTambor.Name = "chkCargadorTambor";
             chkCargadorTambor.Size = new Size(133, 19);
-            chkCargadorTambor.TabIndex = 31;
+            chkCargadorTambor.TabIndex = 13;
             chkCargadorTambor.Text = "Cargador de tambor";
             chkCargadorTambor.UseVisualStyleBackColor = true;
             // 
@@ -125,7 +129,7 @@
             lblAccesorios.Location = new Point(230, 127);
             lblAccesorios.Name = "lblAccesorios";
             lblAccesorios.Size = new Size(85, 20);
-            lblAccesorios.TabIndex = 30;
+            lblAccesorios.TabIndex = 41;
             lblAccesorios.Text = "Accesorios:";
             // 
             // chkCulataPlegable
@@ -135,7 +139,7 @@
             chkCulataPlegable.Location = new Point(230, 225);
             chkCulataPlegable.Name = "chkCulataPlegable";
             chkCulataPlegable.Size = new Size(108, 19);
-            chkCulataPlegable.TabIndex = 36;
+            chkCulataPlegable.TabIndex = 15;
             chkCulataPlegable.Text = "Culata plegable";
             chkCulataPlegable.UseVisualStyleBackColor = true;
             // 
@@ -146,7 +150,7 @@
             chkCorrea.Location = new Point(230, 200);
             chkCorrea.Name = "chkCorrea";
             chkCorrea.Size = new Size(61, 19);
-            chkCorrea.TabIndex = 37;
+            chkCorrea.TabIndex = 14;
             chkCorrea.Text = "Correa";
             chkCorrea.UseVisualStyleBackColor = true;
             // 
@@ -157,7 +161,7 @@
             chkBipode.Location = new Point(230, 150);
             chkBipode.Name = "chkBipode";
             chkBipode.Size = new Size(63, 19);
-            chkBipode.TabIndex = 38;
+            chkBipode.TabIndex = 12;
             chkBipode.Text = "Bípode";
             chkBipode.UseVisualStyleBackColor = true;
             // 
@@ -172,13 +176,13 @@
             lblCadencia.TabIndex = 40;
             lblCadencia.Text = "Cadencia:";
             // 
-            // textBox1
+            // txtCadencia
             // 
-            textBox1.BackColor = Color.FromArgb(224, 242, 241);
-            textBox1.Location = new Point(230, 101);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(161, 23);
-            textBox1.TabIndex = 39;
+            txtCadencia.BackColor = Color.FromArgb(224, 242, 241);
+            txtCadencia.Location = new Point(230, 101);
+            txtCadencia.Name = "txtCadencia";
+            txtCadencia.Size = new Size(161, 23);
+            txtCadencia.TabIndex = 11;
             // 
             // FrmAgregarFusil
             // 
@@ -186,7 +190,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(464, 501);
             Controls.Add(lblCadencia);
-            Controls.Add(textBox1);
+            Controls.Add(txtCadencia);
             Controls.Add(chkBipode);
             Controls.Add(chkCorrea);
             Controls.Add(chkCulataPlegable);
@@ -200,6 +204,16 @@
             Controls.Add(txtCapacidadCargador);
             Name = "FrmAgregarFusil";
             Text = "Agregar fusil de asalto";
+            Controls.SetChildIndex(txtFabricante, 0);
+            Controls.SetChildIndex(txtModelo, 0);
+            Controls.SetChildIndex(txtPrecio, 0);
+            Controls.SetChildIndex(txtNumeroSerie, 0);
+            Controls.SetChildIndex(txtPeso, 0);
+            Controls.SetChildIndex(cboCalibre, 0);
+            Controls.SetChildIndex(chkAluminio, 0);
+            Controls.SetChildIndex(chkAcero, 0);
+            Controls.SetChildIndex(chkMadera, 0);
+            Controls.SetChildIndex(chkPolimero, 0);
             Controls.SetChildIndex(txtCapacidadCargador, 0);
             Controls.SetChildIndex(lblCapacidadCargador, 0);
             Controls.SetChildIndex(lblAccesorios, 0);
@@ -211,7 +225,7 @@
             Controls.SetChildIndex(chkCulataPlegable, 0);
             Controls.SetChildIndex(chkCorrea, 0);
             Controls.SetChildIndex(chkBipode, 0);
-            Controls.SetChildIndex(textBox1, 0);
+            Controls.SetChildIndex(txtCadencia, 0);
             Controls.SetChildIndex(lblCadencia, 0);
             ResumeLayout(false);
             PerformLayout();
@@ -231,6 +245,6 @@
         private CheckBox chkCorrea;
         private CheckBox chkBipode;
         private Label lblCadencia;
-        private TextBox textBox1;
+        private TextBox txtCadencia;
     }
 }

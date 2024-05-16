@@ -65,7 +65,7 @@
             lblFabricante.Location = new Point(12, 9);
             lblFabricante.Name = "lblFabricante";
             lblFabricante.Size = new Size(84, 20);
-            lblFabricante.TabIndex = 4;
+            lblFabricante.TabIndex = 32;
             lblFabricante.Text = "Fabricante:";
             // 
             // lblModelo
@@ -76,7 +76,7 @@
             lblModelo.Location = new Point(12, 59);
             lblModelo.Name = "lblModelo";
             lblModelo.Size = new Size(66, 20);
-            lblModelo.TabIndex = 6;
+            lblModelo.TabIndex = 33;
             lblModelo.Text = "Modelo:";
             // 
             // txtModelo
@@ -85,7 +85,7 @@
             txtModelo.Location = new Point(12, 83);
             txtModelo.Name = "txtModelo";
             txtModelo.Size = new Size(161, 23);
-            txtModelo.TabIndex = 5;
+            txtModelo.TabIndex = 1;
             // 
             // lblPrecio
             // 
@@ -95,7 +95,7 @@
             lblPrecio.Location = new Point(12, 159);
             lblPrecio.Name = "lblPrecio";
             lblPrecio.Size = new Size(56, 20);
-            lblPrecio.TabIndex = 8;
+            lblPrecio.TabIndex = 35;
             lblPrecio.Text = "Precio:";
             // 
             // txtPrecio
@@ -104,7 +104,7 @@
             txtPrecio.Location = new Point(12, 183);
             txtPrecio.Name = "txtPrecio";
             txtPrecio.Size = new Size(161, 23);
-            txtPrecio.TabIndex = 7;
+            txtPrecio.TabIndex = 3;
             // 
             // lblNumeroSerie
             // 
@@ -114,7 +114,7 @@
             lblNumeroSerie.Location = new Point(12, 109);
             lblNumeroSerie.Name = "lblNumeroSerie";
             lblNumeroSerie.Size = new Size(127, 20);
-            lblNumeroSerie.TabIndex = 10;
+            lblNumeroSerie.TabIndex = 34;
             lblNumeroSerie.Text = "Número de serie:";
             // 
             // txtNumeroSerie
@@ -123,7 +123,7 @@
             txtNumeroSerie.Location = new Point(12, 133);
             txtNumeroSerie.Name = "txtNumeroSerie";
             txtNumeroSerie.Size = new Size(161, 23);
-            txtNumeroSerie.TabIndex = 9;
+            txtNumeroSerie.TabIndex = 2;
             // 
             // lblPeso
             // 
@@ -133,7 +133,7 @@
             lblPeso.Location = new Point(12, 209);
             lblPeso.Name = "lblPeso";
             lblPeso.Size = new Size(75, 20);
-            lblPeso.TabIndex = 12;
+            lblPeso.TabIndex = 36;
             lblPeso.Text = "Peso (kg):";
             // 
             // txtPeso
@@ -142,7 +142,7 @@
             txtPeso.Location = new Point(12, 233);
             txtPeso.Name = "txtPeso";
             txtPeso.Size = new Size(161, 23);
-            txtPeso.TabIndex = 11;
+            txtPeso.TabIndex = 4;
             // 
             // cboCalibre
             // 
@@ -152,7 +152,7 @@
             cboCalibre.Location = new Point(12, 282);
             cboCalibre.Name = "cboCalibre";
             cboCalibre.Size = new Size(161, 23);
-            cboCalibre.TabIndex = 13;
+            cboCalibre.TabIndex = 5;
             // 
             // lblCalibre
             // 
@@ -162,7 +162,7 @@
             lblCalibre.Location = new Point(12, 259);
             lblCalibre.Name = "lblCalibre";
             lblCalibre.Size = new Size(61, 20);
-            lblCalibre.TabIndex = 14;
+            lblCalibre.TabIndex = 37;
             lblCalibre.Text = "Calibre:";
             // 
             // label1
@@ -173,7 +173,7 @@
             label1.Location = new Point(12, 308);
             label1.Name = "label1";
             label1.Size = new Size(196, 20);
-            label1.TabIndex = 15;
+            label1.TabIndex = 38;
             label1.Text = "Materiales de construcción:";
             // 
             // chkAluminio
@@ -183,7 +183,7 @@
             chkAluminio.Location = new Point(12, 356);
             chkAluminio.Name = "chkAluminio";
             chkAluminio.Size = new Size(75, 19);
-            chkAluminio.TabIndex = 16;
+            chkAluminio.TabIndex = 7;
             chkAluminio.Text = "Aluminio";
             chkAluminio.UseVisualStyleBackColor = true;
             // 
@@ -194,7 +194,7 @@
             chkAcero.Location = new Point(12, 331);
             chkAcero.Name = "chkAcero";
             chkAcero.Size = new Size(57, 19);
-            chkAcero.TabIndex = 17;
+            chkAcero.TabIndex = 6;
             chkAcero.Text = "Acero";
             chkAcero.UseVisualStyleBackColor = true;
             // 
@@ -205,7 +205,7 @@
             chkMadera.Location = new Point(12, 381);
             chkMadera.Name = "chkMadera";
             chkMadera.Size = new Size(66, 19);
-            chkMadera.TabIndex = 18;
+            chkMadera.TabIndex = 8;
             chkMadera.Text = "Madera";
             chkMadera.UseVisualStyleBackColor = true;
             // 
@@ -216,7 +216,7 @@
             chkPolimero.Location = new Point(13, 406);
             chkPolimero.Name = "chkPolimero";
             chkPolimero.Size = new Size(74, 19);
-            chkPolimero.TabIndex = 19;
+            chkPolimero.TabIndex = 9;
             chkPolimero.Text = "Polímero";
             chkPolimero.UseVisualStyleBackColor = true;
             // 
@@ -230,9 +230,10 @@
             btnAceptar.Location = new Point(104, 445);
             btnAceptar.Name = "btnAceptar";
             btnAceptar.Size = new Size(78, 37);
-            btnAceptar.TabIndex = 20;
+            btnAceptar.TabIndex = 30;
             btnAceptar.Text = "Aceptar";
             btnAceptar.UseVisualStyleBackColor = false;
+            btnAceptar.Click += btnAceptar_Click;
             // 
             // btnCancelar
             // 
@@ -244,7 +245,7 @@
             btnCancelar.Location = new Point(249, 445);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(78, 37);
-            btnCancelar.TabIndex = 21;
+            btnCancelar.TabIndex = 31;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
@@ -283,25 +284,24 @@
         }
 
         #endregion
-
-        private TextBox txtFabricante;
         private Label lblFabricante;
         private Label lblModelo;
-        private TextBox txtModelo;
         private Label lblPrecio;
-        private TextBox txtPrecio;
         private Label lblNumeroSerie;
-        private TextBox txtNumeroSerie;
         private Label lblPeso;
-        private TextBox txtPeso;
-        private ComboBox cboCalibre;
         private Label lblCalibre;
         private Label label1;
-        private CheckBox chkAluminio;
-        private CheckBox chkAcero;
-        private CheckBox chkMadera;
-        private CheckBox chkPolimero;
         private Button btnAceptar;
         private Button btnCancelar;
+        protected TextBox txtFabricante;
+        protected TextBox txtModelo;
+        protected TextBox txtPrecio;
+        protected TextBox txtNumeroSerie;
+        protected TextBox txtPeso;
+        protected ComboBox cboCalibre;
+        protected CheckBox chkAluminio;
+        protected CheckBox chkAcero;
+        protected CheckBox chkMadera;
+        protected CheckBox chkPolimero;
     }
 }
