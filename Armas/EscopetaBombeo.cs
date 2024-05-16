@@ -48,6 +48,7 @@ namespace Armas
                              ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
         {
             this.capacidad = capacidad;
+            this.accesorios = new List<EAccesorioEscopeta>();
         }
 
         public EscopetaBombeo(
