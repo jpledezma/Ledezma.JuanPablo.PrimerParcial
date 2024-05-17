@@ -32,11 +32,6 @@ namespace CRUD
             InitializeComponent();
         }
 
-        private void FrmCRUD_Load(object sender, EventArgs e)
-        {
-            this.LimpiarVisor();
-        }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             // A la clase ArmaDeFuego agregarle un método ObtenerDatos()
@@ -82,17 +77,21 @@ namespace CRUD
 
         private void ActualizarVisor()
         {
-            this.LimpiarVisor();
+            this.lstVisor.Items.Clear();
             foreach (var arma in this.armas)
             {
-                this.lstVisor.Items.Add(arma.Mostrar());
+                this.lstVisor.Items.Add(arma.MostrarEnVisor());
             }
         }
 
-        private void LimpiarVisor()
+        private void btnDetalles_Click(object sender, EventArgs e)
         {
-            this.lstVisor.Items.Clear();
-            this.lstVisor.Items.Add("Tipo\t\tFabricante\t\tModelo\t\tNúmero de serie\t\tPrecio\t\tPeso\t\tCalibre");
+            // Sacar el header de la list box y meterlo en labels, sino es un quilombo para acceder a los items
+            int indiceSeleccionado = this.lstVisor.SelectedIndex;
+            if (indiceSeleccionado != -1)
+            {
+                //MessageBox.Show(this.armas[indiceSeleccionado]);
+            }
         }
     }
 }

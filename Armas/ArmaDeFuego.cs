@@ -81,16 +81,16 @@ namespace Armas
         }
         #endregion
 
-        public string Mostrar()
+        public string MostrarEnVisor()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"{this.GetType().Name}\t\t");
-            sb.Append($"{this.fabricante}\t\t");
-            sb.Append($"{this.modelo}\t\t");
-            sb.Append($"{this.numeroSerie}\t\t");
-            sb.Append($"${this.precio.ToString()}\t\t");
-            sb.Append($"{this.pesoKg.ToString()} Kg\t\t");
-            sb.Append($"{this.calibreMunicion.ToString()}");
+            sb.Append(String.Format("{0,-28}", this.GetType().Name.ToString()));
+            sb.Append(String.Format("{0,-20}", this.fabricante));
+            sb.Append(String.Format("{0,-20}", this.modelo));
+            sb.Append(String.Format("{0,-20}", this.numeroSerie));
+            sb.Append(String.Format("{0,-20}", $"{this.pesoKg} Kg"));
+            sb.Append(String.Format("{0,-20}", $"{this.calibreMunicion}"));
+            sb.Append(String.Format("{0,-20}", $"${this.precio}"));
 
             return sb.ToString();
         }

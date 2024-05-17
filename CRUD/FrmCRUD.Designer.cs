@@ -32,6 +32,14 @@
             btnModificar = new Button();
             btnEliminar = new Button();
             lstVisor = new ListBox();
+            btnDetalles = new Button();
+            lblTipo = new Label();
+            lblFabricante = new Label();
+            lblModelo = new Label();
+            lblNumeroSerie = new Label();
+            lblPeso = new Label();
+            lblCalibre = new Label();
+            lblPrecio = new Label();
             SuspendLayout();
             // 
             // btnAgregar
@@ -80,12 +88,100 @@
             // lstVisor
             // 
             lstVisor.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lstVisor.BackColor = Color.FromArgb(15, 15, 15);
+            lstVisor.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lstVisor.ForeColor = Color.FromArgb(212, 189, 113);
             lstVisor.FormattingEnabled = true;
-            lstVisor.ItemHeight = 15;
+            lstVisor.ItemHeight = 16;
             lstVisor.Location = new Point(12, 56);
             lstVisor.Name = "lstVisor";
-            lstVisor.Size = new Size(1108, 319);
+            lstVisor.Size = new Size(1108, 308);
             lstVisor.TabIndex = 9;
+            // 
+            // btnDetalles
+            // 
+            btnDetalles.BackColor = Color.FromArgb(2, 108, 155);
+            btnDetalles.FlatAppearance.BorderSize = 0;
+            btnDetalles.FlatStyle = FlatStyle.Flat;
+            btnDetalles.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnDetalles.ForeColor = Color.White;
+            btnDetalles.Location = new Point(964, 446);
+            btnDetalles.Name = "btnDetalles";
+            btnDetalles.Size = new Size(107, 37);
+            btnDetalles.TabIndex = 10;
+            btnDetalles.Text = "Ver detalles";
+            btnDetalles.UseVisualStyleBackColor = false;
+            btnDetalles.Click += btnDetalles_Click;
+            // 
+            // lblTipo
+            // 
+            lblTipo.AutoSize = true;
+            lblTipo.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTipo.Location = new Point(12, 36);
+            lblTipo.Name = "lblTipo";
+            lblTipo.Size = new Size(40, 17);
+            lblTipo.TabIndex = 11;
+            lblTipo.Text = "Tipo";
+            // 
+            // lblFabricante
+            // 
+            lblFabricante.AutoSize = true;
+            lblFabricante.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblFabricante.Location = new Point(207, 36);
+            lblFabricante.Name = "lblFabricante";
+            lblFabricante.Size = new Size(88, 17);
+            lblFabricante.TabIndex = 12;
+            lblFabricante.Text = "Fabricante";
+            // 
+            // lblModelo
+            // 
+            lblModelo.AutoSize = true;
+            lblModelo.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblModelo.Location = new Point(349, 36);
+            lblModelo.Name = "lblModelo";
+            lblModelo.Size = new Size(56, 17);
+            lblModelo.TabIndex = 13;
+            lblModelo.Text = "Modelo";
+            // 
+            // lblNumeroSerie
+            // 
+            lblNumeroSerie.AutoSize = true;
+            lblNumeroSerie.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblNumeroSerie.Location = new Point(483, 36);
+            lblNumeroSerie.Name = "lblNumeroSerie";
+            lblNumeroSerie.Size = new Size(128, 17);
+            lblNumeroSerie.TabIndex = 14;
+            lblNumeroSerie.Text = "Número de serie";
+            // 
+            // lblPeso
+            // 
+            lblPeso.AutoSize = true;
+            lblPeso.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblPeso.Location = new Point(626, 36);
+            lblPeso.Name = "lblPeso";
+            lblPeso.Size = new Size(80, 17);
+            lblPeso.TabIndex = 15;
+            lblPeso.Text = "Peso (Kg)";
+            // 
+            // lblCalibre
+            // 
+            lblCalibre.AutoSize = true;
+            lblCalibre.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCalibre.Location = new Point(764, 36);
+            lblCalibre.Name = "lblCalibre";
+            lblCalibre.Size = new Size(64, 17);
+            lblCalibre.TabIndex = 16;
+            lblCalibre.Text = "Calibre";
+            // 
+            // lblPrecio
+            // 
+            lblPrecio.AutoSize = true;
+            lblPrecio.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblPrecio.Location = new Point(907, 36);
+            lblPrecio.Name = "lblPrecio";
+            lblPrecio.Size = new Size(56, 17);
+            lblPrecio.TabIndex = 17;
+            lblPrecio.Text = "Precio";
             // 
             // FrmCRUD
             // 
@@ -93,6 +189,14 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 40, 51);
             ClientSize = new Size(1132, 495);
+            Controls.Add(lblPrecio);
+            Controls.Add(lblCalibre);
+            Controls.Add(lblPeso);
+            Controls.Add(lblNumeroSerie);
+            Controls.Add(lblModelo);
+            Controls.Add(lblFabricante);
+            Controls.Add(lblTipo);
+            Controls.Add(btnDetalles);
             Controls.Add(lstVisor);
             Controls.Add(btnEliminar);
             Controls.Add(btnModificar);
@@ -100,8 +204,8 @@
             ForeColor = SystemColors.ButtonFace;
             Name = "FrmCRUD";
             Text = "Principal";
-            Load += FrmCRUD_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -110,5 +214,13 @@
         private Button btnModificar;
         private Button btnEliminar;
         private ListBox lstVisor;
+        private Button btnDetalles;
+        private Label lblTipo;
+        private Label lblFabricante;
+        private Label lblModelo;
+        private Label lblNumeroSerie;
+        private Label lblPeso;
+        private Label lblCalibre;
+        private Label lblPrecio;
     }
 }
