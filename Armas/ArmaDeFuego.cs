@@ -8,7 +8,8 @@ namespace Armas
         private string modelo;
         private string numeroSerie;
         protected double precio;
-        protected double pesoKg;
+        protected double pesoBase;
+        protected double pesoTotal;
         private EMunicion calibreMunicion;
         private List<EMaterial> materialesConstruccion;
 
@@ -30,9 +31,13 @@ namespace Armas
             get { return this.precio; }
             set { precio = value >= 0 ? value : 0; }
         }
-        public double Peso
+        public double PesoBase
         {
-            get { return this.pesoKg; }
+            get { return this.pesoBase; }
+        }
+        public double PesoTotal
+        {
+            get { return this.pesoTotal; }
         }
         public EMunicion CalibreMunicion
         {
@@ -48,36 +53,27 @@ namespace Armas
         public ArmaDeFuego(string fabricante, 
                            string modelo,
                            string numeroSerie, 
-                           double pesoKg,
+                           double pesoBase,
                            EMunicion calibreMunicion,
-                           List<EMaterial> materialesConstruccion)
+                           List<EMaterial> materialesConstruccion,
+                           double precio)
         {
             this.fabricante = fabricante;
             this.modelo = modelo;
             this.numeroSerie = numeroSerie;
-            this.pesoKg = pesoKg >= 0 ? pesoKg : 0;
+            this.pesoBase = pesoBase >= 0 ? pesoBase : 0;
+            this.pesoTotal = this.pesoBase;
             this.calibreMunicion = calibreMunicion;
             this.materialesConstruccion = new List<EMaterial>();
-            this.precio = 0;
+            this.precio = precio >= 0 ? precio : 0;
 
-            foreach(EMaterial material in materialesConstruccion)
+            foreach (EMaterial material in materialesConstruccion)
             {
                 if (!this.materialesConstruccion.Contains(material))
                 {
                     this.materialesConstruccion.Add(material);
                 }
             }
-        }
-        
-        public ArmaDeFuego(string fabricante,
-                           string modelo,
-                           string numeroSerie,
-                           double pesoKg,
-                           EMunicion calibreMunicion,
-                           List<EMaterial> materialesConstruccion,
-                           double precio) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
-        {
-            this.precio = precio >= 0 ? precio : 0;
         }
         #endregion
 
@@ -88,7 +84,7 @@ namespace Armas
             sb.Append(String.Format("{0,-20}", this.fabricante));
             sb.Append(String.Format("{0,-20}", this.modelo));
             sb.Append(String.Format("{0,-20}", this.numeroSerie));
-            sb.Append(String.Format("{0,-20}", $"{this.pesoKg} Kg"));
+            sb.Append(String.Format("{0,-20}", $"{this.pesoTotal} Kg"));
             sb.Append(String.Format("{0,-20}", $"{this.calibreMunicion}"));
             sb.Append(String.Format("{0,-20}", $"${this.precio}"));
 

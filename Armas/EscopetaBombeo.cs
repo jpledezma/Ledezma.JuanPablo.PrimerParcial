@@ -44,25 +44,12 @@ namespace Armas
                               double pesoKg,
                               EMunicion calibreMunicion,
                               List<EMaterial> materialesConstruccion,
-                              uint capacidad
-                             ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
+                              uint capacidad,
+                              double precio
+                             ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, precio)
         {
             this.capacidad = capacidad;
             this.accesorios = new List<EAccesorioEscopeta>();
-        }
-
-        public EscopetaBombeo(
-                              string fabricante,
-                              string modelo,
-                              string numeroSerie,
-                              double pesoKg,
-                              EMunicion calibreMunicion,
-                              List<EMaterial> materialesConstruccion,
-                              uint capacidad,
-                              double precio
-                             ) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidad)
-        {
-            base.precio = precio > 0 ? precio : 0;
         }
 
         public EscopetaBombeo(
@@ -82,7 +69,7 @@ namespace Armas
                 if (!this.accesorios.Contains(a))
                 {
                     this.accesorios.Add(a);
-                    base.pesoKg += 0.250;
+                    base.pesoTotal += 0.250;
                 }
             }
         }

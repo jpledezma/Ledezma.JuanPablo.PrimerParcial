@@ -52,29 +52,15 @@ namespace Armas
                            EMunicion calibreMunicion,
                            List<EMaterial> materialesConstruccion,
                            uint capacidadCargador,
-                           uint cadencia
-                          ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion)
+                           uint cadencia,
+                           double precio
+                          ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, precio)
         {
             this.capacidadCargador = capacidadCargador;
             this.cadencia = cadencia;
             this.modoDisparo = EModoFusil.Semiautomatico;
             this.cargador = new Cargador(capacidadCargador, calibreMunicion);
             this.accesorios = new List<EAccesorioFusil>();
-        }
-
-        public FusilAsalto(
-                           string fabricante,
-                           string modelo,
-                           string numeroSerie,
-                           double pesoKg,
-                           EMunicion calibreMunicion,
-                           List<EMaterial> materialesConstruccion,
-                           uint capacidadCargador,
-                           uint cadencia,
-                           double precio
-                          ) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidadCargador, cadencia)
-        {
-            base.precio = precio > 0 ? precio : 0;
         }
 
         public FusilAsalto(
@@ -102,7 +88,7 @@ namespace Armas
                 if (!this.accesorios.Contains(a))
                 {
                     this.accesorios.Add(a);
-                    base.pesoKg += 0.250;
+                    base.pesoTotal += 0.250;
                 }
             }
         }
