@@ -31,7 +31,7 @@ namespace CRUD
             this.CargarTiposCalibre();
         }
 
-        protected void CargarTiposCalibre()
+        private void CargarTiposCalibre()
         {
             foreach (EMunicion calibre in Enum.GetValues(typeof(EMunicion)))
             {
