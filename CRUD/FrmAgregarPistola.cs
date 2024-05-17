@@ -25,6 +25,12 @@ namespace CRUD
             InitializeComponent();
         }
 
+        public FrmAgregarPistola(PistolaSemiautomatica pistola) : this()
+        {
+            this.pistolaCreada = pistola;
+            this.LeerDatosArma(pistola);
+        }
+
         protected override bool CrearArma()
         {
             bool formatoInvalido = base.CrearArma();
@@ -62,6 +68,19 @@ namespace CRUD
             }
 
             return formatoInvalido;
+        }
+
+        protected override void LeerDatosArma(ArmaDeFuego arma)
+        {
+            base.LeerDatosArma(arma);
+            this.txtCapacidadCargador.Enabled = false;
+
+            this.txtCapacidadCargador.Text = this.pistolaCreada.CapacidadCargador.ToString();
+            if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.CargadorAmpliado)) this.chkCargadorAmpliado.Checked = true;
+            if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.Linterna)) this.chkLinterna.Checked = true;
+            if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.MiraHolografica)) this.chkMiraHolografica.Checked = true;
+            if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.MiraLaser)) this.chkMiraLaser.Checked = true;
+            if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.Supresor)) this.chkSupresor.Checked = true;
         }
     }
 }

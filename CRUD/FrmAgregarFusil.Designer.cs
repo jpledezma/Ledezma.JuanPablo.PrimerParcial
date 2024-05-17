@@ -30,7 +30,7 @@
         {
             lblCapacidadCargador = new Label();
             txtCapacidadCargador = new TextBox();
-            chkFrenoBoca = new CheckBox();
+            chkFrenoDeBoca = new CheckBox();
             chkMiraLaser = new CheckBox();
             chkMiraTelescopica = new CheckBox();
             chkLinterna = new CheckBox();
@@ -45,8 +45,8 @@
             // 
             // cboCalibre
             // 
-            // No sé por qué el visual metió esto, pero lo tuve que sacar porque duplicaba los items de la combobox.
-            //cboCalibre.Items.AddRange(new object[] { EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g, EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g, EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g });
+            // El visual metió de nuevo esto -_-
+            //cboCalibre.Items.AddRange(new object[] { EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g });
             // 
             // lblCapacidadCargador
             // 
@@ -67,16 +67,16 @@
             txtCapacidadCargador.Size = new Size(161, 23);
             txtCapacidadCargador.TabIndex = 10;
             // 
-            // chkFrenoBoca
+            // chkFrenoDeBoca
             // 
-            chkFrenoBoca.AutoSize = true;
-            chkFrenoBoca.ForeColor = SystemColors.ButtonFace;
-            chkFrenoBoca.Location = new Point(230, 250);
-            chkFrenoBoca.Name = "chkFrenoBoca";
-            chkFrenoBoca.Size = new Size(101, 19);
-            chkFrenoBoca.TabIndex = 16;
-            chkFrenoBoca.Text = "Freno de boca";
-            chkFrenoBoca.UseVisualStyleBackColor = true;
+            chkFrenoDeBoca.AutoSize = true;
+            chkFrenoDeBoca.ForeColor = SystemColors.ButtonFace;
+            chkFrenoDeBoca.Location = new Point(230, 250);
+            chkFrenoDeBoca.Name = "chkFrenoDeBoca";
+            chkFrenoDeBoca.Size = new Size(101, 19);
+            chkFrenoDeBoca.TabIndex = 16;
+            chkFrenoDeBoca.Text = "Freno de boca";
+            chkFrenoDeBoca.UseVisualStyleBackColor = true;
             // 
             // chkMiraLaser
             // 
@@ -195,7 +195,7 @@
             Controls.Add(chkBipode);
             Controls.Add(chkCorrea);
             Controls.Add(chkCulataPlegable);
-            Controls.Add(chkFrenoBoca);
+            Controls.Add(chkFrenoDeBoca);
             Controls.Add(chkMiraLaser);
             Controls.Add(chkMiraTelescopica);
             Controls.Add(chkLinterna);
@@ -222,7 +222,7 @@
             Controls.SetChildIndex(chkLinterna, 0);
             Controls.SetChildIndex(chkMiraTelescopica, 0);
             Controls.SetChildIndex(chkMiraLaser, 0);
-            Controls.SetChildIndex(chkFrenoBoca, 0);
+            Controls.SetChildIndex(chkFrenoDeBoca, 0);
             Controls.SetChildIndex(chkCulataPlegable, 0);
             Controls.SetChildIndex(chkCorrea, 0);
             Controls.SetChildIndex(chkBipode, 0);
@@ -236,7 +236,7 @@
 
         private Label lblCapacidadCargador;
         private TextBox txtCapacidadCargador;
-        private CheckBox chkFrenoBoca;
+        private CheckBox chkFrenoDeBoca;
         private CheckBox chkMiraLaser;
         private CheckBox chkMiraTelescopica;
         private CheckBox chkLinterna;

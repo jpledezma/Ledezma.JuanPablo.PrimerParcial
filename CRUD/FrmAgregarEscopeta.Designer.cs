@@ -37,13 +37,13 @@
             chkMiraMetalica = new CheckBox();
             chkLinterna = new CheckBox();
             lblAccesorios = new Label();
-            chkPostacartuchos = new CheckBox();
+            chkPortacartuchos = new CheckBox();
             SuspendLayout();
             // 
             // cboCalibre
             // 
-            // No sé por qué el visual metió esto, pero lo tuve que sacar porque duplicaba los items de la combobox.
-            //cboCalibre.Items.AddRange(new object[] { EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g, EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g });
+            // El visual metió de nuevo esto -_-
+            //cboCalibre.Items.AddRange(new object[] { EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g });
             // 
             // lblCapacidad
             // 
@@ -141,23 +141,23 @@
             lblAccesorios.TabIndex = 40;
             lblAccesorios.Text = "Accesorios:";
             // 
-            // chkPostacartuchos
+            // chkPortacartuchos
             // 
-            chkPostacartuchos.AutoSize = true;
-            chkPostacartuchos.ForeColor = SystemColors.ButtonFace;
-            chkPostacartuchos.Location = new Point(230, 232);
-            chkPostacartuchos.Name = "chkPostacartuchos";
-            chkPostacartuchos.Size = new Size(106, 19);
-            chkPostacartuchos.TabIndex = 17;
-            chkPostacartuchos.Text = "Portacartuchos";
-            chkPostacartuchos.UseVisualStyleBackColor = true;
+            chkPortacartuchos.AutoSize = true;
+            chkPortacartuchos.ForeColor = SystemColors.ButtonFace;
+            chkPortacartuchos.Location = new Point(230, 232);
+            chkPortacartuchos.Name = "chkPortacartuchos";
+            chkPortacartuchos.Size = new Size(106, 19);
+            chkPortacartuchos.TabIndex = 17;
+            chkPortacartuchos.Text = "Portacartuchos";
+            chkPortacartuchos.UseVisualStyleBackColor = true;
             // 
             // FrmAgregarEscopeta
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(464, 501);
-            Controls.Add(chkPostacartuchos);
+            Controls.Add(chkPortacartuchos);
             Controls.Add(chkCorrea);
             Controls.Add(chkCulataAcolchada);
             Controls.Add(chkEstrangulador);
@@ -188,7 +188,7 @@
             Controls.SetChildIndex(chkEstrangulador, 0);
             Controls.SetChildIndex(chkCulataAcolchada, 0);
             Controls.SetChildIndex(chkCorrea, 0);
-            Controls.SetChildIndex(chkPostacartuchos, 0);
+            Controls.SetChildIndex(chkPortacartuchos, 0);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -204,6 +204,6 @@
         private CheckBox chkMiraMetalica;
         private CheckBox chkLinterna;
         private Label lblAccesorios;
-        private CheckBox chkPostacartuchos;
+        private CheckBox chkPortacartuchos;
     }
 }

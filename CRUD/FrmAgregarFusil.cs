@@ -25,6 +25,12 @@ namespace CRUD
             InitializeComponent();
         }
 
+        public FrmAgregarFusil(FusilAsalto fusil) : this()
+        {
+            this.fusilCreado = fusil;
+            this.LeerDatosArma(fusil);
+        }
+
         protected override bool CrearArma()
         {
             bool formatoInvalido = base.CrearArma();
@@ -50,7 +56,7 @@ namespace CRUD
             if (chkCargadorTambor.Checked) accesorios.Add(EAccesorioFusil.CargadorTambor);
             if (chkCorrea.Checked) accesorios.Add(EAccesorioFusil.Correa);
             if (chkCulataPlegable.Checked) accesorios.Add(EAccesorioFusil.CulataPlegable);
-            if (chkFrenoBoca.Checked) accesorios.Add(EAccesorioFusil.FrenoDeBoca);
+            if (chkFrenoDeBoca.Checked) accesorios.Add(EAccesorioFusil.FrenoDeBoca);
             if (chkLinterna.Checked) accesorios.Add(EAccesorioFusil.Linterna);
             if (chkMiraLaser.Checked) accesorios.Add(EAccesorioFusil.MiraLaser);
             if (chkMiraTelescopica.Checked) accesorios.Add(EAccesorioFusil.MiraTelescopica);
@@ -73,6 +79,24 @@ namespace CRUD
             }
 
             return formatoInvalido;
+        }
+
+        protected override void LeerDatosArma(ArmaDeFuego arma)
+        {
+            base.LeerDatosArma(arma);
+            this.txtCapacidadCargador.Enabled = false;
+            this.txtCadencia.Enabled = false;
+
+            this.txtCapacidadCargador.Text = this.fusilCreado.CapacidadCargador.ToString();
+            this.txtCadencia.Text = this.fusilCreado.Cadencia.ToString();
+            if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.Bipode)) this.chkBipode.Checked = true;
+            if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.CargadorTambor)) this.chkCargadorTambor.Checked = true;
+            if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.Correa)) this.chkCorrea.Checked = true;
+            if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.CulataPlegable)) this.chkCulataPlegable.Checked = true;
+            if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.FrenoDeBoca)) this.chkFrenoDeBoca.Checked = true;
+            if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.Linterna)) this.chkLinterna.Checked = true;
+            if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.MiraLaser)) this.chkMiraLaser.Checked = true;
+            if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.MiraTelescopica)) this.chkMiraTelescopica.Checked = true;
         }
     }
 }

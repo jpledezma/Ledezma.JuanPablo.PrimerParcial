@@ -45,11 +45,11 @@ namespace CRUD
             {
                 return;
             }
-            this.MostrarForm(frmSeleccion.ArmaSeleccionada);
+            this.AgregarArma(frmSeleccion.ArmaSeleccionada);
             this.ActualizarVisor();
         }
 
-        private void MostrarForm(string armaSeleccionada)
+        private void AgregarArma(string armaSeleccionada)
         {
             DialogResult resultado;
             switch (armaSeleccionada)
@@ -91,6 +91,61 @@ namespace CRUD
             if (indiceSeleccionado != -1)
             {
                 //MessageBox.Show(this.armas[indiceSeleccionado]);
+            }
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            int indiceSeleccionado = this.lstVisor.SelectedIndex;
+            if (indiceSeleccionado == -1)
+            {
+                MessageBox.Show("No seleccionó ningún elemento");
+                return;
+            }
+
+            if (armas[indiceSeleccionado].GetType() == typeof(PistolaSemiautomatica))
+            {
+                ModificarArma((PistolaSemiautomatica)armas[indiceSeleccionado]);
+            }
+            else if (armas[indiceSeleccionado].GetType() == typeof(FusilAsalto))
+            {
+                ModificarArma((FusilAsalto)armas[indiceSeleccionado]);
+            }
+            else if (armas[indiceSeleccionado].GetType() == typeof(EscopetaBombeo))
+            {
+                ModificarArma((EscopetaBombeo)armas[indiceSeleccionado]);
+            }
+
+            this.ActualizarVisor();
+        }
+
+        private void ModificarArma(PistolaSemiautomatica pistola)
+        {
+            FrmAgregarPistola frmModificarPistola = new FrmAgregarPistola(pistola);
+            DialogResult resultado = frmModificarPistola.ShowDialog();
+            if (resultado == DialogResult.OK)
+            {
+                this.armas[this.lstVisor.SelectedIndex] = frmModificarPistola.PistolaCreada;
+            }
+        }
+
+        private void ModificarArma(FusilAsalto fusil)
+        {
+            FrmAgregarFusil frmModificarFusil = new FrmAgregarFusil(fusil);
+            DialogResult resultado = frmModificarFusil.ShowDialog();
+            if (resultado == DialogResult.OK)
+            {
+                this.armas[this.lstVisor.SelectedIndex] = frmModificarFusil.FusilCreado;
+            }
+        }
+
+        private void ModificarArma(EscopetaBombeo escopeta)
+        {
+            FrmAgregarEscopeta frmModificarEscopeta = new FrmAgregarEscopeta(escopeta);
+            DialogResult resultado = frmModificarEscopeta.ShowDialog();
+            if (resultado == DialogResult.OK)
+            {
+                this.armas[this.lstVisor.SelectedIndex] = frmModificarEscopeta.EscopetaCreada;
             }
         }
     }

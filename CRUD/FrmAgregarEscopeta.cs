@@ -25,6 +25,12 @@ namespace CRUD
             InitializeComponent();
         }
 
+        public FrmAgregarEscopeta(EscopetaBombeo escopeta) : this()
+        {
+            this.escopetaCreada = escopeta;
+            this.LeerDatosArma(escopeta);
+        }
+
         protected override bool CrearArma()
         {
             bool formatoInvalido = base.CrearArma();
@@ -45,7 +51,7 @@ namespace CRUD
             if (chkLinterna.Checked) accesorios.Add(EAccesorioEscopeta.Linterna);
             if (chkMiraLaser.Checked) accesorios.Add(EAccesorioEscopeta.MiraLaser);
             if (chkMiraMetalica.Checked) accesorios.Add(EAccesorioEscopeta.MiraMetalica);
-            if (chkPostacartuchos.Checked) accesorios.Add(EAccesorioEscopeta.Portacartuchos);
+            if (chkPortacartuchos.Checked) accesorios.Add(EAccesorioEscopeta.Portacartuchos);
 
             if (!formatoInvalido)
             {
@@ -64,6 +70,21 @@ namespace CRUD
             }
 
             return formatoInvalido;
+        }
+
+        protected override void LeerDatosArma(ArmaDeFuego arma)
+        {
+            base.LeerDatosArma(arma);
+            this.txtCapacidad.Enabled = false;
+
+            this.txtCapacidad.Text = this.escopetaCreada.Capacidad.ToString();
+            if (this.escopetaCreada.Accesorios.Contains(EAccesorioEscopeta.Correa)) this.chkCorrea.Checked = true;
+            if (this.escopetaCreada.Accesorios.Contains(EAccesorioEscopeta.CulataAcolchada)) this.chkCulataAcolchada.Checked = true;
+            if (this.escopetaCreada.Accesorios.Contains(EAccesorioEscopeta.Estrangulador)) this.chkEstrangulador.Checked = true;
+            if (this.escopetaCreada.Accesorios.Contains(EAccesorioEscopeta.Linterna)) this.chkLinterna.Checked = true;
+            if (this.escopetaCreada.Accesorios.Contains(EAccesorioEscopeta.MiraLaser)) this.chkMiraLaser.Checked = true;
+            if (this.escopetaCreada.Accesorios.Contains(EAccesorioEscopeta.MiraMetalica)) this.chkMiraMetalica.Checked = true;
+            if (this.escopetaCreada.Accesorios.Contains(EAccesorioEscopeta.Portacartuchos)) this.chkPortacartuchos.Checked = true;
         }
     }
 }

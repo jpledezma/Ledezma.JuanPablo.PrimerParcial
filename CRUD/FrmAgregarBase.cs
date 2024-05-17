@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Armas;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -89,6 +90,34 @@ namespace CRUD
             if (this.chkPolimero.Checked) this.materialesConstruccion.Add(EMaterial.Polimero);
 
             return formatoInvalido;
+        }
+
+        protected virtual void LeerDatosArma(ArmaDeFuego arma)
+        {
+            this.txtFabricante.Text = arma.Fabricante;
+            this.txtModelo.Text = arma.Modelo;
+            this.txtNumeroSerie.Text = arma.NumeroSerie;
+            this.txtPeso.Text = arma.PesoBase.ToString();
+            this.txtPrecio.Text = arma.Precio.ToString();
+            this.cboCalibre.SelectedItem = arma.CalibreMunicion;
+            if (arma.MaterialesConstruccion.Contains(EMaterial.Acero))
+                this.chkAcero.Checked = true;
+            if (arma.MaterialesConstruccion.Contains(EMaterial.Aluminio))
+                this.chkAluminio.Checked = true;
+            if (arma.MaterialesConstruccion.Contains(EMaterial.Madera))
+                this.chkMadera.Checked = true;
+            if (arma.MaterialesConstruccion.Contains(EMaterial.Polimero))
+                this.chkPolimero.Checked = true;
+
+            this.txtFabricante.Enabled = false;
+            this.txtModelo.Enabled = false;
+            this.txtNumeroSerie.Enabled = false;
+            this.txtPeso.Enabled = false;
+            this.cboCalibre.Enabled = false;
+            this.chkAcero.Enabled = false;
+            this.chkAluminio.Enabled = false;
+            this.chkMadera.Enabled = false;
+            this.chkPolimero.Enabled = false;
         }
     }
 }

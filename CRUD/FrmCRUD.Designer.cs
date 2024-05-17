@@ -70,6 +70,7 @@
             btnModificar.TabIndex = 7;
             btnModificar.Text = "Modificar";
             btnModificar.UseVisualStyleBackColor = false;
+            btnModificar.Click += btnModificar_Click;
             // 
             // btnEliminar
             // 
@@ -95,7 +96,7 @@
             lstVisor.ItemHeight = 16;
             lstVisor.Location = new Point(12, 56);
             lstVisor.Name = "lstVisor";
-            lstVisor.Size = new Size(1108, 308);
+            lstVisor.Size = new Size(1020, 308);
             lstVisor.TabIndex = 9;
             // 
             // btnDetalles
@@ -105,7 +106,7 @@
             btnDetalles.FlatStyle = FlatStyle.Flat;
             btnDetalles.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnDetalles.ForeColor = Color.White;
-            btnDetalles.Location = new Point(964, 446);
+            btnDetalles.Location = new Point(907, 446);
             btnDetalles.Name = "btnDetalles";
             btnDetalles.Size = new Size(107, 37);
             btnDetalles.TabIndex = 10;
@@ -188,7 +189,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 40, 51);
-            ClientSize = new Size(1132, 495);
+            ClientSize = new Size(1044, 495);
             Controls.Add(lblPrecio);
             Controls.Add(lblCalibre);
             Controls.Add(lblPeso);
