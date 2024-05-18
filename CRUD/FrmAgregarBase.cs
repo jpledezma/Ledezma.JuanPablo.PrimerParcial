@@ -25,10 +25,6 @@ namespace CRUD
         public FrmAgregarBase()
         {
             InitializeComponent();
-        }
-
-        private void FrmAgregarBase_Load(object sender, EventArgs e)
-        {
             this.CargarTiposCalibre();
         }
 

@@ -278,7 +278,6 @@
             ForeColor = SystemColors.ButtonFace;
             Name = "FrmAgregarBase";
             Text = "FrmAgregarBase";
-            Load += FrmAgregarBase_Load;
             ResumeLayout(false);
             PerformLayout();
         }
