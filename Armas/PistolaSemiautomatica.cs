@@ -19,7 +19,6 @@ namespace Armas
         public uint CapacidadCargador
         {
             get { return this.capacidadCargador; }
-
         }
 
         public bool SeguroActivo
@@ -86,11 +85,12 @@ namespace Armas
         }
         #endregion
 
+        #region Metodos
         public override bool Disparar()
         {
             bool disparoExitoso;
 
-            if (this.cargador.CartuchosCargados.Count > 0)
+            if (this.cargador.CartuchosCargados.Count > 0 && !this.seguroActivo)
             {
                 this.cargador.QuitarCartucho();
                 disparoExitoso = true;
@@ -103,7 +103,6 @@ namespace Armas
             return disparoExitoso;
         }
 
-        #region Metodos
         public override void Recargar()
         {
             this.cargador.Llenar();
@@ -112,6 +111,20 @@ namespace Armas
         public override void Recargar(List<Cartucho> cartuchos)
         {
             this.cargador.AgregarCartucho(cartuchos);
+        }
+
+        public bool CambiarSeguro()
+        {
+            if (this.seguroActivo == true)
+            {
+                this.seguroActivo = false;
+            }
+            else
+            {
+                this.seguroActivo = true;
+            }
+
+            return this.seguroActivo;
         }
         #endregion
     }
