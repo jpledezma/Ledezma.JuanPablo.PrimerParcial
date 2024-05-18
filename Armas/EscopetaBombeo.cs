@@ -11,7 +11,7 @@ namespace Armas
     {
         private uint capacidad;
         private bool amartillada;
-        private Stack<Cartucho> cartuchos;
+        private Stack<Cartucho> cartuchosCargados;
         private List<EAccesorioEscopeta> accesorios;
 
         #region Propiedades
@@ -25,9 +25,9 @@ namespace Armas
             get { return this.amartillada; }
         }
 
-        public Stack<Cartucho> Cartuchos
+        public Stack<Cartucho> CartuchosCargados
         {
-            get { return new Stack<Cartucho>(this.cartuchos); }
+            get { return new Stack<Cartucho>(this.cartuchosCargados); }
         }
 
         public List<EAccesorioEscopeta> Accesorios
@@ -72,6 +72,75 @@ namespace Armas
                     base.pesoTotal += 0.250;
                 }
             }
+        }
+        #endregion
+
+        #region Metodos
+        public void Amartillar()
+        {
+            if (this.cartuchosCargados.Count > 0)
+            {
+                if (this.amartillada)
+                {
+                    this.cartuchosCargados.Pop();
+                }
+                else
+                {
+                    this.amartillada = true;
+                }
+            }
+            // Hay que meter esta condicion por si expulsa el último cartucho que quedaba al amartillar
+            if (this.cartuchosCargados.Count == 0)
+            {
+                this.amartillada = false;
+            }
+        }
+
+        private void InsertarCartucho(Cartucho cartucho)
+        {
+            if (cartucho.Calibre == this.CalibreMunicion && this.cartuchosCargados.Count < this.capacidad)
+            {
+                this.cartuchosCargados.Push(cartucho);
+            }
+        }
+
+        public override void Recargar()
+        {
+            for (int i = 0; i < this.capacidad; i++)
+            {
+                this.InsertarCartucho(new Cartucho(this.CalibreMunicion));
+            }
+        }
+
+        public override void Recargar(List<Cartucho> cartuchos)
+        {
+            foreach(Cartucho cartucho in cartuchos)
+            {
+                if(this.cartuchosCargados.Count >= this.capacidad)
+                {
+                    break;
+                }
+                this.InsertarCartucho(cartucho);
+            }
+        }
+
+        public override bool Disparar()
+        {
+            bool disparoExitoso;
+
+            if (this.amartillada && this.cartuchosCargados.Count > 0)
+            {
+                this.cartuchosCargados.Pop();
+                disparoExitoso = true;
+            }
+            else
+            {
+                disparoExitoso = false;
+            }
+
+            this.amartillada = false;
+
+            return disparoExitoso;
         }
         #endregion
     }

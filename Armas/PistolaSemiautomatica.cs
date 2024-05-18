@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Municion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -82,6 +83,35 @@ namespace Armas
                     base.pesoTotal += 0.250;
                 }
             }
+        }
+        #endregion
+
+        public override bool Disparar()
+        {
+            bool disparoExitoso;
+
+            if (this.cargador.CartuchosCargados.Count > 0)
+            {
+                this.cargador.QuitarCartucho();
+                disparoExitoso = true;
+            }
+            else
+            {
+                disparoExitoso= false;
+            }
+            
+            return disparoExitoso;
+        }
+
+        #region Metodos
+        public override void Recargar()
+        {
+            this.cargador.Llenar();
+        }
+
+        public override void Recargar(List<Cartucho> cartuchos)
+        {
+            this.cargador.AgregarCartucho(cartuchos);
         }
         #endregion
     }

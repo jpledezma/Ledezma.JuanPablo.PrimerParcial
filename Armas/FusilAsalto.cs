@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Municion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -91,6 +92,64 @@ namespace Armas
                     base.pesoTotal += 0.250;
                 }
             }
+        }
+        #endregion
+
+        #region Metodos
+        public override void Recargar()
+        {
+            this.cargador.Llenar();
+        }
+
+        public override void Recargar(List<Cartucho> cartuchos)
+        {
+            this.cargador.AgregarCartucho(cartuchos);
+        }
+
+        public override bool Disparar()
+        {
+            bool disparoExitoso;
+
+            if ( this.cargador.CartuchosCargados.Count == 0 )
+            {
+                return false;
+            }
+
+            if (this.ModoDisparo == EModoFusil.Rafaga)
+            {
+                this.cargador.QuitarCartucho(3);
+            }
+            else
+            {
+                this.cargador.QuitarCartucho();
+            }
+
+            disparoExitoso = true;
+
+            return disparoExitoso;
+        }
+        public bool Disparar(int segundos)
+        {
+            if (this.cargador.CartuchosCargados.Count == 0)
+            {
+                return false;
+            }
+
+            if (this.modoDisparo != EModoFusil.Automatico)
+            {
+                return this.Disparar();
+            }
+
+            double disparosPorSegundo = this.cadencia / 60;
+            double totalDisparos = disparosPorSegundo * segundos;
+            int contador = 0;
+
+            while (contador < totalDisparos && this.cargador.CartuchosCargados.Count > 0)
+            {
+                this.Disparar();
+            }
+
+            return true;
         }
         #endregion
     }

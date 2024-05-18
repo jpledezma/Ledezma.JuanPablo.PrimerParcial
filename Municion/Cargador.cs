@@ -13,7 +13,7 @@ namespace Armas
     {
         private uint capacidad;
         private EMunicion calibreMunicion;
-        private Stack<Cartucho> cartuchos;
+        private Stack<Cartucho> cartuchosCargados;
 
         #region Propiedades
         public uint Capacidad
@@ -24,9 +24,9 @@ namespace Armas
         {
             get { return this.calibreMunicion; }
         }
-        public Stack<Cartucho> Cartuchos
+        public Stack<Cartucho> CartuchosCargados
         {
-            get { return new Stack<Cartucho>(this.cartuchos); }
+            get { return new Stack<Cartucho>(this.cartuchosCargados); }
         }
         #endregion
 
@@ -35,16 +35,16 @@ namespace Armas
         {
             this.capacidad = capacidad;
             this.calibreMunicion = calibreMunicion;
-            this.cartuchos = new Stack<Cartucho>();
+            this.cartuchosCargados = new Stack<Cartucho>();
         }
 
         public Cargador(uint capacidad, EMunicion calibreMunicion, List<Cartucho> cartuchos) : this(capacidad, calibreMunicion)
         {
             foreach(Cartucho c in cartuchos)
             {
-                if (this.cartuchos.Count < capacidad && c.Calibre == calibreMunicion)
+                if (this.cartuchosCargados.Count < capacidad && c.Calibre == calibreMunicion)
                 {
-                    this.cartuchos.Push(c);
+                    this.cartuchosCargados.Push(c);
                 }
             }
         }
@@ -52,19 +52,19 @@ namespace Armas
         {
             this.capacidad = c.capacidad;
             this.calibreMunicion = c.calibreMunicion;
-            this.cartuchos = new Stack<Cartucho>(c.Cartuchos);
-        }
-
-        public void AgregarCartucho(Cartucho cartucho)
-        {
-            if (cartucho.Calibre == this.calibreMunicion && this.cartuchos.Count < this.capacidad)
-            {
-                this.cartuchos.Push(cartucho);
-            }
+            this.cartuchosCargados = new Stack<Cartucho>(c.CartuchosCargados);
         }
         #endregion
 
         #region Metodos
+        public void AgregarCartucho(Cartucho cartucho)
+        {
+            if (cartucho.Calibre == this.calibreMunicion && this.cartuchosCargados.Count < this.capacidad)
+            {
+                this.cartuchosCargados.Push(cartucho);
+            }
+        }
+        
         public void AgregarCartucho(Cartucho cartucho, uint cantidad)
         {
             if (cartucho.Calibre != this.calibreMunicion)
@@ -73,31 +73,50 @@ namespace Armas
             }
 
             int contador = 0;
-            while(contador < cantidad && this.cartuchos.Count < this.capacidad)
+            while(contador < cantidad && this.cartuchosCargados.Count < this.capacidad)
             {
-                this.cartuchos.Push(cartucho);
+                this.cartuchosCargados.Push(cartucho);
                 contador++;
+            }
+        }
+
+        public void AgregarCartucho(List<Cartucho> cartuchos)
+        {
+            foreach (Cartucho cartucho in cartuchos)
+            {
+                if (this.cartuchosCargados.Count >= this.capacidad)
+                {
+                    break;
+                }
+
+                if (cartucho.Calibre == this.calibreMunicion)
+                {
+                    this.cartuchosCargados.Push(cartucho);
+                }
             }
         }
 
         public void QuitarCartucho()
         {
-            this.cartuchos.Pop();
+            if (this.cartuchosCargados.Count > 0)
+            {
+                this.cartuchosCargados.Pop();
+            }
         }
 
         public void QuitarCartucho(int cantidad)
         {
             int contador = cantidad;
-            while(contador > 0 && this.cartuchos.Count > 0)
+            while(contador > 0 && this.cartuchosCargados.Count > 0)
             {
-                this.cartuchos.Pop();
+                this.cartuchosCargados.Pop();
                 contador--;
             }
         }
 
         public void Vaciar()
         {
-            this.cartuchos.Clear();
+            this.cartuchosCargados.Clear();
         }
 
         public void Llenar()
@@ -114,14 +133,14 @@ namespace Armas
         #region Sobrecargas de operadores
         public static int operator +(Cargador c1, Cargador c2)
         {
-            int cartuchosTotales = c1.cartuchos.Count;
+            int cartuchosTotales = c1.cartuchosCargados.Count;
 
             if(c1.calibreMunicion == c2.calibreMunicion)
             {
-                cartuchosTotales += c2.cartuchos.Count;
+                cartuchosTotales += c2.cartuchosCargados.Count;
             }
 
-            return c1.cartuchos.Count + c2.cartuchos.Count;
+            return c1.cartuchosCargados.Count + c2.cartuchosCargados.Count;
         }
         #endregion
     }

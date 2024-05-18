@@ -1,8 +1,9 @@
-﻿using System.Text;
+﻿using Municion;
+using System.Text;
 
 namespace Armas
 {
-    public class ArmaDeFuego
+    public abstract class ArmaDeFuego
     {
         private string fabricante;
         private string modelo;
@@ -101,6 +102,14 @@ namespace Armas
         {
             return !(arma1 == arma2);
         }
+        #endregion
+
+        #region Metodos
+        public abstract bool Disparar();
+
+        public abstract void Recargar();
+
+        public abstract void Recargar(List<Cartucho> cartuchos);
         #endregion
     }
 }
