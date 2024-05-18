@@ -160,9 +160,9 @@
             lblPeso.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             lblPeso.Location = new Point(626, 36);
             lblPeso.Name = "lblPeso";
-            lblPeso.Size = new Size(80, 17);
+            lblPeso.Size = new Size(88, 17);
             lblPeso.TabIndex = 15;
-            lblPeso.Text = "Peso (Kg)";
+            lblPeso.Text = "Peso Total";
             // 
             // lblCalibre
             // 

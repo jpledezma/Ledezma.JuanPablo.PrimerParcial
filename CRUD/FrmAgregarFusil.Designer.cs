@@ -175,7 +175,7 @@
             lblCadencia.Name = "lblCadencia";
             lblCadencia.Size = new Size(75, 20);
             lblCadencia.TabIndex = 40;
-            lblCadencia.Text = "Cadencia:";
+            lblCadencia.Text = "Cadencia (DPM):";
             // 
             // txtCadencia
             // 
