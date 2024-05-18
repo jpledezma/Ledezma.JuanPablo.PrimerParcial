@@ -20,14 +20,13 @@ namespace Armas
             this.armas = new List<ArmaDeFuego>();
         }
 
-        public static List<ArmaDeFuego> operator +(Armeria armeria, ArmaDeFuego arma)
+        public static Armeria operator +(Armeria armeria, ArmaDeFuego armaAgregada)
         {
-            List<ArmaDeFuego> listaActualizada = armeria.Armas;
             bool estaIncluida = false;
 
-            foreach(ArmaDeFuego a in listaActualizada)
+            foreach(ArmaDeFuego arma in armeria.Armas)
             {
-                if (arma == a)
+                if (armaAgregada == arma)
                 {
                     estaIncluida = true;
                     break;
@@ -35,19 +34,18 @@ namespace Armas
             }
             if (!estaIncluida)
             {
-                listaActualizada.Add(arma);
+                armeria.armas.Add(armaAgregada);
             }
-            return listaActualizada;
+            return armeria;
         }
 
-        public static List<ArmaDeFuego> operator -(Armeria armeria, ArmaDeFuego arma)
+        public static Armeria operator -(Armeria armeria, ArmaDeFuego arma)
         {
-            List<ArmaDeFuego> listaActualizada = armeria.Armas;
-            if (listaActualizada.Contains(arma)) 
+            if (armeria.armas.Contains(arma)) 
             {
-                listaActualizada.Remove(arma);
+                armeria.armas.Remove(arma);
             }
-            return listaActualizada;
+            return armeria;
         }
     }
 }
