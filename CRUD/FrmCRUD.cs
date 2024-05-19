@@ -32,6 +32,7 @@ namespace CRUD
             this.armeria = new Armeria();
         }
 
+        #region Eventos
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             // A la clase ArmaDeFuego agregarle un método ObtenerDatos()
@@ -49,6 +50,62 @@ namespace CRUD
             this.ActualizarVisor();
         }
 
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            int indiceSeleccionado = this.lstVisor.SelectedIndex;
+            if (indiceSeleccionado == -1)
+            {
+                MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.armeria.Armas[indiceSeleccionado].GetType() == typeof(PistolaSemiautomatica))
+            {
+                ModificarArma((PistolaSemiautomatica)this.armeria.Armas[indiceSeleccionado]);
+            }
+            else if (this.armeria.Armas[indiceSeleccionado].GetType() == typeof(FusilAsalto))
+            {
+                ModificarArma((FusilAsalto)this.armeria.Armas[indiceSeleccionado]);
+            }
+            else if (this.armeria.Armas[indiceSeleccionado].GetType() == typeof(EscopetaBombeo))
+            {
+                ModificarArma((EscopetaBombeo)this.armeria.Armas[indiceSeleccionado]);
+            }
+
+            this.ActualizarVisor();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            int indiceSeleccionado = this.lstVisor.SelectedIndex;
+            if (indiceSeleccionado == -1)
+            {
+                MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ArmaDeFuego armaSeleccionada = this.armeria.Armas[indiceSeleccionado];
+
+            DialogResult resultado;
+
+            resultado = MessageBox.Show($"¿Seguro que desea eliminar el arma \n{armaSeleccionada.MostrarEnVisor()}?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if(resultado == DialogResult.Yes)
+            {
+                this.armeria -= armaSeleccionada;
+            }
+            this.ActualizarVisor();
+        }
+
+        private void btnDetalles_Click(object sender, EventArgs e)
+        {
+            int indiceSeleccionado = this.lstVisor.SelectedIndex;
+            if (indiceSeleccionado == -1)
+            {
+                MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+        #endregion
         private void AgregarArma(string armaSeleccionada)
         {
             DialogResult resultado;
@@ -84,41 +141,6 @@ namespace CRUD
             {
                 this.lstVisor.Items.Add(arma.MostrarEnVisor());
             }
-        }
-
-        private void btnDetalles_Click(object sender, EventArgs e)
-        {
-            int indiceSeleccionado = this.lstVisor.SelectedIndex;
-            if (indiceSeleccionado == -1)
-            {
-                MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
-
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            int indiceSeleccionado = this.lstVisor.SelectedIndex;
-            if (indiceSeleccionado == -1)
-            {
-                MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (this.armeria.Armas[indiceSeleccionado].GetType() == typeof(PistolaSemiautomatica))
-            {
-                ModificarArma((PistolaSemiautomatica)this.armeria.Armas[indiceSeleccionado]);
-            }
-            else if (this.armeria.Armas[indiceSeleccionado].GetType() == typeof(FusilAsalto))
-            {
-                ModificarArma((FusilAsalto)this.armeria.Armas[indiceSeleccionado]);
-            }
-            else if (this.armeria.Armas[indiceSeleccionado].GetType() == typeof(EscopetaBombeo))
-            {
-                ModificarArma((EscopetaBombeo)this.armeria.Armas[indiceSeleccionado]);
-            }
-
-            this.ActualizarVisor();
         }
 
         private void ModificarArma(PistolaSemiautomatica pistola)
