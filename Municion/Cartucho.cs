@@ -48,5 +48,15 @@
             return !(c1 == c2);
         }
         #endregion
+        public override bool Equals(object? obj)
+        {
+            Cartucho? cartucho = obj as Cartucho;
+            return (cartucho is not null && this == cartucho);
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.calibre, this.tipoProyectil, this.subsonico).GetHashCode();
+        }
     }
 }

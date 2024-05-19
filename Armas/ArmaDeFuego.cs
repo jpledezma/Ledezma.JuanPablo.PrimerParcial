@@ -61,12 +61,23 @@ namespace Armas
         {
             this.fabricante = fabricante;
             this.modelo = modelo;
-            this.numeroSerie = numeroSerie;
             this.pesoBase = pesoBase >= 0 ? pesoBase : 0;
             this.pesoTotal = this.pesoBase;
             this.calibreMunicion = calibreMunicion;
             this.materialesConstruccion = new List<EMaterial>();
             this.precio = precio >= 0 ? precio : 0;
+
+            // Sólo tomar los numeros y letras del número de serie ingresado
+            char[] caracteresNumeroSerie = numeroSerie.ToArray();
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in caracteresNumeroSerie)
+            {
+                if (Char.IsLetter(c) || Char.IsNumber(c)) 
+                { 
+                    sb.Append(c); 
+                }
+            }
+            this.numeroSerie = sb.ToString().ToUpper();
 
             foreach (EMaterial material in materialesConstruccion)
             {
@@ -93,9 +104,12 @@ namespace Armas
         }
 
         #region Sobrecarga de operadores
+        // Mejorar la sobrecarga y agregar el override Equals
         public static bool operator ==(ArmaDeFuego arma1, ArmaDeFuego arma2)
         {
-            return arma1.numeroSerie == arma2.numeroSerie;
+            string tipoArma1 = arma1.GetType().Name;
+            string tipoArma2 = arma2.GetType().Name;
+            return (arma1.numeroSerie == arma2.numeroSerie && tipoArma1 == tipoArma2);
         }
 
         public static bool operator !=(ArmaDeFuego arma1, ArmaDeFuego arma2)
@@ -110,6 +124,17 @@ namespace Armas
         public abstract void Recargar();
 
         public abstract void Recargar(List<Cartucho> cartuchos);
+
+        public override bool Equals(object? obj)
+        {
+            ArmaDeFuego? arma = obj as ArmaDeFuego;
+            return (arma is not null && this == arma);
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.GetType().Name, this.numeroSerie).GetHashCode();
+        }
         #endregion
     }
 }
