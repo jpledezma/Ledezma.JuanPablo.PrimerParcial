@@ -49,6 +49,7 @@ namespace Armas
                              ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, precio)
         {
             this.capacidad = capacidad;
+            this.cartuchosCargados = new Stack<Cartucho>();
             this.accesorios = new List<EAccesorioEscopeta>();
         }
 
