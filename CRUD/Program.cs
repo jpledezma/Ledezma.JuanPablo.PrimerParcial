@@ -1,3 +1,5 @@
+using System.Security.Permissions;
+
 namespace CRUD
 {
     internal static class Program
@@ -11,7 +13,13 @@ namespace CRUD
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FrmLogin());
+
+            // Aparentemente esto funciona
+            FrmLogin frmLogin = new FrmLogin();
+            if (frmLogin.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new FrmCRUD());
+            }
         }
     }
 }
