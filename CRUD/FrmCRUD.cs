@@ -11,6 +11,25 @@ using System.Windows.Forms;
 
 namespace CRUD
 {
+    // TODO
+    // cambiar el form seleccionar por un combobox
+    // ordenar visor
+    // agregar un conversor implicito a las armas (para no tener que usar siempre el .ToString() )
+    // try catch en el archivo usuarios.json
+    // serializar/deserializar objetos del visor
+    // override .ToString()
+    // agregar metodo virtual (mostrar datos en ver detalles)
+    ////  para mostrar los cartuchos, poner el tipo y la cantidad (ej. AE_50 incendiario x6)
+    // agregar barra de estado (nombre y fecha)
+    // README
+    // generar diagrama de clases (cambiar a la vista completa full signature) - no hace falta de los formularios
+    // docstrings
+    // poder cancelar el cierre de la aplicacion
+    // crear un log de las acciones del usuario
+    // agregar visualizador para el log
+    // Poner un if en Program.cs mostrando el login, si es válido se ejecuta el crud
+    // Agregar el archivo usuarios.json al repositorio
+
     /*
      * fondo: 38, 40, 51
      * azul oscuro: (2, 118, 170)
