@@ -42,7 +42,10 @@ namespace CRUD
         {
             try
             {
-                using (StreamReader sr = new StreamReader("./usuarios.json"))
+                // Tiene que ser un path absoluto por si se fuera a ejecutar desde un medio externo,
+                // por ejemplo, la terminal (desde un directorio diferente).
+                string pathUsuarios = Application.StartupPath + "usuarios.json";
+                using (StreamReader sr = new StreamReader(pathUsuarios))
                 {
                     string json_str = sr.ReadToEnd();
                     this.usuarios = (List<Usuario>)System.Text.Json.JsonSerializer.Deserialize(json_str, typeof(List<Usuario>));
