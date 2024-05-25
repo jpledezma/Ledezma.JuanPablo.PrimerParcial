@@ -13,19 +13,14 @@ namespace CRUD
 {
     // TODO
     // ordenar visor
-    // agregar un conversor implicito a las armas (para no tener que usar siempre el .ToString() )
     // serializar/deserializar objetos del visor
-    // override .ToString()
     // agregar metodo virtual (mostrar datos en ver detalles)
     ////  para mostrar los cartuchos, poner el tipo y la cantidad (ej. AE_50 incendiario x6)
     // README
     // generar diagrama de clases (cambiar a la vista completa full signature) - no hace falta de los formularios
     // docstrings
-    // poder cancelar el cierre de la aplicacion - hacer este
     // crear un log de las acciones del usuario
     // agregar visualizador para el log
-    // Poner un if en Program.cs mostrando el login, si es válido se ejecuta el crud
-    // Agregar el archivo usuarios.json al repositorio
 
     /*
      * fondo: 38, 40, 51
@@ -113,7 +108,7 @@ namespace CRUD
 
             DialogResult resultado;
 
-            resultado = MessageBox.Show($"¿Seguro que desea eliminar el arma \n{armaSeleccionada.MostrarEnVisor()}?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            resultado = MessageBox.Show($"¿Seguro que desea eliminar el arma {armaSeleccionada}?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (resultado == DialogResult.Yes)
             {
                 this.armeria -= armaSeleccionada;

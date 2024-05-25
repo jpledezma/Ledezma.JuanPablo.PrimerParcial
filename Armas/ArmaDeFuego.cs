@@ -78,22 +78,7 @@ namespace Armas
         }
         #endregion
 
-        public string MostrarEnVisor()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0,-28}", this.GetType().Name.ToString()));
-            sb.Append(String.Format("{0,-20}", this.fabricante));
-            sb.Append(String.Format("{0,-20}", this.modelo));
-            sb.Append(String.Format("{0,-20}", this.numeroSerie));
-            sb.Append(String.Format("{0,-20}", $"{this.pesoTotal} Kg"));
-            sb.Append(String.Format("{0,-20}", $"{this.calibreMunicion}"));
-            sb.Append(String.Format("{0,-20}", $"${this.precio}"));
-
-            return sb.ToString();
-        }
-
         #region Sobrecarga de operadores
-        // Mejorar la sobrecarga y agregar el override Equals
         public static bool operator ==(ArmaDeFuego arma1, ArmaDeFuego arma2)
         {
             string tipoArma1 = arma1.GetType().Name;
@@ -104,6 +89,11 @@ namespace Armas
         public static bool operator !=(ArmaDeFuego arma1, ArmaDeFuego arma2)
         {
             return !(arma1 == arma2);
+        }
+
+        public static implicit operator string(ArmaDeFuego arma)
+        {
+            return arma.ToString();
         }
         #endregion
 
@@ -125,6 +115,11 @@ namespace Armas
             return (this.GetType().Name, this.numeroSerie).GetHashCode();
         }
 
+        public override string ToString()
+        {
+            return $"{this.GetType().Name} {this.fabricante} {this.modelo} {this.numeroSerie}";
+        }
+
         protected static string FormatearNumeroSerie(string numeroSerie)
         {
             char[] caracteresNumeroSerie = numeroSerie.ToArray();
@@ -138,6 +133,20 @@ namespace Armas
             }
 
             return sb.ToString().ToUpper();
+        }
+
+        public string MostrarEnVisor()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(String.Format("{0,-28}", this.GetType().Name.ToString()));
+            sb.Append(String.Format("{0,-20}", this.fabricante));
+            sb.Append(String.Format("{0,-20}", this.modelo));
+            sb.Append(String.Format("{0,-20}", this.numeroSerie));
+            sb.Append(String.Format("{0,-20}", $"{this.pesoTotal} Kg"));
+            sb.Append(String.Format("{0,-20}", $"{this.calibreMunicion}"));
+            sb.Append(String.Format("{0,-20}", $"${this.precio}"));
+
+            return sb.ToString();
         }
         #endregion
     }
