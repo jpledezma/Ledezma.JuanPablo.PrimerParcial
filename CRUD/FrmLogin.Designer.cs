@@ -43,7 +43,7 @@
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(141, 23);
             txtUsuario.TabIndex = 0;
-            txtUsuario.Text = "admin@admin.com";
+            txtUsuario.Text = "sharris@maiden.com.uk";
             // 
             // txtClave
             // 
@@ -53,7 +53,7 @@
             txtClave.PasswordChar = '*';
             txtClave.Size = new Size(141, 23);
             txtClave.TabIndex = 1;
-            txtClave.Text = "12345678";
+            txtClave.Text = "eddie666";
             // 
             // lblTitulo
             // 

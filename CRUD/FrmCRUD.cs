@@ -48,6 +48,16 @@ namespace CRUD
             InitializeComponent();
             this.armeria = new Armeria();
         }
+        public FrmCRUD(Usuario usuario) : this()
+        {
+            if (usuario is not null)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append($"{usuario.nombre} {usuario.apellido} - ");
+                sb.Append(DateTime.Now.ToString("dd/MM/yyyy"));
+                this.mnuTxtDatosLogin.Text = sb.ToString();
+            }
+        }
 
         #region Eventos
         private void mnuBtnPistola_Click(object sender, EventArgs e)

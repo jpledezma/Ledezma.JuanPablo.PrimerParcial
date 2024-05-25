@@ -3,6 +3,13 @@ namespace CRUD
     public partial class FrmLogin : Form
     {
         private List<Usuario> usuarios;
+        private Usuario usuarioLogueado;
+
+        public Usuario UsuarioLogueado
+        {
+            get { return this.usuarioLogueado; }
+        }
+
         public FrmLogin()
         {
             InitializeComponent();
@@ -19,6 +26,7 @@ namespace CRUD
             bool loginValido = false;
             string clave = this.txtClave.Text;
             string correo = this.txtUsuario.Text;
+            int indiceUsuario = 0;
 
             foreach (Usuario usuario in this.usuarios)
             {
@@ -27,6 +35,7 @@ namespace CRUD
                     loginValido = true;
                     break;
                 }
+                indiceUsuario++;
             }
 
             if (!loginValido)
@@ -35,6 +44,7 @@ namespace CRUD
                 return;
             }
 
+            this.usuarioLogueado = this.usuarios[indiceUsuario];
             this.DialogResult = DialogResult.OK;
         }
 

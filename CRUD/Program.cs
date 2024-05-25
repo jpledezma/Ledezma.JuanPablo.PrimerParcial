@@ -18,7 +18,7 @@ namespace CRUD
             FrmLogin frmLogin = new FrmLogin();
             if (frmLogin.ShowDialog() == DialogResult.OK)
             {
-                Application.Run(new FrmCRUD());
+                Application.Run(new FrmCRUD(frmLogin.UsuarioLogueado));
             }
         }
     }

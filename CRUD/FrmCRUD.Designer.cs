@@ -44,7 +44,7 @@
             mnuBtnModificar = new ToolStripMenuItem();
             mnuBtnEliminar = new ToolStripMenuItem();
             mnuBtnVerDetalles = new ToolStripMenuItem();
-            toolStripTextBox1 = new ToolStripTextBox();
+            mnuTxtDatosLogin = new ToolStripTextBox();
             mnuMenuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
@@ -134,7 +134,7 @@
             // mnuMenuPrincipal
             // 
             mnuMenuPrincipal.BackColor = Color.FromArgb(150, 150, 165);
-            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar, mnuBtnVerDetalles, toolStripTextBox1 });
+            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar, mnuBtnVerDetalles, mnuTxtDatosLogin });
             mnuMenuPrincipal.Location = new Point(0, 0);
             mnuMenuPrincipal.Name = "mnuMenuPrincipal";
             mnuMenuPrincipal.Size = new Size(1044, 24);
@@ -201,16 +201,20 @@
             mnuBtnVerDetalles.Text = "Ver detalles";
             mnuBtnVerDetalles.Click += mnuBtnVerDetalles_Click;
             // 
-            // toolStripTextBox1
+            // mnuTxtDatosLogin
             // 
-            toolStripTextBox1.Alignment = ToolStripItemAlignment.Right;
-            toolStripTextBox1.BackColor = Color.FromArgb(150, 150, 165);
-            toolStripTextBox1.BorderStyle = BorderStyle.None;
-            toolStripTextBox1.ForeColor = Color.Black;
-            toolStripTextBox1.Name = "toolStripTextBox1";
-            toolStripTextBox1.ReadOnly = true;
-            toolStripTextBox1.Size = new Size(100, 20);
-            toolStripTextBox1.Text = "datos-usuario";
+            mnuTxtDatosLogin.Alignment = ToolStripItemAlignment.Right;
+            mnuTxtDatosLogin.AutoSize = false;
+            mnuTxtDatosLogin.BackColor = Color.FromArgb(150, 150, 165);
+            mnuTxtDatosLogin.BorderStyle = BorderStyle.None;
+            mnuTxtDatosLogin.ForeColor = Color.Black;
+            mnuTxtDatosLogin.Name = "mnuTxtDatosLogin";
+            mnuTxtDatosLogin.ReadOnly = true;
+            mnuTxtDatosLogin.RightToLeft = RightToLeft.No;
+            mnuTxtDatosLogin.ShortcutsEnabled = false;
+            mnuTxtDatosLogin.Size = new Size(200, 20);
+            mnuTxtDatosLogin.Text = "datos-login";
+            mnuTxtDatosLogin.TextBoxTextAlign = HorizontalAlignment.Center;
             // 
             // FrmCRUD
             // 
@@ -254,6 +258,6 @@
         private ToolStripMenuItem mnuBtnModificar;
         private ToolStripMenuItem mnuBtnEliminar;
         private ToolStripMenuItem mnuBtnVerDetalles;
-        private ToolStripTextBox toolStripTextBox1;
+        private ToolStripTextBox mnuTxtDatosLogin;
     }
 }
