@@ -12,10 +12,8 @@ using System.Windows.Forms;
 namespace CRUD
 {
     // TODO
-    // cambiar el form seleccionar por un combobox
     // ordenar visor
     // agregar un conversor implicito a las armas (para no tener que usar siempre el .ToString() )
-    // try catch en el archivo usuarios.json
     // serializar/deserializar objetos del visor
     // override .ToString()
     // agregar metodo virtual (mostrar datos en ver detalles)
@@ -52,24 +50,55 @@ namespace CRUD
         }
 
         #region Eventos
-        private void btnAgregar_Click(object sender, EventArgs e)
+        private void mnuBtnPistola_Click(object sender, EventArgs e)
         {
-            // A la clase ArmaDeFuego agregarle un método ObtenerDatos()
-            // que devuelva un array con cada uno de los datos,
-            // después las clases heredadas lo sobreescriben.
-
-            FrmAgregarSeleccion frmSeleccion = new FrmAgregarSeleccion();
-            DialogResult resultado = frmSeleccion.ShowDialog();
-
-            if (resultado == DialogResult.Cancel)
-            {
-                return;
-            }
-            this.AgregarArma(frmSeleccion.ArmaSeleccionada);
+            FrmAgregarPistola frmAgregarPistola = new FrmAgregarPistola();
+            DialogResult resultado = frmAgregarPistola.ShowDialog();
+            if (resultado == DialogResult.OK)
+                this.armeria += frmAgregarPistola.PistolaCreada;
             this.ActualizarVisor();
         }
 
-        private void btnModificar_Click(object sender, EventArgs e)
+        private void mnuBtnFusil_Click(object sender, EventArgs e)
+        {
+            FrmAgregarFusil frmAgregarFusil = new FrmAgregarFusil();
+            DialogResult resultado = frmAgregarFusil.ShowDialog();
+            if (resultado == DialogResult.OK)
+                this.armeria += frmAgregarFusil.FusilCreado;
+            this.ActualizarVisor();
+        }
+
+        private void mnuBtnEscopeta_Click(object sender, EventArgs e)
+        {
+            FrmAgregarEscopeta frmAgregarEscopeta = new FrmAgregarEscopeta();
+            DialogResult resultado = frmAgregarEscopeta.ShowDialog();
+            if (resultado == DialogResult.OK)
+                this.armeria += frmAgregarEscopeta.EscopetaCreada;
+            this.ActualizarVisor();
+        }
+
+        private void mnuBtnEliminar_Click(object sender, EventArgs e)
+        {
+            int indiceSeleccionado = this.lstVisor.SelectedIndex;
+            if (indiceSeleccionado == -1)
+            {
+                MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ArmaDeFuego armaSeleccionada = this.armeria.Armas[indiceSeleccionado];
+
+            DialogResult resultado;
+
+            resultado = MessageBox.Show($"¿Seguro que desea eliminar el arma \n{armaSeleccionada.MostrarEnVisor()}?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (resultado == DialogResult.Yes)
+            {
+                this.armeria -= armaSeleccionada;
+            }
+            this.ActualizarVisor();
+        }
+
+        private void mnuBtnModificar_Click(object sender, EventArgs e)
         {
             int indiceSeleccionado = this.lstVisor.SelectedIndex;
             if (indiceSeleccionado == -1)
@@ -94,29 +123,11 @@ namespace CRUD
             this.ActualizarVisor();
         }
 
-        private void btnEliminar_Click(object sender, EventArgs e)
+        private void mnuBtnVerDetalles_Click(object sender, EventArgs e)
         {
-            int indiceSeleccionado = this.lstVisor.SelectedIndex;
-            if (indiceSeleccionado == -1)
-            {
-                MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            ArmaDeFuego armaSeleccionada = this.armeria.Armas[indiceSeleccionado];
-
-            DialogResult resultado;
-
-            resultado = MessageBox.Show($"¿Seguro que desea eliminar el arma \n{armaSeleccionada.MostrarEnVisor()}?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if(resultado == DialogResult.Yes)
-            {
-                this.armeria -= armaSeleccionada;
-            }
-            this.ActualizarVisor();
-        }
-
-        private void btnDetalles_Click(object sender, EventArgs e)
-        {
+            // A la clase ArmaDeFuego agregarle un método ObtenerDatos()
+            // que devuelva un array con cada uno de los datos,
+            // después las clases heredadas lo sobreescriben.
             int indiceSeleccionado = this.lstVisor.SelectedIndex;
             if (indiceSeleccionado == -1)
             {
@@ -125,34 +136,8 @@ namespace CRUD
             }
         }
         #endregion
-        private void AgregarArma(string armaSeleccionada)
-        {
-            DialogResult resultado;
-            switch (armaSeleccionada)
-            {
-                case "pistola":
-                    FrmAgregarPistola frmAgregarPistola = new FrmAgregarPistola();
-                    resultado = frmAgregarPistola.ShowDialog();
-                    if (resultado == DialogResult.OK)
-                        this.armeria += frmAgregarPistola.PistolaCreada;
-                    break;
 
-                case "fusil":
-                    FrmAgregarFusil frmAgregarFusil = new FrmAgregarFusil();
-                    resultado = frmAgregarFusil.ShowDialog();
-                    if (resultado == DialogResult.OK)
-                        this.armeria += frmAgregarFusil.FusilCreado;
-                    break;
-
-                case "escopeta":
-                    FrmAgregarEscopeta frmAgregarEscopeta = new FrmAgregarEscopeta();
-                    resultado = frmAgregarEscopeta.ShowDialog();
-                    if (resultado == DialogResult.OK)
-                        this.armeria += frmAgregarEscopeta.EscopetaCreada;
-                    break;
-            }
-        }
-
+        #region Metodos
         private void ActualizarVisor()
         {
             this.lstVisor.Items.Clear();
@@ -194,5 +179,6 @@ namespace CRUD
                 this.armeria += frmModificarEscopeta.EscopetaCreada;
             }
         }
+        #endregion
     }
 }

@@ -28,11 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnAgregar = new Button();
-            btnModificar = new Button();
-            btnEliminar = new Button();
             lstVisor = new ListBox();
-            btnDetalles = new Button();
             lblTipo = new Label();
             lblFabricante = new Label();
             lblModelo = new Label();
@@ -40,52 +36,17 @@
             lblPeso = new Label();
             lblCalibre = new Label();
             lblPrecio = new Label();
+            mnuMenuPrincipal = new MenuStrip();
+            mnuBtnAgregar = new ToolStripMenuItem();
+            mnuBtnPistola = new ToolStripMenuItem();
+            mnuBtnFusil = new ToolStripMenuItem();
+            mnuBtnEscopeta = new ToolStripMenuItem();
+            mnuBtnModificar = new ToolStripMenuItem();
+            mnuBtnEliminar = new ToolStripMenuItem();
+            mnuBtnVerDetalles = new ToolStripMenuItem();
+            toolStripTextBox1 = new ToolStripTextBox();
+            mnuMenuPrincipal.SuspendLayout();
             SuspendLayout();
-            // 
-            // btnAgregar
-            // 
-            btnAgregar.BackColor = Color.FromArgb(53, 122, 56);
-            btnAgregar.FlatAppearance.BorderSize = 0;
-            btnAgregar.FlatStyle = FlatStyle.Flat;
-            btnAgregar.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnAgregar.ForeColor = Color.White;
-            btnAgregar.Location = new Point(34, 446);
-            btnAgregar.Name = "btnAgregar";
-            btnAgregar.Size = new Size(94, 37);
-            btnAgregar.TabIndex = 6;
-            btnAgregar.Text = "Agregar";
-            btnAgregar.UseVisualStyleBackColor = false;
-            btnAgregar.Click += btnAgregar_Click;
-            // 
-            // btnModificar
-            // 
-            btnModificar.BackColor = Color.FromArgb(2, 108, 155);
-            btnModificar.FlatAppearance.BorderSize = 0;
-            btnModificar.FlatStyle = FlatStyle.Flat;
-            btnModificar.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnModificar.ForeColor = Color.White;
-            btnModificar.Location = new Point(180, 446);
-            btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(94, 37);
-            btnModificar.TabIndex = 7;
-            btnModificar.Text = "Modificar";
-            btnModificar.UseVisualStyleBackColor = false;
-            btnModificar.Click += btnModificar_Click;
-            // 
-            // btnEliminar
-            // 
-            btnEliminar.BackColor = Color.FromArgb(135, 15, 15);
-            btnEliminar.FlatAppearance.BorderSize = 0;
-            btnEliminar.FlatStyle = FlatStyle.Flat;
-            btnEliminar.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnEliminar.ForeColor = Color.White;
-            btnEliminar.Location = new Point(335, 446);
-            btnEliminar.Name = "btnEliminar";
-            btnEliminar.Size = new Size(94, 37);
-            btnEliminar.TabIndex = 8;
-            btnEliminar.Text = "Eliminar";
-            btnEliminar.UseVisualStyleBackColor = false;
-            btnEliminar.Click += btnEliminar_Click;
             // 
             // lstVisor
             // 
@@ -97,23 +58,8 @@
             lstVisor.ItemHeight = 16;
             lstVisor.Location = new Point(12, 56);
             lstVisor.Name = "lstVisor";
-            lstVisor.Size = new Size(1020, 308);
+            lstVisor.Size = new Size(1020, 404);
             lstVisor.TabIndex = 9;
-            // 
-            // btnDetalles
-            // 
-            btnDetalles.BackColor = Color.FromArgb(2, 108, 155);
-            btnDetalles.FlatAppearance.BorderSize = 0;
-            btnDetalles.FlatStyle = FlatStyle.Flat;
-            btnDetalles.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnDetalles.ForeColor = Color.White;
-            btnDetalles.Location = new Point(907, 446);
-            btnDetalles.Name = "btnDetalles";
-            btnDetalles.Size = new Size(107, 37);
-            btnDetalles.TabIndex = 10;
-            btnDetalles.Text = "Ver detalles";
-            btnDetalles.UseVisualStyleBackColor = false;
-            btnDetalles.Click += btnDetalles_Click;
             // 
             // lblTipo
             // 
@@ -185,6 +131,87 @@
             lblPrecio.TabIndex = 17;
             lblPrecio.Text = "Precio";
             // 
+            // mnuMenuPrincipal
+            // 
+            mnuMenuPrincipal.BackColor = Color.FromArgb(150, 150, 165);
+            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar, mnuBtnVerDetalles, toolStripTextBox1 });
+            mnuMenuPrincipal.Location = new Point(0, 0);
+            mnuMenuPrincipal.Name = "mnuMenuPrincipal";
+            mnuMenuPrincipal.Size = new Size(1044, 24);
+            mnuMenuPrincipal.TabIndex = 18;
+            mnuMenuPrincipal.Text = "Menu principal";
+            // 
+            // mnuBtnAgregar
+            // 
+            mnuBtnAgregar.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnAgregar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnPistola, mnuBtnFusil, mnuBtnEscopeta });
+            mnuBtnAgregar.ForeColor = Color.Black;
+            mnuBtnAgregar.Name = "mnuBtnAgregar";
+            mnuBtnAgregar.Size = new Size(93, 20);
+            mnuBtnAgregar.Text = "Agregar Arma";
+            // 
+            // mnuBtnPistola
+            // 
+            mnuBtnPistola.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnPistola.ForeColor = Color.Black;
+            mnuBtnPistola.Name = "mnuBtnPistola";
+            mnuBtnPistola.Size = new Size(198, 22);
+            mnuBtnPistola.Text = "Pistola Semiautomática";
+            mnuBtnPistola.Click += mnuBtnPistola_Click;
+            // 
+            // mnuBtnFusil
+            // 
+            mnuBtnFusil.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnFusil.ForeColor = Color.Black;
+            mnuBtnFusil.Name = "mnuBtnFusil";
+            mnuBtnFusil.Size = new Size(198, 22);
+            mnuBtnFusil.Text = "Fusil de asalto";
+            mnuBtnFusil.Click += mnuBtnFusil_Click;
+            // 
+            // mnuBtnEscopeta
+            // 
+            mnuBtnEscopeta.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnEscopeta.ForeColor = Color.Black;
+            mnuBtnEscopeta.Name = "mnuBtnEscopeta";
+            mnuBtnEscopeta.Size = new Size(198, 22);
+            mnuBtnEscopeta.Text = "Escopeta";
+            mnuBtnEscopeta.Click += mnuBtnEscopeta_Click;
+            // 
+            // mnuBtnModificar
+            // 
+            mnuBtnModificar.ForeColor = Color.Black;
+            mnuBtnModificar.Name = "mnuBtnModificar";
+            mnuBtnModificar.Size = new Size(70, 20);
+            mnuBtnModificar.Text = "Modificar";
+            mnuBtnModificar.Click += mnuBtnModificar_Click;
+            // 
+            // mnuBtnEliminar
+            // 
+            mnuBtnEliminar.ForeColor = Color.Black;
+            mnuBtnEliminar.Name = "mnuBtnEliminar";
+            mnuBtnEliminar.Size = new Size(62, 20);
+            mnuBtnEliminar.Text = "Eliminar";
+            mnuBtnEliminar.Click += mnuBtnEliminar_Click;
+            // 
+            // mnuBtnVerDetalles
+            // 
+            mnuBtnVerDetalles.ForeColor = Color.Black;
+            mnuBtnVerDetalles.Name = "mnuBtnVerDetalles";
+            mnuBtnVerDetalles.Size = new Size(78, 20);
+            mnuBtnVerDetalles.Text = "Ver detalles";
+            mnuBtnVerDetalles.Click += mnuBtnVerDetalles_Click;
+            // 
+            // toolStripTextBox1
+            // 
+            toolStripTextBox1.Alignment = ToolStripItemAlignment.Right;
+            toolStripTextBox1.BackColor = Color.FromArgb(150, 150, 165);
+            toolStripTextBox1.BorderStyle = BorderStyle.None;
+            toolStripTextBox1.ForeColor = Color.Black;
+            toolStripTextBox1.Name = "toolStripTextBox1";
+            toolStripTextBox1.ReadOnly = true;
+            toolStripTextBox1.Size = new Size(100, 20);
+            toolStripTextBox1.Text = "datos-usuario";
+            // 
             // FrmCRUD
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -198,25 +225,20 @@
             Controls.Add(lblModelo);
             Controls.Add(lblFabricante);
             Controls.Add(lblTipo);
-            Controls.Add(btnDetalles);
             Controls.Add(lstVisor);
-            Controls.Add(btnEliminar);
-            Controls.Add(btnModificar);
-            Controls.Add(btnAgregar);
+            Controls.Add(mnuMenuPrincipal);
             ForeColor = SystemColors.ButtonFace;
+            MainMenuStrip = mnuMenuPrincipal;
             Name = "FrmCRUD";
             Text = "Principal";
+            mnuMenuPrincipal.ResumeLayout(false);
+            mnuMenuPrincipal.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Button btnAgregar;
-        private Button btnModificar;
-        private Button btnEliminar;
         private ListBox lstVisor;
-        private Button btnDetalles;
         private Label lblTipo;
         private Label lblFabricante;
         private Label lblModelo;
@@ -224,5 +246,14 @@
         private Label lblPeso;
         private Label lblCalibre;
         private Label lblPrecio;
+        private MenuStrip mnuMenuPrincipal;
+        private ToolStripMenuItem mnuBtnAgregar;
+        private ToolStripMenuItem mnuBtnPistola;
+        private ToolStripMenuItem mnuBtnFusil;
+        private ToolStripMenuItem mnuBtnEscopeta;
+        private ToolStripMenuItem mnuBtnModificar;
+        private ToolStripMenuItem mnuBtnEliminar;
+        private ToolStripMenuItem mnuBtnVerDetalles;
+        private ToolStripTextBox toolStripTextBox1;
     }
 }
