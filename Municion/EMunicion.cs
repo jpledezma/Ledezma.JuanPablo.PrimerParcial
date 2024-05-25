@@ -17,3 +17,12 @@
     SHELL_10g,
     SHELL_20g
 }
+public enum EProyectil
+{
+    Antimaterial,
+    Incendiario,
+    PuntaHueca,
+    PuntaRedonda,
+    PuntaSuave,
+    Trazador
+}
