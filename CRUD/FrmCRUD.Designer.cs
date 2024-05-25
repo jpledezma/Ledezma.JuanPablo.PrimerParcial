@@ -235,6 +235,7 @@
             MainMenuStrip = mnuMenuPrincipal;
             Name = "FrmCRUD";
             Text = "Principal";
+            FormClosing += FrmCRUD_FormClosing;
             mnuMenuPrincipal.ResumeLayout(false);
             mnuMenuPrincipal.PerformLayout();
             ResumeLayout(false);

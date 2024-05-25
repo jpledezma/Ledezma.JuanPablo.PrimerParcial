@@ -18,11 +18,10 @@ namespace CRUD
     // override .ToString()
     // agregar metodo virtual (mostrar datos en ver detalles)
     ////  para mostrar los cartuchos, poner el tipo y la cantidad (ej. AE_50 incendiario x6)
-    // agregar barra de estado (nombre y fecha)
     // README
     // generar diagrama de clases (cambiar a la vista completa full signature) - no hace falta de los formularios
     // docstrings
-    // poder cancelar el cierre de la aplicacion
+    // poder cancelar el cierre de la aplicacion - hacer este
     // crear un log de las acciones del usuario
     // agregar visualizador para el log
     // Poner un if en Program.cs mostrando el login, si es válido se ejecuta el crud
@@ -47,19 +46,33 @@ namespace CRUD
         {
             InitializeComponent();
             this.armeria = new Armeria();
+            this.mnuTxtDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
         }
         public FrmCRUD(Usuario usuario) : this()
         {
+            string nombreUsuario;
             if (usuario is not null)
             {
-                StringBuilder sb = new StringBuilder();
-                sb.Append($"{usuario.nombre} {usuario.apellido} - ");
-                sb.Append(DateTime.Now.ToString("dd/MM/yyyy"));
-                this.mnuTxtDatosLogin.Text = sb.ToString();
+                nombreUsuario = $"{usuario.nombre} {usuario.apellido} - ";
             }
+            else
+            {
+                nombreUsuario = "Usuario desconocido - ";
+            }
+            this.mnuTxtDatosLogin.Text = nombreUsuario + this.mnuTxtDatosLogin.Text;
         }
 
         #region Eventos
+        private void FrmCRUD_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult respuesta;
+            respuesta = MessageBox.Show("¿Seguro que desea salir de la aplicación?", "Información", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (respuesta != DialogResult.Yes)
+            {
+                e.Cancel = true;
+            }
+        }
         private void mnuBtnPistola_Click(object sender, EventArgs e)
         {
             FrmAgregarPistola frmAgregarPistola = new FrmAgregarPistola();
