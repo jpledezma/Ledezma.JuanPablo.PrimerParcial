@@ -59,25 +59,14 @@ namespace Armas
                            List<EMaterial> materialesConstruccion,
                            double precio)
         {
-            this.fabricante = fabricante;
-            this.modelo = modelo;
+            this.fabricante = fabricante.Trim();
+            this.modelo = modelo.Trim();
             this.pesoBase = pesoBase >= 0 ? pesoBase : 0;
             this.pesoTotal = this.pesoBase;
             this.calibreMunicion = calibreMunicion;
             this.materialesConstruccion = new List<EMaterial>();
             this.precio = precio >= 0 ? precio : 0;
-
-            // Sólo tomar los numeros y letras del número de serie ingresado
-            char[] caracteresNumeroSerie = numeroSerie.ToArray();
-            StringBuilder sb = new StringBuilder();
-            foreach (char c in caracteresNumeroSerie)
-            {
-                if (Char.IsLetter(c) || Char.IsNumber(c)) 
-                { 
-                    sb.Append(c); 
-                }
-            }
-            this.numeroSerie = sb.ToString().ToUpper();
+            this.numeroSerie = FormatearNumeroSerie(numeroSerie);
 
             foreach (EMaterial material in materialesConstruccion)
             {
@@ -134,6 +123,21 @@ namespace Armas
         public override int GetHashCode()
         {
             return (this.GetType().Name, this.numeroSerie).GetHashCode();
+        }
+
+        protected static string FormatearNumeroSerie(string numeroSerie)
+        {
+            char[] caracteresNumeroSerie = numeroSerie.ToArray();
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in caracteresNumeroSerie)
+            {
+                if (Char.IsLetter(c) || Char.IsNumber(c))
+                {
+                    sb.Append(c);
+                }
+            }
+
+            return sb.ToString().ToUpper();
         }
         #endregion
     }
