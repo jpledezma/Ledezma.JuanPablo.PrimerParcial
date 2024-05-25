@@ -48,6 +48,7 @@
             return !(c1 == c2);
         }
         #endregion
+
         public override bool Equals(object? obj)
         {
             Cartucho? cartucho = obj as Cartucho;
@@ -57,6 +58,12 @@
         public override int GetHashCode()
         {
             return (this.calibre, this.tipoProyectil, this.subsonico).GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            string velocidadCartucho = this.subsonico ? "Subsónico" : "Supersónico";
+            return $"{this.calibre} {this.tipoProyectil} {velocidadCartucho}";
         }
     }
 }

@@ -135,16 +135,16 @@ namespace Armas
             return sb.ToString().ToUpper();
         }
 
-        public string MostrarEnVisor()
+        public static string MostrarEnVisor(ArmaDeFuego arma)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0,-28}", this.GetType().Name.ToString()));
-            sb.Append(String.Format("{0,-20}", this.fabricante));
-            sb.Append(String.Format("{0,-20}", this.modelo));
-            sb.Append(String.Format("{0,-20}", this.numeroSerie));
-            sb.Append(String.Format("{0,-20}", $"{this.pesoTotal} Kg"));
-            sb.Append(String.Format("{0,-20}", $"{this.calibreMunicion}"));
-            sb.Append(String.Format("{0,-20}", $"${this.precio}"));
+            sb.Append(String.Format("{0,-28}", arma.GetType().Name.ToString()));
+            sb.Append(String.Format("{0,-20}", arma.fabricante));
+            sb.Append(String.Format("{0,-20}", arma.modelo));
+            sb.Append(String.Format("{0,-20}", arma.numeroSerie));
+            sb.Append(String.Format("{0,-20}", $"{arma.pesoTotal} Kg"));
+            sb.Append(String.Format("{0,-20}", $"{arma.calibreMunicion}"));
+            sb.Append(String.Format("{0,-20}", $"${arma.precio}"));
 
             return sb.ToString();
         }

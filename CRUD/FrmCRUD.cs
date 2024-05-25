@@ -12,15 +12,13 @@ using System.Windows.Forms;
 namespace CRUD
 {
     // TODO
-    // ordenar visor
     // serializar/deserializar objetos del visor
-    // agregar metodo virtual (mostrar datos en ver detalles)
-    ////  para mostrar los cartuchos, poner el tipo y la cantidad (ej. AE_50 incendiario x6)
-    // README
-    // generar diagrama de clases (cambiar a la vista completa full signature) - no hace falta de los formularios
-    // docstrings
+    // ordenar visor
     // crear un log de las acciones del usuario
     // agregar visualizador para el log
+    // generar diagrama de clases (cambiar a la vista completa full signature) - no hace falta de los formularios
+    // README
+    // docstrings
 
     /*
      * fondo: 38, 40, 51
@@ -152,6 +150,8 @@ namespace CRUD
                 MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            FrmVerDetalles frmVerDetalles = new FrmVerDetalles(this.armeria.Armas[indiceSeleccionado]);
+            frmVerDetalles.Show();
         }
         #endregion
 
@@ -161,7 +161,7 @@ namespace CRUD
             this.lstVisor.Items.Clear();
             foreach (var arma in this.armeria.Armas)
             {
-                this.lstVisor.Items.Add(arma.MostrarEnVisor());
+                this.lstVisor.Items.Add(ArmaDeFuego.MostrarEnVisor(arma));
             }
         }
 
