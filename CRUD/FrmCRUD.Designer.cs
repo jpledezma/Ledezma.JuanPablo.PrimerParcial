@@ -45,6 +45,11 @@
             mnuBtnEliminar = new ToolStripMenuItem();
             mnuBtnVerDetalles = new ToolStripMenuItem();
             mnuTxtDatosLogin = new ToolStripTextBox();
+            mnuBtnGuardar = new ToolStripMenuItem();
+            mnuBtnSerializarJson = new ToolStripMenuItem();
+            mnuBtnSerializarXml = new ToolStripMenuItem();
+            mnuBtnCargar = new ToolStripMenuItem();
+            deserializarXMLToolStripMenuItem = new ToolStripMenuItem();
             mnuMenuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
@@ -134,7 +139,7 @@
             // mnuMenuPrincipal
             // 
             mnuMenuPrincipal.BackColor = Color.FromArgb(150, 150, 165);
-            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar, mnuBtnVerDetalles, mnuTxtDatosLogin });
+            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar, mnuBtnVerDetalles, mnuTxtDatosLogin, mnuBtnGuardar, mnuBtnCargar });
             mnuMenuPrincipal.Location = new Point(0, 0);
             mnuMenuPrincipal.Name = "mnuMenuPrincipal";
             mnuMenuPrincipal.Size = new Size(1044, 24);
@@ -216,6 +221,49 @@
             mnuTxtDatosLogin.Text = "datos-login";
             mnuTxtDatosLogin.TextBoxTextAlign = HorizontalAlignment.Center;
             // 
+            // mnuBtnGuardar
+            // 
+            mnuBtnGuardar.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnGuardar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnSerializarJson, mnuBtnSerializarXml });
+            mnuBtnGuardar.ForeColor = Color.Black;
+            mnuBtnGuardar.Name = "mnuBtnGuardar";
+            mnuBtnGuardar.Size = new Size(61, 20);
+            mnuBtnGuardar.Text = "Guardar";
+            // 
+            // mnuBtnSerializarJson
+            // 
+            mnuBtnSerializarJson.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnSerializarJson.ForeColor = Color.Black;
+            mnuBtnSerializarJson.Name = "mnuBtnSerializarJson";
+            mnuBtnSerializarJson.Size = new Size(180, 22);
+            mnuBtnSerializarJson.Text = "Serializar JSON";
+            mnuBtnSerializarJson.Click += mnuBtnSerializarJson_Click;
+            // 
+            // mnuBtnSerializarXml
+            // 
+            mnuBtnSerializarXml.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnSerializarXml.ForeColor = Color.Black;
+            mnuBtnSerializarXml.Name = "mnuBtnSerializarXml";
+            mnuBtnSerializarXml.Size = new Size(180, 22);
+            mnuBtnSerializarXml.Text = "Serializar XML";
+            // 
+            // mnuBtnCargar
+            // 
+            mnuBtnCargar.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnCargar.DropDownItems.AddRange(new ToolStripItem[] { deserializarXMLToolStripMenuItem });
+            mnuBtnCargar.ForeColor = Color.Black;
+            mnuBtnCargar.Name = "mnuBtnCargar";
+            mnuBtnCargar.Size = new Size(54, 20);
+            mnuBtnCargar.Text = "Cargar";
+            // 
+            // deserializarXMLToolStripMenuItem
+            // 
+            deserializarXMLToolStripMenuItem.BackColor = Color.FromArgb(150, 150, 165);
+            deserializarXMLToolStripMenuItem.ForeColor = Color.Black;
+            deserializarXMLToolStripMenuItem.Name = "deserializarXMLToolStripMenuItem";
+            deserializarXMLToolStripMenuItem.Size = new Size(180, 22);
+            deserializarXMLToolStripMenuItem.Text = "Deserializar XML";
+            // 
             // FrmCRUD
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -260,5 +308,10 @@
         private ToolStripMenuItem mnuBtnEliminar;
         private ToolStripMenuItem mnuBtnVerDetalles;
         private ToolStripTextBox mnuTxtDatosLogin;
+        private ToolStripMenuItem mnuBtnGuardar;
+        private ToolStripMenuItem mnuBtnSerializarJson;
+        private ToolStripMenuItem mnuBtnSerializarXml;
+        private ToolStripMenuItem mnuBtnCargar;
+        private ToolStripMenuItem deserializarXMLToolStripMenuItem;
     }
 }

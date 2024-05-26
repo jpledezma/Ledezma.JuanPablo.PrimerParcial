@@ -141,9 +141,6 @@ namespace CRUD
 
         private void mnuBtnVerDetalles_Click(object sender, EventArgs e)
         {
-            // A la clase ArmaDeFuego agregarle un método ObtenerDatos()
-            // que devuelva un array con cada uno de los datos,
-            // después las clases heredadas lo sobreescriben.
             int indiceSeleccionado = this.lstVisor.SelectedIndex;
             if (indiceSeleccionado == -1)
             {
@@ -152,6 +149,30 @@ namespace CRUD
             }
             FrmVerDetalles frmVerDetalles = new FrmVerDetalles(this.armeria.Armas[indiceSeleccionado]);
             frmVerDetalles.Show();
+        }
+
+        private void mnuBtnSerializarJson_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog fileDialog = new SaveFileDialog())
+                {
+                    fileDialog.InitialDirectory = Application.StartupPath;
+                    fileDialog.Filter = "Archivos json (*.json)|*.json|Todos los archivos (*.*)|*.*";
+
+                    string path;
+                    if (fileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        path = fileDialog.FileName;
+                        this.SerializarJson(path);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo guardar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
         #endregion
 
@@ -195,6 +216,18 @@ namespace CRUD
             {
                 this.armeria -= this.armeria.Armas[this.lstVisor.SelectedIndex];
                 this.armeria += frmModificarEscopeta.EscopetaCreada;
+            }
+        }
+
+        private void SerializarJson(string path)
+        {
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                System.Text.Json.JsonSerializerOptions opciones = new System.Text.Json.JsonSerializerOptions();
+                opciones.WriteIndented = true;
+
+                var obj_json = System.Text.Json.JsonSerializer.Serialize((object[])this.armeria.Armas.ToArray(), opciones);
+                sw.WriteLine(obj_json);
             }
         }
         #endregion
