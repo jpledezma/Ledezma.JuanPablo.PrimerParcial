@@ -1,8 +1,12 @@
 ﻿using Municion;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace Armas
 {
+    [XmlInclude(typeof(PistolaSemiautomatica))]
+    [XmlInclude(typeof(FusilAsalto))]
+    [XmlInclude(typeof(EscopetaBombeo))]
     public abstract class ArmaDeFuego
     {
         private string fabricante;
@@ -18,14 +22,17 @@ namespace Armas
         public string Fabricante
         {
             get { return this.fabricante; }
+            set { }
         }
         public string Modelo
         {
             get { return this.modelo; }
+            set { }
         }
         public string NumeroSerie
         {
             get { return this.numeroSerie; }
+            set { }
         }
         public double Precio
         {
@@ -35,6 +42,7 @@ namespace Armas
         public double PesoBase
         {
             get { return this.pesoBase; }
+            set { }
         }
         public double PesoTotal
         {
@@ -43,14 +51,20 @@ namespace Armas
         public EMunicion CalibreMunicion
         {
             get { return this.calibreMunicion; }
+            set { }
         }
         public List<EMaterial> MaterialesConstruccion
         {
             get { return new List<EMaterial>(this.materialesConstruccion); }
+            set { }
         }
         #endregion
 
         #region Constructores
+        protected ArmaDeFuego()
+        {
+            
+        }
         public ArmaDeFuego(string fabricante, 
                            string modelo,
                            string numeroSerie, 

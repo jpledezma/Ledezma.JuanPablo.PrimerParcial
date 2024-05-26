@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Armas
 {
@@ -18,6 +19,7 @@ namespace Armas
         public uint Capacidad
         {
             get { return this.capacidad; }
+            set { }
         }
 
         public bool Amartillada
@@ -25,6 +27,7 @@ namespace Armas
             get { return this.amartillada; }
         }
 
+        [XmlIgnore]
         public Stack<Cartucho> CartuchosCargados
         {
             get { return new Stack<Cartucho>(this.cartuchosCargados); }
@@ -37,16 +40,21 @@ namespace Armas
         #endregion
 
         #region Constructores
+
+        public EscopetaBombeo()
+        {
+            
+        }
         public EscopetaBombeo(
                               string fabricante,
                               string modelo,
                               string numeroSerie,
-                              double pesoKg,
+                              double pesoBase,
                               EMunicion calibreMunicion,
                               List<EMaterial> materialesConstruccion,
                               uint capacidad,
                               double precio
-                             ) : base(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, precio)
+                             ) : base(fabricante, modelo, numeroSerie, pesoBase, calibreMunicion, materialesConstruccion, precio)
         {
             this.capacidad = capacidad;
             this.cartuchosCargados = new Stack<Cartucho>();
@@ -57,13 +65,13 @@ namespace Armas
                               string fabricante,
                               string modelo,
                               string numeroSerie,
-                              double pesoKg,
+                              double pesoBase,
                               EMunicion calibreMunicion,
                               List<EMaterial> materialesConstruccion,
                               uint capacidad,
                               double precio,
                               List<EAccesorioEscopeta> accesorios
-                             ) : this(fabricante, modelo, numeroSerie, pesoKg, calibreMunicion, materialesConstruccion, capacidad, precio)
+                             ) : this(fabricante, modelo, numeroSerie, pesoBase, calibreMunicion, materialesConstruccion, capacidad, precio)
         {
             foreach (EAccesorioEscopeta a in accesorios)
             {

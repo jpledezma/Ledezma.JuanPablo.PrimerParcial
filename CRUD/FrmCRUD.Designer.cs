@@ -246,6 +246,7 @@
             mnuBtnSerializarXml.Name = "mnuBtnSerializarXml";
             mnuBtnSerializarXml.Size = new Size(180, 22);
             mnuBtnSerializarXml.Text = "Serializar XML";
+            mnuBtnSerializarXml.Click += mnuBtnSerializarXml_Click;
             // 
             // mnuBtnCargar
             // 
@@ -261,7 +262,7 @@
             deserializarXMLToolStripMenuItem.BackColor = Color.FromArgb(150, 150, 165);
             deserializarXMLToolStripMenuItem.ForeColor = Color.Black;
             deserializarXMLToolStripMenuItem.Name = "deserializarXMLToolStripMenuItem";
-            deserializarXMLToolStripMenuItem.Size = new Size(180, 22);
+            deserializarXMLToolStripMenuItem.Size = new Size(160, 22);
             deserializarXMLToolStripMenuItem.Text = "Deserializar XML";
             // 
             // FrmCRUD

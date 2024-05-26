@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CRUD
 {
@@ -155,24 +158,27 @@ namespace CRUD
         {
             try
             {
-                using (SaveFileDialog fileDialog = new SaveFileDialog())
-                {
-                    fileDialog.InitialDirectory = Application.StartupPath;
-                    fileDialog.Filter = "Archivos json (*.json)|*.json|Todos los archivos (*.*)|*.*";
-
-                    string path;
-                    if (fileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        path = fileDialog.FileName;
-                        this.SerializarJson(path);
-                    }
-                }
+                string path = this.ObtenerPathGuardar("json");
+                this.SerializarJson(path);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"No se pudo guardar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
+        }
+
+        private void mnuBtnSerializarXml_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string path = this.ObtenerPathGuardar();
+                this.SerializarXml(path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo guardar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         #endregion
 
@@ -219,6 +225,36 @@ namespace CRUD
             }
         }
 
+        private string ObtenerPathGuardar(string extension = "")
+        {
+            string path = String.Empty;
+
+            using (SaveFileDialog fileDialog = new SaveFileDialog())
+            {
+                fileDialog.InitialDirectory = Application.StartupPath;
+
+                if (extension == "json")
+                {
+                    fileDialog.Filter = "Archivos json (*.json)|*.json|Todos los archivos (*.*)|*.*";
+                }
+                else if (extension == "xml")
+                {
+                    fileDialog.Filter = "Archivos xml (*.xml)|*.xml|Todos los archivos (*.*)|*.*";
+                }
+                else
+                {
+                    fileDialog.Filter = "Todos los archivos (*.*)|*.*";
+                }
+
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    path = fileDialog.FileName;
+                }
+            }
+
+            return path;
+        }
+
         private void SerializarJson(string path)
         {
             using (StreamWriter sw = new StreamWriter(path))
@@ -228,6 +264,15 @@ namespace CRUD
 
                 var obj_json = System.Text.Json.JsonSerializer.Serialize((object[])this.armeria.Armas.ToArray(), opciones);
                 sw.WriteLine(obj_json);
+            }
+        }
+
+        private void SerializarXml(string path)
+        {
+            using (XmlTextWriter writer = new XmlTextWriter(path, Encoding.UTF8))
+            {
+                XmlSerializer ser = new XmlSerializer((typeof(Armeria)));
+                ser.Serialize(writer, this.armeria);
             }
         }
         #endregion

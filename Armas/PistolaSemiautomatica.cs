@@ -19,6 +19,7 @@ namespace Armas
         public uint CapacidadCargador
         {
             get { return this.capacidadCargador; }
+            set { }
         }
 
         public bool SeguroActivo
@@ -38,6 +39,11 @@ namespace Armas
         #endregion
 
         #region Constructores
+
+        public PistolaSemiautomatica()
+        {
+            
+        }
         public PistolaSemiautomatica(
                             string fabricante,
                             string modelo,
