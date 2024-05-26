@@ -369,5 +369,6 @@ FodyWeavers.xsd
 */bin/Debug/net6.0-windows/*
 !CRUD/bin/Debug/net6.0-windows/
 !CRUD/bin/Debug/net6.0-windows/usuarios.json
+!CRUD/bin/Debug/net6.0-windows/armas.xml
 # Creo que odio git
 # gracias https://theapache64.github.io/git-do-not-ignore/
