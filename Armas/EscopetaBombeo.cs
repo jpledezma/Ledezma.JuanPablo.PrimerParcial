@@ -19,7 +19,7 @@ namespace Armas
         public uint Capacidad
         {
             get { return this.capacidad; }
-            set { }
+            set { this.capacidad = value; }
         }
 
         public bool Amartillada
@@ -33,17 +33,21 @@ namespace Armas
             get { return new Stack<Cartucho>(this.cartuchosCargados); }
         }
 
-        public List<EAccesorioEscopeta> Accesorios
+        public EAccesorioEscopeta[] Accesorios
         {
-            get { return new List<EAccesorioEscopeta>(this.accesorios); }
+            get { return this.accesorios.ToArray(); }
+            set
+            {
+                this.AgregarAccesorios(value);
+            }
         }
         #endregion
 
         #region Constructores
-
-        public EscopetaBombeo()
+        public EscopetaBombeo() : base()
         {
-            
+            this.accesorios = new List<EAccesorioEscopeta> ();
+            this.cartuchosCargados = new Stack<Cartucho>();
         }
         public EscopetaBombeo(
                               string fabricante,
@@ -150,6 +154,20 @@ namespace Armas
             this.amartillada = false;
 
             return disparoExitoso;
+        }
+
+        private void AgregarAccesorios(EAccesorioEscopeta[] nuevosAccesorios)
+        {
+            this.pesoTotal = this.pesoBase;
+            this.accesorios = new List<EAccesorioEscopeta>();
+            foreach (EAccesorioEscopeta accesorio in nuevosAccesorios)
+            {
+                if (!this.accesorios.Contains(accesorio))
+                {
+                    this.accesorios.Add(accesorio);
+                    this.pesoTotal += 0.250;
+                }
+            }
         }
         #endregion
     }

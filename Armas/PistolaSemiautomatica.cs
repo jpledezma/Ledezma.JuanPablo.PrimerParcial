@@ -19,7 +19,11 @@ namespace Armas
         public uint CapacidadCargador
         {
             get { return this.capacidadCargador; }
-            set { }
+            set 
+            { 
+                this.capacidadCargador = value;
+                this.cargador = new Cargador(value, this.CalibreMunicion);
+            }
         }
 
         public bool SeguroActivo
@@ -32,17 +36,19 @@ namespace Armas
             get { return new Cargador(this.cargador); }
         }
 
-        public List<EAccesorioPistola> Accesorios
+        public EAccesorioPistola[] Accesorios
         {
-            get { return new List<EAccesorioPistola>(this.accesorios); }
+            get { return this.accesorios.ToArray(); }
+            set { this.AgregarAccesorios(value); }
         }
         #endregion
 
         #region Constructores
 
-        public PistolaSemiautomatica()
+        public PistolaSemiautomatica() : base()
         {
-            
+            this.cargador = new Cargador(0, EMunicion.ACP_380);
+            this.accesorios = new List<EAccesorioPistola>();
         }
         public PistolaSemiautomatica(
                             string fabricante,
@@ -79,15 +85,8 @@ namespace Armas
                 this.capacidadCargador = capacidadAmpliada;
                 this.cargador = new Cargador(capacidadAmpliada, calibreMunicion);
             }
-            
-            foreach(EAccesorioPistola a in accesorios)
-            {
-                if (!this.accesorios.Contains(a))
-                {
-                    this.accesorios.Add(a);
-                    base.pesoTotal += 0.250;
-                }
-            }
+
+            this.AgregarAccesorios(accesorios.ToArray());
         }
         #endregion
 
@@ -117,6 +116,21 @@ namespace Armas
         public override void Recargar(List<Cartucho> cartuchos)
         {
             this.cargador.AgregarCartucho(cartuchos);
+        }
+
+        // Tuve que agregar esto por la deserializacion xml
+        private void AgregarAccesorios(EAccesorioPistola[] nuevosAccesorios)
+        {
+            this.pesoTotal = this.pesoBase;
+            this.accesorios = new List<EAccesorioPistola>();
+            foreach (EAccesorioPistola accesorio in nuevosAccesorios)
+            {
+                if (!this.accesorios.Contains(accesorio))
+                {
+                    this.accesorios.Add(accesorio);
+                    this.pesoTotal += 0.250;
+                }
+            }
         }
 
         public bool CambiarSeguro()

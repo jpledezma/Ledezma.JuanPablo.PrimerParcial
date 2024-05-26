@@ -7,6 +7,7 @@ namespace Armas
     [XmlInclude(typeof(PistolaSemiautomatica))]
     [XmlInclude(typeof(FusilAsalto))]
     [XmlInclude(typeof(EscopetaBombeo))]
+    // Todo esto es un desastre por culpa del xml
     public abstract class ArmaDeFuego
     {
         private string fabricante;
@@ -22,17 +23,17 @@ namespace Armas
         public string Fabricante
         {
             get { return this.fabricante; }
-            set { }
+            set { this.fabricante = value; }
         }
         public string Modelo
         {
             get { return this.modelo; }
-            set { }
+            set { this.modelo = value; }
         }
         public string NumeroSerie
         {
             get { return this.numeroSerie; }
-            set { }
+            set { this.numeroSerie = FormatearNumeroSerie(value); }
         }
         public double Precio
         {
@@ -42,7 +43,11 @@ namespace Armas
         public double PesoBase
         {
             get { return this.pesoBase; }
-            set { }
+            set 
+            { 
+                this.pesoBase = value >= 0 ? value : 0;
+                this.pesoTotal = this.PesoBase;
+            }
         }
         public double PesoTotal
         {
@@ -51,19 +56,22 @@ namespace Armas
         public EMunicion CalibreMunicion
         {
             get { return this.calibreMunicion; }
-            set { }
+            set { this.calibreMunicion = value; }
         }
-        public List<EMaterial> MaterialesConstruccion
+        public EMaterial[] MaterialesConstruccion
         {
-            get { return new List<EMaterial>(this.materialesConstruccion); }
-            set { }
+            get { return this.materialesConstruccion.ToArray(); }
+            set { this.AgregarMaterialesConstruccion(value); }
         }
         #endregion
 
         #region Constructores
         protected ArmaDeFuego()
         {
-            
+            this.materialesConstruccion = new List<EMaterial>();
+            this.fabricante = "desconocido";
+            this.modelo = "desconocido";
+            this.numeroSerie = "desconocido";
         }
         public ArmaDeFuego(string fabricante, 
                            string modelo,
@@ -147,6 +155,18 @@ namespace Armas
             }
 
             return sb.ToString().ToUpper();
+        }
+
+        protected void AgregarMaterialesConstruccion(EMaterial[] nuevosMateriales)
+        {
+            this.materialesConstruccion = new List<EMaterial>();
+            foreach(EMaterial material in nuevosMateriales)
+            {
+                if (!this.materialesConstruccion.Contains(material))
+                {
+                    this.materialesConstruccion.Add(material);
+                }
+            }
         }
 
         public static string MostrarEnVisor(ArmaDeFuego arma)

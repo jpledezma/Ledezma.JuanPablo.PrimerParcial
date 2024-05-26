@@ -20,6 +20,11 @@ namespace Armas
             this.armas = new List<ArmaDeFuego>();
         }
 
+        public Armeria(List<ArmaDeFuego> armas)
+        {
+            this.armas = new List<ArmaDeFuego>(armas);
+        }
+
         public static Armeria operator +(Armeria armeria, ArmaDeFuego armaAgregada)
         {
             bool estaIncluida = false;

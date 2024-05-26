@@ -19,13 +19,17 @@ namespace Armas
         public uint CapacidadCargador
         {
             get { return this.capacidadCargador; }
-            set { }
+            set 
+            {
+                this.capacidadCargador = value;
+                this.cargador = new Cargador(this.capacidadCargador, this.CalibreMunicion);
+            }
         }
 
         public uint Cadencia
         {
             get { return this.cadencia;  }
-            set { }
+            set { this.cadencia = value; }
         }
 
         public EModoFusil ModoDisparo
@@ -39,17 +43,19 @@ namespace Armas
             get { return new Cargador(this.cargador); }
         }
 
-        public List<EAccesorioFusil> Accesorios
+        public EAccesorioFusil[] Accesorios
         {
-            get { return new List<EAccesorioFusil>(this.accesorios); }
+            get { return this.accesorios.ToArray(); }
+            set { this.AgregarAccesorios(value); }
         }
         #endregion
 
         #region Constructores
 
-        public FusilAsalto()
+        public FusilAsalto() : base()
         {
-            
+            this.cargador = new Cargador(0, EMunicion.WIN_308);
+            this.accesorios = new List<EAccesorioFusil>();
         }
         public FusilAsalto(
                            string fabricante,
@@ -156,6 +162,19 @@ namespace Armas
             }
 
             return true;
+        }
+        private void AgregarAccesorios(EAccesorioFusil[] nuevosAccesorios)
+        {
+            this.pesoTotal = this.pesoBase;
+            this.accesorios = new List<EAccesorioFusil>();
+            foreach (EAccesorioFusil accesorio in nuevosAccesorios)
+            {
+                if (!this.accesorios.Contains(accesorio))
+                {
+                    this.accesorios.Add(accesorio);
+                    this.pesoTotal += 0.250;
+                }
+            }
         }
         #endregion
     }

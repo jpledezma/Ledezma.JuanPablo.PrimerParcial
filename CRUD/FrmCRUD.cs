@@ -159,6 +159,7 @@ namespace CRUD
             try
             {
                 string path = this.ObtenerPathGuardar("json");
+                if (path == String.Empty) {  return;  }
                 this.SerializarJson(path);
             }
             catch (Exception ex)
@@ -172,13 +173,29 @@ namespace CRUD
         {
             try
             {
-                string path = this.ObtenerPathGuardar();
+                string path = this.ObtenerPathGuardar("xml");
+                if (path == String.Empty) { return; }
                 this.SerializarXml(path);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"No se pudo guardar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void deserializarXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string path = this.ObtenerPathCargar("xml");
+                if (path == String.Empty) { return; }
+                this.DeserializarXML(path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo cargar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.ActualizarVisor();
         }
         #endregion
 
@@ -255,6 +272,36 @@ namespace CRUD
             return path;
         }
 
+        private string ObtenerPathCargar(string extension = "")
+        {
+            string path = String.Empty;
+
+            using (OpenFileDialog fileDialog = new OpenFileDialog())
+            {
+                fileDialog.InitialDirectory = Application.StartupPath;
+
+                if (extension == "json")
+                {
+                    fileDialog.Filter = "Archivos json (*.json)|*.json|Todos los archivos (*.*)|*.*";
+                }
+                else if (extension == "xml")
+                {
+                    fileDialog.Filter = "Archivos xml (*.xml)|*.xml|Todos los archivos (*.*)|*.*";
+                }
+                else
+                {
+                    fileDialog.Filter = "Todos los archivos (*.*)|*.*";
+                }
+
+                if (fileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    path = fileDialog.FileName;
+                }
+            }
+
+            return path;
+        }
+
         private void SerializarJson(string path)
         {
             using (StreamWriter sw = new StreamWriter(path))
@@ -271,8 +318,19 @@ namespace CRUD
         {
             using (XmlTextWriter writer = new XmlTextWriter(path, Encoding.UTF8))
             {
-                XmlSerializer ser = new XmlSerializer((typeof(Armeria)));
-                ser.Serialize(writer, this.armeria);
+                XmlSerializer ser = new XmlSerializer((typeof(List<ArmaDeFuego>)));
+                ser.Serialize(writer, this.armeria.Armas);
+            }
+        }
+
+        private void DeserializarXML(string path)
+        {
+            using (XmlTextReader reader = new XmlTextReader(path))
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(List<ArmaDeFuego>));
+
+                List<ArmaDeFuego> armas = (List<ArmaDeFuego>)ser.Deserialize(reader);
+                this.armeria = new Armeria(armas);
             }
         }
         #endregion
