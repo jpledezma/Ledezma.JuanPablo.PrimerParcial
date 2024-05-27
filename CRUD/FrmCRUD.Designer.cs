@@ -188,7 +188,7 @@
             mnuBtnEscopeta.ForeColor = Color.Black;
             mnuBtnEscopeta.Name = "mnuBtnEscopeta";
             mnuBtnEscopeta.Size = new Size(198, 22);
-            mnuBtnEscopeta.Text = "Escopeta";
+            mnuBtnEscopeta.Text = "Escopeta de bombeo";
             mnuBtnEscopeta.Click += mnuBtnEscopeta_Click;
             // 
             // mnuBtnModificar

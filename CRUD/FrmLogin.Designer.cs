@@ -39,7 +39,7 @@
             // txtUsuario
             // 
             txtUsuario.BackColor = Color.FromArgb(224, 242, 241);
-            txtUsuario.Location = new Point(102, 188);
+            txtUsuario.Location = new Point(102, 165);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(141, 23);
             txtUsuario.TabIndex = 0;
@@ -48,7 +48,7 @@
             // txtClave
             // 
             txtClave.BackColor = Color.FromArgb(224, 242, 241);
-            txtClave.Location = new Point(102, 259);
+            txtClave.Location = new Point(102, 236);
             txtClave.Name = "txtClave";
             txtClave.PasswordChar = '*';
             txtClave.Size = new Size(141, 23);
@@ -60,18 +60,19 @@
             lblTitulo.AutoSize = true;
             lblTitulo.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitulo.ForeColor = Color.FromArgb(225, 225, 225);
-            lblTitulo.Location = new Point(77, 60);
+            lblTitulo.Location = new Point(35, 52);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(223, 32);
+            lblTitulo.Size = new Size(292, 64);
             lblTitulo.TabIndex = 2;
-            lblTitulo.Text = "Armería Don Pepe";
+            lblTitulo.Text = "Armería\r\n\"Dos tiros de un pájaro\"";
+            lblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
             lblUsuario.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblUsuario.ForeColor = Color.FromArgb(225, 225, 225);
-            lblUsuario.Location = new Point(102, 164);
+            lblUsuario.Location = new Point(102, 141);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(69, 21);
             lblUsuario.TabIndex = 3;
@@ -82,7 +83,7 @@
             lblClave.AutoSize = true;
             lblClave.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblClave.ForeColor = Color.FromArgb(225, 225, 225);
-            lblClave.Location = new Point(102, 235);
+            lblClave.Location = new Point(102, 212);
             lblClave.Name = "lblClave";
             lblClave.Size = new Size(96, 21);
             lblClave.TabIndex = 4;
@@ -94,7 +95,7 @@
             btnIngresar.FlatStyle = FlatStyle.Flat;
             btnIngresar.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnIngresar.ForeColor = Color.FromArgb(240, 240, 240);
-            btnIngresar.Location = new Point(126, 311);
+            btnIngresar.Location = new Point(127, 291);
             btnIngresar.Name = "btnIngresar";
             btnIngresar.Size = new Size(94, 37);
             btnIngresar.TabIndex = 5;
@@ -107,7 +108,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 40, 51);
-            ClientSize = new Size(385, 476);
+            ClientSize = new Size(385, 393);
             Controls.Add(btnIngresar);
             Controls.Add(lblClave);
             Controls.Add(lblUsuario);
