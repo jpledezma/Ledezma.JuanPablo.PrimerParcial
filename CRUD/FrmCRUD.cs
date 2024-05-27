@@ -16,7 +16,7 @@ using System.Xml.Serialization;
 namespace CRUD
 {
     // TODO
-    // generar diagrama de clases (cambiar a la vista completa full signature) - no hace falta de los formularios
+    // docstrings
     // README
 
     public partial class FrmCRUD : Form
