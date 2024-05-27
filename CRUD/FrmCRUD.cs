@@ -43,6 +43,7 @@ namespace CRUD
             InitializeComponent();
             this.armeria = new Armeria();
             this.mnuTxtDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            this.mnuCboOrdenar.SelectedIndex = 0;
         }
         public FrmCRUD(Usuario usuario) : this()
         {
@@ -159,14 +160,13 @@ namespace CRUD
             try
             {
                 string path = this.ObtenerPathGuardar("json");
-                if (path == String.Empty) {  return;  }
+                if (path == String.Empty) { return; }
                 this.SerializarJson(path);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"No se pudo guardar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void mnuBtnSerializarXml_Click(object sender, EventArgs e)
@@ -195,6 +195,35 @@ namespace CRUD
             {
                 MessageBox.Show($"No se pudo cargar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            this.ActualizarVisor();
+        }
+
+        private void mnuBtnOrdenar_Click(object sender, EventArgs e)
+        {
+            string propiedad = "";
+
+            if (sender == this.mnuBtnOrdenarCalibre)
+                propiedad = "calibre";
+
+            else if (sender == this.mnuBtnOrdenarFabricante)
+                propiedad = "fabricante";
+
+            if (sender == this.mnuBtnOrdenarNumeroSerie)
+                propiedad = "numero_serie";
+
+            else if (sender == this.mnuBtnOrdenarPeso)
+                propiedad = "peso";
+
+            if (sender == this.mnuBtnOrdenarPrecio)
+                propiedad = "precio";
+
+            else if (sender == this.mnuBtnOrdenarTipo)
+                propiedad = "tipo";
+
+            if (this.mnuCboOrdenar.Text == "Ascendente")
+                this.armeria.OrdenarArmeria(propiedad);
+            else if (this.mnuCboOrdenar.Text == "Descendente")
+                this.armeria.OrdenarArmeria(propiedad, true);
             this.ActualizarVisor();
         }
         #endregion
