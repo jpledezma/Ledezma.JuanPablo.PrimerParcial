@@ -48,7 +48,11 @@ namespace CRUD
 
         public Usuario()
         {
-
+            this._nombre = "desconocido";
+            this._apellido = "desconocido";
+            this._correo = "desconocido";
+            this._clave = "desconocido";
+            this._perfil = "desconocido";
         }
 
         public Usuario(string nombre, string apellido, string correo, string clave, string perfil, int legajo)

@@ -58,6 +58,7 @@
             mnuBtnOrdenarFabricante = new ToolStripMenuItem();
             mnuBtnOrdenarNumeroSerie = new ToolStripMenuItem();
             mnuCboOrdenar = new ToolStripComboBox();
+            mnuBtnRegistro = new ToolStripMenuItem();
             mnuMenuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
@@ -147,7 +148,7 @@
             // mnuMenuPrincipal
             // 
             mnuMenuPrincipal.BackColor = Color.FromArgb(150, 150, 165);
-            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar, mnuBtnVerDetalles, mnuTxtDatosLogin, mnuBtnGuardar, mnuBtnCargar, mnuBtnOrdenar, mnuCboOrdenar });
+            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar, mnuBtnVerDetalles, mnuTxtDatosLogin, mnuBtnGuardar, mnuBtnCargar, mnuBtnOrdenar, mnuCboOrdenar, mnuBtnRegistro });
             mnuMenuPrincipal.Location = new Point(0, 0);
             mnuMenuPrincipal.Name = "mnuMenuPrincipal";
             mnuMenuPrincipal.Size = new Size(1044, 27);
@@ -345,6 +346,15 @@
             mnuCboOrdenar.Name = "mnuCboOrdenar";
             mnuCboOrdenar.Size = new Size(121, 23);
             // 
+            // mnuBtnRegistro
+            // 
+            mnuBtnRegistro.Alignment = ToolStripItemAlignment.Right;
+            mnuBtnRegistro.ForeColor = Color.Black;
+            mnuBtnRegistro.Name = "mnuBtnRegistro";
+            mnuBtnRegistro.Size = new Size(78, 23);
+            mnuBtnRegistro.Text = "Ver registro";
+            mnuBtnRegistro.Click += mnuBtnRegistro_Click;
+            // 
             // FrmCRUD
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -402,5 +412,6 @@
         private ToolStripMenuItem mnuBtnOrdenarCalibre;
         private ToolStripMenuItem mnuBtnOrdenarFabricante;
         private ToolStripMenuItem mnuBtnOrdenarNumeroSerie;
+        private ToolStripMenuItem mnuBtnRegistro;
     }
 }

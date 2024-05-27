@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,38 +16,26 @@ using System.Xml.Serialization;
 namespace CRUD
 {
     // TODO
-    // serializar/deserializar objetos del visor
-    // ordenar visor
-    // crear un log de las acciones del usuario
-    // agregar visualizador para el log
     // generar diagrama de clases (cambiar a la vista completa full signature) - no hace falta de los formularios
     // README
-    // docstrings
 
-    /*
-     * fondo: 38, 40, 51
-     * azul oscuro: (2, 118, 170)
-     * azul medio: (3, 169, 244)
-     * azul claro: (0, 229, 255)
-     * verde oscuro: (53, 122, 56)
-     * verde medio: (76, 175, 80)
-     * verde claro: (139, 195, 74)
-     * indigo: (42, 62, 177)
-     * blanco-azul: (224, 242, 241)
-     */
     public partial class FrmCRUD : Form
     {
         private Armeria armeria;
+        private Usuario usuario;
 
+        #region Constructores
         public FrmCRUD()
         {
             InitializeComponent();
             this.armeria = new Armeria();
+            this.usuario = new Usuario();
             this.mnuTxtDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
             this.mnuCboOrdenar.SelectedIndex = 0;
         }
         public FrmCRUD(Usuario usuario) : this()
         {
+            this.usuario = usuario;
             string nombreUsuario;
             if (usuario is not null)
             {
@@ -57,7 +46,9 @@ namespace CRUD
                 nombreUsuario = "Usuario desconocido - ";
             }
             this.mnuTxtDatosLogin.Text = nombreUsuario + this.mnuTxtDatosLogin.Text;
+            this.RegistrarAccion("Inició sesión");
         }
+        #endregion
 
         #region Eventos
         private void FrmCRUD_FormClosing(object sender, FormClosingEventArgs e)
@@ -69,6 +60,7 @@ namespace CRUD
             {
                 e.Cancel = true;
             }
+            this.RegistrarAccion("Salió de la aplicación");
         }
         private void mnuBtnPistola_Click(object sender, EventArgs e)
         {
@@ -77,6 +69,7 @@ namespace CRUD
             if (resultado == DialogResult.OK)
                 this.armeria += frmAgregarPistola.PistolaCreada;
             this.ActualizarVisor();
+            this.RegistrarAccion($"Agregó {frmAgregarPistola.PistolaCreada} a la armería");
         }
 
         private void mnuBtnFusil_Click(object sender, EventArgs e)
@@ -86,6 +79,7 @@ namespace CRUD
             if (resultado == DialogResult.OK)
                 this.armeria += frmAgregarFusil.FusilCreado;
             this.ActualizarVisor();
+            this.RegistrarAccion($"Agregó {frmAgregarFusil.FusilCreado} a la armería");
         }
 
         private void mnuBtnEscopeta_Click(object sender, EventArgs e)
@@ -95,6 +89,7 @@ namespace CRUD
             if (resultado == DialogResult.OK)
                 this.armeria += frmAgregarEscopeta.EscopetaCreada;
             this.ActualizarVisor();
+            this.RegistrarAccion($"Agregó {frmAgregarEscopeta.EscopetaCreada} a la armería");
         }
 
         private void mnuBtnEliminar_Click(object sender, EventArgs e)
@@ -116,6 +111,7 @@ namespace CRUD
                 this.armeria -= armaSeleccionada;
             }
             this.ActualizarVisor();
+            this.RegistrarAccion($"Eliminó {armaSeleccionada} de la armería");
         }
 
         private void mnuBtnModificar_Click(object sender, EventArgs e)
@@ -141,6 +137,7 @@ namespace CRUD
             }
 
             this.ActualizarVisor();
+            this.RegistrarAccion($"Modificó {this.armeria.Armas[indiceSeleccionado]} en la armería");
         }
 
         private void mnuBtnVerDetalles_Click(object sender, EventArgs e)
@@ -162,6 +159,7 @@ namespace CRUD
                 string path = this.ObtenerPathGuardar("json");
                 if (path == String.Empty) { return; }
                 this.SerializarJson(path);
+                this.RegistrarAccion($"Guardó la lista actual de armas en formato .json en {path}");
             }
             catch (Exception ex)
             {
@@ -176,9 +174,11 @@ namespace CRUD
                 string path = this.ObtenerPathGuardar("xml");
                 if (path == String.Empty) { return; }
                 this.SerializarXml(path);
+                this.RegistrarAccion($"Guardó la lista actual de armas en formato .xml en {path}");
             }
             catch (Exception ex)
             {
+                this.RegistrarAccion($"Intentó guardar la lista actual de armas, pero ocurrió un error");
                 MessageBox.Show($"No se pudo guardar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -190,9 +190,11 @@ namespace CRUD
                 string path = this.ObtenerPathCargar("xml");
                 if (path == String.Empty) { return; }
                 this.DeserializarXML(path);
+                this.RegistrarAccion($"Cargó una lista de armas a la armería desde {path}");
             }
             catch (Exception ex)
             {
+                this.RegistrarAccion($"Intentó cargar una lista de armas, pero ocurrió un error");
                 MessageBox.Show($"No se pudo cargar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.ActualizarVisor();
@@ -225,6 +227,28 @@ namespace CRUD
             else if (this.mnuCboOrdenar.Text == "Descendente")
                 this.armeria.OrdenarArmeria(propiedad, true);
             this.ActualizarVisor();
+        }
+
+        private void mnuBtnRegistro_Click(object sender, EventArgs e)
+        {
+            string log = String.Empty;
+            try
+            {
+                string path = Application.StartupPath + "/usuarios.log";
+
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    log = sr.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo leer el archivo de registros {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            FrmLog frmLog = new FrmLog(log);
+            frmLog.Show();
         }
         #endregion
 
@@ -360,6 +384,29 @@ namespace CRUD
 
                 List<ArmaDeFuego> armas = (List<ArmaDeFuego>)ser.Deserialize(reader);
                 this.armeria = new Armeria(armas);
+            }
+        }
+
+        private void RegistrarAccion(string accion)
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}] ");
+                sb.Append($"Usuario {this.usuario.nombre} {this.usuario.apellido} ");
+                sb.Append(accion);
+                string log = sb.ToString();
+
+                string path = Application.StartupPath + "/usuarios.log";
+
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    sw.WriteLine(log);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al registrar la acción {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
