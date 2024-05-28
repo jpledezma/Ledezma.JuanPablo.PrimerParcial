@@ -176,9 +176,9 @@ namespace Armas
             sb.Append(String.Format("{0,-20}", arma.fabricante));
             sb.Append(String.Format("{0,-20}", arma.modelo));
             sb.Append(String.Format("{0,-20}", arma.numeroSerie));
-            sb.Append(String.Format("{0,-20}", $"{arma.pesoTotal} Kg"));
+            sb.Append(String.Format("{0,-20}", $"{arma.pesoTotal:N2} Kg"));
             sb.Append(String.Format("{0,-20}", $"{arma.calibreMunicion}"));
-            sb.Append(String.Format("{0,-20}", $"${arma.precio}"));
+            sb.Append(String.Format("{0,-20}", $"${arma.precio:N2}"));
 
             return sb.ToString();
         }
