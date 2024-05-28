@@ -11,12 +11,16 @@ incluyendo datos como el fabricante, modelo, precio, calibre, etc.
 El primer paso para acceder es ingresar los datos de acceso en un formulario login. Si las credenciales son correctas, 
 se continúa al formulario principal.
 
+![Login](./assets/Login.png)
+
 En el formulario principal se pueden agregar armas, modificarlas, eliminarlas, ver su información detallada, ordenar 
 los elementos, guardar el estado actual (serialización json o xml), cargar una lista de armas desde un archivo 
 (deserialización xml), y visualizar un registro de acciones de usuarios.
 
 Todas las acciones anteriormente mencionadas se pueden realizar desde un menú en la parte superior de la pantalla, 
 el cual también muestra información sobre la sesión actual (nombre de usuario y fecha).
+
+![CRUD](./assets/CRUD.png)
 
 ## Diagrama de clases
 El diagrama de clases es el siguiente:
