@@ -39,7 +39,12 @@ namespace Armas
         public EAccesorioPistola[] Accesorios
         {
             get { return this.accesorios.ToArray(); }
-            set { this.AgregarAccesorios(value); }
+            set 
+            {
+                this.accesorios = new List<EAccesorioPistola>();
+                base.pesoTotal = base.pesoBase;
+                this.AgregarAccesorios(value); 
+            }
         }
         #endregion
 
@@ -112,17 +117,14 @@ namespace Armas
             this.cargador.AgregarCartucho(cartuchos);
         }
 
-        // Tuve que agregar esto por la deserializacion xml
-        private void AgregarAccesorios(EAccesorioPistola[] nuevosAccesorios)
+        public void AgregarAccesorios(EAccesorioPistola[] nuevosAccesorios)
         {
-            this.pesoTotal = this.pesoBase;
-            this.accesorios = new List<EAccesorioPistola>();
             foreach (EAccesorioPistola accesorio in nuevosAccesorios)
             {
                 if (!this.accesorios.Contains(accesorio))
                 {
                     this.accesorios.Add(accesorio);
-                    this.pesoTotal += 0.250;
+                    base.pesoTotal += 0.100;
                 }
             }
         }

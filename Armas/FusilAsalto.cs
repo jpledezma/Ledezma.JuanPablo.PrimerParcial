@@ -46,7 +46,12 @@ namespace Armas
         public EAccesorioFusil[] Accesorios
         {
             get { return this.accesorios.ToArray(); }
-            set { this.AgregarAccesorios(value); }
+            set 
+            {
+                this.accesorios = new List<EAccesorioFusil>();
+                base.pesoTotal = base.pesoBase;
+                this.AgregarAccesorios(value); 
+            }
         }
         #endregion
 
@@ -90,14 +95,7 @@ namespace Armas
                           ) : this(fabricante, modelo, numeroSerie, pesoBase, calibreMunicion, materialesConstruccion, capacidadCargador, cadencia, precio)
         {
 
-            foreach (EAccesorioFusil a in accesorios)
-            {
-                if (!this.accesorios.Contains(a))
-                {
-                    this.accesorios.Add(a);
-                    base.pesoTotal += 0.250;
-                }
-            }
+            this.AgregarAccesorios(accesorios.ToArray());
         }
         #endregion
 
@@ -157,16 +155,14 @@ namespace Armas
 
             return true;
         }
-        private void AgregarAccesorios(EAccesorioFusil[] nuevosAccesorios)
+        public void AgregarAccesorios(EAccesorioFusil[] nuevosAccesorios)
         {
-            this.pesoTotal = this.pesoBase;
-            this.accesorios = new List<EAccesorioFusil>();
             foreach (EAccesorioFusil accesorio in nuevosAccesorios)
             {
                 if (!this.accesorios.Contains(accesorio))
                 {
                     this.accesorios.Add(accesorio);
-                    this.pesoTotal += 0.250;
+                    this.pesoTotal += 0.190;
                 }
             }
         }

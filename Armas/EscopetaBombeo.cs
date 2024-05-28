@@ -38,6 +38,8 @@ namespace Armas
             get { return this.accesorios.ToArray(); }
             set
             {
+                this.accesorios = new List<EAccesorioEscopeta>();
+                base.pesoTotal = base.pesoBase;
                 this.AgregarAccesorios(value);
             }
         }
@@ -156,10 +158,8 @@ namespace Armas
             return disparoExitoso;
         }
 
-        private void AgregarAccesorios(EAccesorioEscopeta[] nuevosAccesorios)
+        public void AgregarAccesorios(EAccesorioEscopeta[] nuevosAccesorios)
         {
-            this.pesoTotal = this.pesoBase;
-            this.accesorios = new List<EAccesorioEscopeta>();
             foreach (EAccesorioEscopeta accesorio in nuevosAccesorios)
             {
                 if (!this.accesorios.Contains(accesorio))
