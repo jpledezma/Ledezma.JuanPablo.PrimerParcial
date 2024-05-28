@@ -16,6 +16,30 @@ namespace Armas
             get { return new List<ArmaDeFuego>(armas); }
         }
 
+        public ArmaDeFuego this[int indice]
+        {
+            get
+            {
+                if (indice < 0 || indice > this.armas.Count - 1)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                return this.armas[indice];
+            }
+            set 
+            {
+                if (indice < 0 || indice > this.armas.Count - 1)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                // Sólo permite modificar un arma existente
+                if (this.armas[indice] == value)
+                {
+                    this.armas[indice] = value;
+                }
+            }
+        }
+
         public Armeria()
         {
             this.armas = new List<ArmaDeFuego>();

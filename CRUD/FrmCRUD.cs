@@ -15,10 +15,6 @@ using System.Xml.Serialization;
 
 namespace CRUD
 {
-    // TODO
-    // docstrings
-    // README
-
     public partial class FrmCRUD : Form
     {
         private Armeria armeria;
@@ -101,7 +97,7 @@ namespace CRUD
                 return;
             }
 
-            ArmaDeFuego armaSeleccionada = this.armeria.Armas[indiceSeleccionado];
+            ArmaDeFuego armaSeleccionada = this.armeria[indiceSeleccionado];
 
             DialogResult resultado;
 
@@ -123,21 +119,21 @@ namespace CRUD
                 return;
             }
 
-            if (this.armeria.Armas[indiceSeleccionado].GetType() == typeof(PistolaSemiautomatica))
+            if (this.armeria[indiceSeleccionado].GetType() == typeof(PistolaSemiautomatica))
             {
-                ModificarArma((PistolaSemiautomatica)this.armeria.Armas[indiceSeleccionado]);
+                ModificarArma((PistolaSemiautomatica)this.armeria[indiceSeleccionado]);
             }
-            else if (this.armeria.Armas[indiceSeleccionado].GetType() == typeof(FusilAsalto))
+            else if (this.armeria[indiceSeleccionado].GetType() == typeof(FusilAsalto))
             {
-                ModificarArma((FusilAsalto)this.armeria.Armas[indiceSeleccionado]);
+                ModificarArma((FusilAsalto)this.armeria[indiceSeleccionado]);
             }
-            else if (this.armeria.Armas[indiceSeleccionado].GetType() == typeof(EscopetaBombeo))
+            else if (this.armeria[indiceSeleccionado].GetType() == typeof(EscopetaBombeo))
             {
-                ModificarArma((EscopetaBombeo)this.armeria.Armas[indiceSeleccionado]);
+                ModificarArma((EscopetaBombeo)this.armeria[indiceSeleccionado]);
             }
 
             this.ActualizarVisor();
-            this.RegistrarAccion($"Modificó {this.armeria.Armas[indiceSeleccionado]} en la armería");
+            this.RegistrarAccion($"Modificó {this.armeria[indiceSeleccionado]} en la armería");
         }
 
         private void mnuBtnVerDetalles_Click(object sender, EventArgs e)
@@ -148,7 +144,7 @@ namespace CRUD
                 MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            FrmVerDetalles frmVerDetalles = new FrmVerDetalles(this.armeria.Armas[indiceSeleccionado]);
+            FrmVerDetalles frmVerDetalles = new FrmVerDetalles(this.armeria[indiceSeleccionado]);
             frmVerDetalles.Show();
         }
 
@@ -268,8 +264,7 @@ namespace CRUD
             DialogResult resultado = frmModificarPistola.ShowDialog();
             if (resultado == DialogResult.OK)
             {
-                this.armeria -= this.armeria.Armas[this.lstVisor.SelectedIndex];
-                this.armeria += frmModificarPistola.PistolaCreada;
+                this.armeria[this.lstVisor.SelectedIndex] = frmModificarPistola.PistolaCreada;
             }
         }
 
@@ -279,8 +274,7 @@ namespace CRUD
             DialogResult resultado = frmModificarFusil.ShowDialog();
             if (resultado == DialogResult.OK)
             {
-                this.armeria -= this.armeria.Armas[this.lstVisor.SelectedIndex];
-                this.armeria += frmModificarFusil.FusilCreado;
+                this.armeria[this.lstVisor.SelectedIndex] = frmModificarFusil.FusilCreado;
             }
         }
 
@@ -290,8 +284,7 @@ namespace CRUD
             DialogResult resultado = frmModificarEscopeta.ShowDialog();
             if (resultado == DialogResult.OK)
             {
-                this.armeria -= this.armeria.Armas[this.lstVisor.SelectedIndex];
-                this.armeria += frmModificarEscopeta.EscopetaCreada;
+                this.armeria[this.lstVisor.SelectedIndex] = frmModificarEscopeta.EscopetaCreada;
             }
         }
 
