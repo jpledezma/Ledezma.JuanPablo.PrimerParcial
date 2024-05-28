@@ -11,7 +11,6 @@
 public enum EAccesorioFusil
 {
     Bipode,
-    CargadorTambor,
     Correa,
     CulataPlegable,
     FrenoDeBoca,
@@ -21,7 +20,6 @@ public enum EAccesorioFusil
 }
 public enum EAccesorioPistola
 {
-    CargadorAmpliado,
     Linterna,
     MiraHolografica,
     MiraLaser,

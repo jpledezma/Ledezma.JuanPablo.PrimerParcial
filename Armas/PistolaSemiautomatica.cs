@@ -79,12 +79,6 @@ namespace Armas
                             List<EAccesorioPistola> accesorios
                             ) : this(fabricante, modelo, numeroSerie, pesoBase, calibreMunicion, materialesConstruccion, capacidadCargador, precio)
         {
-            if (accesorios.Contains(EAccesorioPistola.CargadorAmpliado))
-            {
-                uint capacidadAmpliada = (uint)(capacidadCargador * 1.5);
-                this.capacidadCargador = capacidadAmpliada;
-                this.cargador = new Cargador(capacidadAmpliada, calibreMunicion);
-            }
 
             this.AgregarAccesorios(accesorios.ToArray());
         }

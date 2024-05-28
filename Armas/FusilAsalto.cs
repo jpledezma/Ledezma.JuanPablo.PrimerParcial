@@ -89,12 +89,6 @@ namespace Armas
                            List<EAccesorioFusil> accesorios
                           ) : this(fabricante, modelo, numeroSerie, pesoBase, calibreMunicion, materialesConstruccion, capacidadCargador, cadencia, precio)
         {
-            // Aumentar la capacidad del cargador si contiene el accesorio "cargador ampliado"
-            if (accesorios.Contains(EAccesorioFusil.CargadorTambor))
-            {
-                this.capacidadCargador = 100;
-                this.cargador = new Cargador(100, calibreMunicion);
-            }
 
             foreach (EAccesorioFusil a in accesorios)
             {

@@ -23,6 +23,7 @@ namespace CRUD
         public FrmAgregarEscopeta()
         {
             InitializeComponent();
+            this.escopetaCreada = new EscopetaBombeo();
         }
 
         public FrmAgregarEscopeta(EscopetaBombeo escopeta) : this()

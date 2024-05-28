@@ -23,6 +23,7 @@ namespace CRUD
         public FrmAgregarPistola()
         {
             InitializeComponent();
+            this.pistolaCreada = new PistolaSemiautomatica();
         }
 
         public FrmAgregarPistola(PistolaSemiautomatica pistola) : this()
@@ -45,7 +46,6 @@ namespace CRUD
             }
 
             // Accesorios
-            if (chkCargadorAmpliado.Checked) accesorios.Add(EAccesorioPistola.CargadorAmpliado);
             if (chkLinterna.Checked) accesorios.Add(EAccesorioPistola.Linterna);
             if (chkMiraHolografica.Checked) accesorios.Add(EAccesorioPistola.MiraHolografica);
             if (chkMiraLaser.Checked) accesorios.Add(EAccesorioPistola.MiraLaser);
@@ -76,7 +76,6 @@ namespace CRUD
             this.txtCapacidadCargador.Enabled = false;
 
             this.txtCapacidadCargador.Text = this.pistolaCreada.CapacidadCargador.ToString();
-            if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.CargadorAmpliado)) this.chkCargadorAmpliado.Checked = true;
             if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.Linterna)) this.chkLinterna.Checked = true;
             if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.MiraHolografica)) this.chkMiraHolografica.Checked = true;
             if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.MiraLaser)) this.chkMiraLaser.Checked = true;

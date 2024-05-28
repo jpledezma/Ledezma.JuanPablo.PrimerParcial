@@ -23,6 +23,7 @@ namespace CRUD
         public FrmAgregarFusil()
         {
             InitializeComponent();
+            this.fusilCreado = new FusilAsalto();
         }
 
         public FrmAgregarFusil(FusilAsalto fusil) : this()
@@ -53,7 +54,6 @@ namespace CRUD
 
             // Accesorios
             if (chkBipode.Checked) accesorios.Add(EAccesorioFusil.Bipode);
-            if (chkCargadorTambor.Checked) accesorios.Add(EAccesorioFusil.CargadorTambor);
             if (chkCorrea.Checked) accesorios.Add(EAccesorioFusil.Correa);
             if (chkCulataPlegable.Checked) accesorios.Add(EAccesorioFusil.CulataPlegable);
             if (chkFrenoDeBoca.Checked) accesorios.Add(EAccesorioFusil.FrenoDeBoca);
@@ -90,7 +90,6 @@ namespace CRUD
             this.txtCapacidadCargador.Text = this.fusilCreado.CapacidadCargador.ToString();
             this.txtCadencia.Text = this.fusilCreado.Cadencia.ToString();
             if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.Bipode)) this.chkBipode.Checked = true;
-            if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.CargadorTambor)) this.chkCargadorTambor.Checked = true;
             if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.Correa)) this.chkCorrea.Checked = true;
             if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.CulataPlegable)) this.chkCulataPlegable.Checked = true;
             if (this.fusilCreado.Accesorios.Contains(EAccesorioFusil.FrenoDeBoca)) this.chkFrenoDeBoca.Checked = true;

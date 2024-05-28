@@ -31,17 +31,11 @@
             lblCapacidadCargador = new Label();
             txtCapacidadCargador = new TextBox();
             lblAccesorios = new Label();
-            chkCargadorAmpliado = new CheckBox();
             chkLinterna = new CheckBox();
             chkMiraHolografica = new CheckBox();
             chkMiraLaser = new CheckBox();
             chkSupresor = new CheckBox();
             SuspendLayout();
-            // 
-            // cboCalibre
-            // 
-            // No sé por qué el visual metió esto, pero lo tuve que sacar porque duplicaba los items de la combobox.
-            //cboCalibre.Items.AddRange(new object[] { EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g, EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g });
             // 
             // lblCapacidadCargador
             // 
@@ -73,22 +67,11 @@
             lblAccesorios.TabIndex = 40;
             lblAccesorios.Text = "Accesorios:";
             // 
-            // chkCargadorAmpliado
-            // 
-            chkCargadorAmpliado.AutoSize = true;
-            chkCargadorAmpliado.ForeColor = SystemColors.ButtonFace;
-            chkCargadorAmpliado.Location = new Point(230, 101);
-            chkCargadorAmpliado.Name = "chkCargadorAmpliado";
-            chkCargadorAmpliado.Size = new Size(130, 19);
-            chkCargadorAmpliado.TabIndex = 11;
-            chkCargadorAmpliado.Text = "Cargador Ampliado";
-            chkCargadorAmpliado.UseVisualStyleBackColor = true;
-            // 
             // chkLinterna
             // 
             chkLinterna.AutoSize = true;
             chkLinterna.ForeColor = SystemColors.ButtonFace;
-            chkLinterna.Location = new Point(230, 126);
+            chkLinterna.Location = new Point(230, 101);
             chkLinterna.Name = "chkLinterna";
             chkLinterna.Size = new Size(69, 19);
             chkLinterna.TabIndex = 12;
@@ -99,7 +82,7 @@
             // 
             chkMiraHolografica.AutoSize = true;
             chkMiraHolografica.ForeColor = SystemColors.ButtonFace;
-            chkMiraHolografica.Location = new Point(230, 151);
+            chkMiraHolografica.Location = new Point(230, 126);
             chkMiraHolografica.Name = "chkMiraHolografica";
             chkMiraHolografica.Size = new Size(113, 19);
             chkMiraHolografica.TabIndex = 13;
@@ -110,7 +93,7 @@
             // 
             chkMiraLaser.AutoSize = true;
             chkMiraLaser.ForeColor = SystemColors.ButtonFace;
-            chkMiraLaser.Location = new Point(230, 176);
+            chkMiraLaser.Location = new Point(230, 151);
             chkMiraLaser.Name = "chkMiraLaser";
             chkMiraLaser.Size = new Size(80, 19);
             chkMiraLaser.TabIndex = 14;
@@ -121,7 +104,7 @@
             // 
             chkSupresor.AutoSize = true;
             chkSupresor.ForeColor = SystemColors.ButtonFace;
-            chkSupresor.Location = new Point(230, 201);
+            chkSupresor.Location = new Point(230, 176);
             chkSupresor.Name = "chkSupresor";
             chkSupresor.Size = new Size(72, 19);
             chkSupresor.TabIndex = 15;
@@ -137,7 +120,6 @@
             Controls.Add(chkMiraLaser);
             Controls.Add(chkMiraHolografica);
             Controls.Add(chkLinterna);
-            Controls.Add(chkCargadorAmpliado);
             Controls.Add(lblAccesorios);
             Controls.Add(lblCapacidadCargador);
             Controls.Add(txtCapacidadCargador);
@@ -156,7 +138,6 @@
             Controls.SetChildIndex(txtCapacidadCargador, 0);
             Controls.SetChildIndex(lblCapacidadCargador, 0);
             Controls.SetChildIndex(lblAccesorios, 0);
-            Controls.SetChildIndex(chkCargadorAmpliado, 0);
             Controls.SetChildIndex(chkLinterna, 0);
             Controls.SetChildIndex(chkMiraHolografica, 0);
             Controls.SetChildIndex(chkMiraLaser, 0);
@@ -170,7 +151,6 @@
         private Label lblCapacidadCargador;
         private TextBox txtCapacidadCargador;
         private Label lblAccesorios;
-        private CheckBox chkCargadorAmpliado;
         private CheckBox chkLinterna;
         private CheckBox chkMiraHolografica;
         private CheckBox chkMiraLaser;

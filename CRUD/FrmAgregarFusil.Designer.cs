@@ -34,7 +34,6 @@
             chkMiraLaser = new CheckBox();
             chkMiraTelescopica = new CheckBox();
             chkLinterna = new CheckBox();
-            chkCargadorTambor = new CheckBox();
             lblAccesorios = new Label();
             chkCulataPlegable = new CheckBox();
             chkCorrea = new CheckBox();
@@ -42,11 +41,6 @@
             lblCadencia = new Label();
             txtCadencia = new TextBox();
             SuspendLayout();
-            // 
-            // cboCalibre
-            // 
-            // El visual metió de nuevo esto -_-
-            //cboCalibre.Items.AddRange(new object[] { EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g });
             // 
             // lblCapacidadCargador
             // 
@@ -71,7 +65,7 @@
             // 
             chkFrenoDeBoca.AutoSize = true;
             chkFrenoDeBoca.ForeColor = SystemColors.ButtonFace;
-            chkFrenoDeBoca.Location = new Point(230, 250);
+            chkFrenoDeBoca.Location = new Point(230, 225);
             chkFrenoDeBoca.Name = "chkFrenoDeBoca";
             chkFrenoDeBoca.Size = new Size(101, 19);
             chkFrenoDeBoca.TabIndex = 16;
@@ -82,7 +76,7 @@
             // 
             chkMiraLaser.AutoSize = true;
             chkMiraLaser.ForeColor = SystemColors.ButtonFace;
-            chkMiraLaser.Location = new Point(230, 300);
+            chkMiraLaser.Location = new Point(230, 275);
             chkMiraLaser.Name = "chkMiraLaser";
             chkMiraLaser.Size = new Size(80, 19);
             chkMiraLaser.TabIndex = 18;
@@ -93,7 +87,7 @@
             // 
             chkMiraTelescopica.AutoSize = true;
             chkMiraTelescopica.ForeColor = SystemColors.ButtonFace;
-            chkMiraTelescopica.Location = new Point(230, 325);
+            chkMiraTelescopica.Location = new Point(230, 300);
             chkMiraTelescopica.Name = "chkMiraTelescopica";
             chkMiraTelescopica.Size = new Size(112, 19);
             chkMiraTelescopica.TabIndex = 19;
@@ -104,23 +98,12 @@
             // 
             chkLinterna.AutoSize = true;
             chkLinterna.ForeColor = SystemColors.ButtonFace;
-            chkLinterna.Location = new Point(230, 275);
+            chkLinterna.Location = new Point(230, 250);
             chkLinterna.Name = "chkLinterna";
             chkLinterna.Size = new Size(69, 19);
             chkLinterna.TabIndex = 17;
             chkLinterna.Text = "Linterna";
             chkLinterna.UseVisualStyleBackColor = true;
-            // 
-            // chkCargadorTambor
-            // 
-            chkCargadorTambor.AutoSize = true;
-            chkCargadorTambor.ForeColor = SystemColors.ButtonFace;
-            chkCargadorTambor.Location = new Point(230, 175);
-            chkCargadorTambor.Name = "chkCargadorTambor";
-            chkCargadorTambor.Size = new Size(133, 19);
-            chkCargadorTambor.TabIndex = 13;
-            chkCargadorTambor.Text = "Cargador de tambor";
-            chkCargadorTambor.UseVisualStyleBackColor = true;
             // 
             // lblAccesorios
             // 
@@ -137,7 +120,7 @@
             // 
             chkCulataPlegable.AutoSize = true;
             chkCulataPlegable.ForeColor = SystemColors.ButtonFace;
-            chkCulataPlegable.Location = new Point(230, 225);
+            chkCulataPlegable.Location = new Point(230, 200);
             chkCulataPlegable.Name = "chkCulataPlegable";
             chkCulataPlegable.Size = new Size(108, 19);
             chkCulataPlegable.TabIndex = 15;
@@ -148,7 +131,7 @@
             // 
             chkCorrea.AutoSize = true;
             chkCorrea.ForeColor = SystemColors.ButtonFace;
-            chkCorrea.Location = new Point(230, 200);
+            chkCorrea.Location = new Point(230, 175);
             chkCorrea.Name = "chkCorrea";
             chkCorrea.Size = new Size(61, 19);
             chkCorrea.TabIndex = 14;
@@ -173,7 +156,7 @@
             lblCadencia.ForeColor = Color.FromArgb(225, 225, 225);
             lblCadencia.Location = new Point(230, 78);
             lblCadencia.Name = "lblCadencia";
-            lblCadencia.Size = new Size(75, 20);
+            lblCadencia.Size = new Size(123, 20);
             lblCadencia.TabIndex = 40;
             lblCadencia.Text = "Cadencia (DPM):";
             // 
@@ -199,7 +182,6 @@
             Controls.Add(chkMiraLaser);
             Controls.Add(chkMiraTelescopica);
             Controls.Add(chkLinterna);
-            Controls.Add(chkCargadorTambor);
             Controls.Add(lblAccesorios);
             Controls.Add(lblCapacidadCargador);
             Controls.Add(txtCapacidadCargador);
@@ -218,7 +200,6 @@
             Controls.SetChildIndex(txtCapacidadCargador, 0);
             Controls.SetChildIndex(lblCapacidadCargador, 0);
             Controls.SetChildIndex(lblAccesorios, 0);
-            Controls.SetChildIndex(chkCargadorTambor, 0);
             Controls.SetChildIndex(chkLinterna, 0);
             Controls.SetChildIndex(chkMiraTelescopica, 0);
             Controls.SetChildIndex(chkMiraLaser, 0);
@@ -240,7 +221,6 @@
         private CheckBox chkMiraLaser;
         private CheckBox chkMiraTelescopica;
         private CheckBox chkLinterna;
-        private CheckBox chkCargadorTambor;
         private Label lblAccesorios;
         private CheckBox chkCulataPlegable;
         private CheckBox chkCorrea;
