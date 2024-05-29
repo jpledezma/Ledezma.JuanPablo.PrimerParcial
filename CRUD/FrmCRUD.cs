@@ -56,7 +56,10 @@ namespace CRUD
             {
                 e.Cancel = true;
             }
-            this.RegistrarAccion("Salió de la aplicación");
+            else
+            {
+                this.RegistrarAccion("Salió de la aplicación");
+            }
         }
         private void mnuBtnPistola_Click(object sender, EventArgs e)
         {
