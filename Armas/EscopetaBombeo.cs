@@ -91,6 +91,11 @@ namespace Armas
         #endregion
 
         #region Metodos
+        /// <summary>
+        /// Si la escopeta está cargada y sin cartuchos en la recámara, inserta uno allí.<br></br>
+        /// Si está cargada y tiene un cartucho en la recámara, lo expulsa e inserta otro. <br></br>
+        /// Si no está cargada, no hace nada.
+        /// </summary>
         public void Amartillar()
         {
             if (this.cartuchosCargados.Count > 0)
@@ -111,6 +116,10 @@ namespace Armas
             }
         }
 
+        /// <summary>
+        /// Se inserta un cartucho en la escopeta, sólo si ésta tiene espacio disponible y es del mismo calibre que el cartucho.
+        /// </summary>
+        /// <param name="cartucho"></param>
         private void InsertarCartucho(Cartucho cartucho)
         {
             if (cartucho.Calibre == this.CalibreMunicion && this.cartuchosCargados.Count < this.capacidad)
@@ -139,6 +148,10 @@ namespace Armas
             }
         }
 
+        /// <summary>
+        /// Dispara si la escopeta tiene un cartucho en la recámara.
+        /// </summary>
+        /// <returns><b>true</b> si el disparo es exitoso. <b>false</b> si no se pudo efectuar.</returns>
         public override bool Disparar()
         {
             bool disparoExitoso;
@@ -158,6 +171,10 @@ namespace Armas
             return disparoExitoso;
         }
 
+        /// <summary>
+        /// Se toma un array de accesorios y se agregan al arma, sólo si ésta no los contiene.
+        /// </summary>
+        /// <param name="nuevosAccesorios"></param>
         public void AgregarAccesorios(EAccesorioEscopeta[] nuevosAccesorios)
         {
             foreach (EAccesorioEscopeta accesorio in nuevosAccesorios)

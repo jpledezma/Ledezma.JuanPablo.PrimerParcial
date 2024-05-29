@@ -110,6 +110,10 @@ namespace Armas
             this.cargador.AgregarCartucho(cartuchos);
         }
 
+        /// <summary>
+        /// Se dispara el fusil. Si el mismo está en módo ráfaga, se dispara 3 veces seguidas.
+        /// </summary>
+        /// <returns><b>true</b> si el disparo es exitoso. <b>false</b> si no se pudo efectuar.</returns>
         public override bool Disparar()
         {
             bool disparoExitoso;
@@ -132,6 +136,13 @@ namespace Armas
 
             return disparoExitoso;
         }
+
+        /// <summary>
+        /// Si el fusil está en modo automático, dispara constantemente durante el tiempo establecido, hasta que finalice o se quede sin munición.<br></br>
+        /// Si el fusil no está en modo automático, dispara una vez o una ráfaga de 3 disparos.
+        /// </summary>
+        /// <param name="segundos"></param>
+        /// <returns><b>true</b> si el disparo es exitoso. <b>false</b> si no se pudo efectuar.</returns>
         public bool Disparar(int segundos)
         {
             if (this.cargador.CartuchosCargados.Count == 0)
@@ -151,10 +162,16 @@ namespace Armas
             while (contador < totalDisparos && this.cargador.CartuchosCargados.Count > 0)
             {
                 this.Disparar();
+                contador++;
             }
 
             return true;
         }
+
+        /// <summary>
+        /// Se toma un array de accesorios y se agregan al arma, sólo si ésta no los contiene.
+        /// </summary>
+        /// <param name="nuevosAccesorios"></param>
         public void AgregarAccesorios(EAccesorioFusil[] nuevosAccesorios)
         {
             foreach (EAccesorioFusil accesorio in nuevosAccesorios)

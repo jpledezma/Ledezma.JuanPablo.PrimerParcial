@@ -90,6 +90,10 @@ namespace Armas
         #endregion
 
         #region Metodos
+        /// <summary>
+        /// Se efectua un disparo, solo si quedan cartuchos en el cargador y el seguro no está puesto.
+        /// </summary>
+        /// <returns><b>true</b> si el disparo es exitoso. <b>false</b> si no se pudo efectuar.</returns>
         public override bool Disparar()
         {
             bool disparoExitoso;
@@ -117,6 +121,10 @@ namespace Armas
             this.cargador.AgregarCartucho(cartuchos);
         }
 
+        /// <summary>
+        /// Se toma un array de accesorios y se agregan al arma, sólo si ésta no los contiene.
+        /// </summary>
+        /// <param name="nuevosAccesorios"></param>
         public void AgregarAccesorios(EAccesorioPistola[] nuevosAccesorios)
         {
             foreach (EAccesorioPistola accesorio in nuevosAccesorios)
@@ -129,6 +137,10 @@ namespace Armas
             }
         }
 
+        /// <summary>
+        /// Se pone el seguro a la pistola si no lo tiene puesto, y se saca si ya estaba activo.
+        /// </summary>
+        /// <returns><b>bool</b> El estado actual del seguro</returns>
         public bool CambiarSeguro()
         {
             if (this.seguroActivo == true)

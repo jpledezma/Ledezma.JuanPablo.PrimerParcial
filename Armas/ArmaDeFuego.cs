@@ -61,7 +61,11 @@ namespace Armas
         public EMaterial[] MaterialesConstruccion
         {
             get { return this.materialesConstruccion.ToArray(); }
-            set { this.AgregarMaterialesConstruccion(value); }
+            set 
+            {
+                this.materialesConstruccion = new List<EMaterial>();
+                this.AgregarMaterialesConstruccion(value); 
+            }
         }
         #endregion
 
@@ -86,17 +90,10 @@ namespace Armas
             this.pesoBase = pesoBase >= 0 ? pesoBase : 0;
             this.pesoTotal = this.pesoBase;
             this.calibreMunicion = calibreMunicion;
-            this.materialesConstruccion = new List<EMaterial>();
             this.precio = precio >= 0 ? precio : 0;
             this.numeroSerie = FormatearNumeroSerie(numeroSerie);
-
-            foreach (EMaterial material in materialesConstruccion)
-            {
-                if (!this.materialesConstruccion.Contains(material))
-                {
-                    this.materialesConstruccion.Add(material);
-                }
-            }
+            this.materialesConstruccion = new List<EMaterial>();
+            this.AgregarMaterialesConstruccion(materialesConstruccion.ToArray());
         }
         #endregion
 
@@ -122,8 +119,15 @@ namespace Armas
         #region Metodos
         public abstract bool Disparar();
 
+        /// <summary>
+        /// Se llena el arma con cartuchos genéricos de su mismo calibre.
+        /// </summary>
         public abstract void Recargar();
 
+        /// <summary>
+        /// Se toma una lista de cartuchos y se los agrega al arma, sólo si la misma tiene espacio y es del mismo calibre que los cartuchos.
+        /// </summary>
+        /// <param name="cartuchos"></param>
         public abstract void Recargar(List<Cartucho> cartuchos);
 
         public override bool Equals(object? obj)
@@ -142,6 +146,11 @@ namespace Armas
             return $"{this.GetType().Name} {this.fabricante} {this.modelo} {this.numeroSerie}";
         }
 
+        /// <summary>
+        /// Se toma el argumento ingresado y se eliminan los símbolos, dejando solo números y letras. Luego se pasa a maýuculas.
+        /// </summary>
+        /// <param name="numeroSerie">El texto a ser formateado</param>
+        /// <returns>Texto formateado.</returns>
         protected static string FormatearNumeroSerie(string numeroSerie)
         {
             char[] caracteresNumeroSerie = numeroSerie.ToArray();
@@ -157,9 +166,12 @@ namespace Armas
             return sb.ToString().ToUpper();
         }
 
+        /// <summary>
+        /// Se toma un array de materiales y se agregan a la lista de materiales del arma, eliminando redundancias.
+        /// </summary>
+        /// <param name="nuevosMateriales"></param>
         protected void AgregarMaterialesConstruccion(EMaterial[] nuevosMateriales)
         {
-            this.materialesConstruccion = new List<EMaterial>();
             foreach(EMaterial material in nuevosMateriales)
             {
                 if (!this.materialesConstruccion.Contains(material))
@@ -169,6 +181,11 @@ namespace Armas
             }
         }
 
+        /// <summary>
+        /// Se toma un arma y se genera un string con sus datos más importantes, cuyo formato es el del visor del CRUD.
+        /// </summary>
+        /// <param name="arma"></param>
+        /// <returns>Datos con el formato del visor.</returns>
         public static string MostrarEnVisor(ArmaDeFuego arma)
         {
             StringBuilder sb = new StringBuilder();

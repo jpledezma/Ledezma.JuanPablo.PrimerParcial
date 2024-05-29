@@ -57,6 +57,11 @@ namespace Armas
         #endregion
 
         #region Metodos
+
+        /// <summary>
+        /// Se agrega un cartucho al cargador, sólo si éste tiene espacio y es del mismo calibre que el cartucho.
+        /// </summary>
+        /// <param name="cartucho"></param>
         public void AgregarCartucho(Cartucho cartucho)
         {
             if (cartucho.Calibre == this.calibreMunicion && this.cartuchosCargados.Count < this.capacidad)
@@ -64,7 +69,11 @@ namespace Armas
                 this.cartuchosCargados.Push(cartucho);
             }
         }
-        
+
+        /// <summary>
+        /// Se agregan cartuchos de un mismo tipo al cargador, sólo si éste tiene espacio y es del mismo calibre que los cartuchos.
+        /// </summary>
+        /// <param name="cartucho"></param>
         public void AgregarCartucho(Cartucho cartucho, uint cantidad)
         {
             if (cartucho.Calibre != this.calibreMunicion)
@@ -80,6 +89,10 @@ namespace Armas
             }
         }
 
+        /// <summary>
+        /// Se agrega una lista de diferentes cartuchos al cargador, sólo si éste tiene espacio y es del mismo calibre que los cartuchos.
+        /// </summary>
+        /// <param name="cartucho"></param>
         public void AgregarCartucho(List<Cartucho> cartuchos)
         {
             foreach (Cartucho cartucho in cartuchos)
@@ -96,6 +109,9 @@ namespace Armas
             }
         }
 
+        /// <summary>
+        /// Se quita un cartucho del cargador, siempre y cuando éste no esté vacío.
+        /// </summary>
         public void QuitarCartucho()
         {
             if (this.cartuchosCargados.Count > 0)
@@ -104,6 +120,9 @@ namespace Armas
             }
         }
 
+        /// <summary>
+        /// Se quita una cantidad de cartuchos del cargador. Si dicha cantidad es mayor a la cantidad de cartuchos cargados, el cargador se vacía.
+        /// </summary>
         public void QuitarCartucho(int cantidad)
         {
             int contador = cantidad;
@@ -114,16 +133,26 @@ namespace Armas
             }
         }
 
+        /// <summary>
+        /// Se quitan todos los cartuchos del cargador.
+        /// </summary>
         public void Vaciar()
         {
             this.cartuchosCargados.Clear();
         }
 
+        /// <summary>
+        /// Se llena el cargador con cartuchos genéricos del mismo calibre.
+        /// </summary>
         public void Llenar()
         {
             this.AgregarCartucho(new Cartucho(this.calibreMunicion), this.capacidad);
         }
 
+        /// <summary>
+        /// Se llena el cargador con un tipo de cartucho especificado, siempre y cuando sean del mismo calibre que el cargador.
+        /// </summary>
+        /// <param name="cartucho"></param>
         public void Llenar(Cartucho cartucho)
         {
             this.AgregarCartucho(cartucho, this.capacidad);

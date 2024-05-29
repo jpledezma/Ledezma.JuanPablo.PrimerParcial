@@ -78,6 +78,11 @@ namespace Armas
             return armeria;
         }
 
+        /// <summary>
+        /// Se ordena la lista de armas con el método de burbuja, según el criterio de comparación elegido.
+        /// </summary>
+        /// <param name="propiedad"></param>
+        /// <param name="ordenInvertido"></param>
         public void OrdenarArmeria(string propiedad = "tipo", bool ordenInvertido = false)
         {
             // método de la burbuja, ineficiente pero sencillo
@@ -107,6 +112,17 @@ namespace Armas
             }
         }
 
+        /// <summary>
+        /// Se comparan 2 armas según la propiedad especificada.
+        /// 
+        /// </summary>
+        /// <param name="a1"></param>
+        /// <param name="a2"></param>
+        /// <param name="propiedad"></param>
+        /// <returns>
+        /// <b>true</b> si la propiedad numérica de a1 es mayor a la de a2, 
+        /// o si la propiedad string de a1 está después de la de a2 por orden alfabético
+        /// </returns>
         public static bool Comparar(ArmaDeFuego a1, ArmaDeFuego a2, string propiedad)
         {
             bool comparacion = false;

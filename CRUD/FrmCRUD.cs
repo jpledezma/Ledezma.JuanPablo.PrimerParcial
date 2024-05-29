@@ -288,6 +288,11 @@ namespace CRUD
             }
         }
 
+        /// <summary>
+        /// Se abre un SaveFileDialog para que el usuario elija el destino de guardado de un archivo.
+        /// </summary>
+        /// <param name="extension"></param>
+        /// <returns><br>string</br> El path del destino seleccionado.</returns>
         private string ObtenerPathGuardar(string extension = "")
         {
             string path = String.Empty;
@@ -318,6 +323,11 @@ namespace CRUD
             return path;
         }
 
+        /// <summary>
+        /// Se abre un OpenFileDialog para que el usuario elija el archivo que se va a cargar.
+        /// </summary>
+        /// <param name="extension"></param>
+        /// <returns><br>string</br> El path del archivo seleccionado.</returns>
         private string ObtenerPathCargar(string extension = "")
         {
             string path = String.Empty;
@@ -355,7 +365,8 @@ namespace CRUD
                 System.Text.Json.JsonSerializerOptions opciones = new System.Text.Json.JsonSerializerOptions();
                 opciones.WriteIndented = true;
 
-                var obj_json = System.Text.Json.JsonSerializer.Serialize((object[])this.armeria.Armas.ToArray(), opciones);
+                // Para serializar de manera polimórfica, se debe castear la lista a un array de tipo object
+                string obj_json = System.Text.Json.JsonSerializer.Serialize((object[])this.armeria.Armas.ToArray(), opciones);
                 sw.WriteLine(obj_json);
             }
         }
@@ -380,13 +391,17 @@ namespace CRUD
             }
         }
 
+        /// <summary>
+        /// Se escribe el archivo usuarios.log con la fecha actual y la acción realizada por el usuario.
+        /// </summary>
+        /// <param name="accion"></param>
         private void RegistrarAccion(string accion)
         {
             try
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}] ");
-                sb.Append($"Usuario {this.usuario.nombre} {this.usuario.apellido} ");
+                sb.Append($"Usuario [{this.usuario.nombre} {this.usuario.apellido} {this.usuario.correo}] ");
                 sb.Append(accion);
                 string log = sb.ToString();
 
