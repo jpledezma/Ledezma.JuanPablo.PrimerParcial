@@ -123,6 +123,7 @@
             Controls.Add(lblAccesorios);
             Controls.Add(lblCapacidadCargador);
             Controls.Add(txtCapacidadCargador);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "FrmAgregarPistola";
             Text = "Agregar Pistola Semiautomática";
             Controls.SetChildIndex(txtFabricante, 0);

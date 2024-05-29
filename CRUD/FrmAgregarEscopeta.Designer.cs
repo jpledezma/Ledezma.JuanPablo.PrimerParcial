@@ -40,11 +40,6 @@
             chkPortacartuchos = new CheckBox();
             SuspendLayout();
             // 
-            // cboCalibre
-            // 
-            // El visual metió de nuevo esto -_-
-            //cboCalibre.Items.AddRange(new object[] { EMunicion.ACP_380, EMunicion.ACP_45, EMunicion.AE_50, EMunicion.LC_45, EMunicion.LR_22, EMunicion.MAGNUM_44, EMunicion.MAGNUM_357, EMunicion.OTAN_5_56x45, EMunicion.PARABELLUM_9x19, EMunicion.REM_223, EMunicion.SOVIET_5_45X39, EMunicion.SOVIET_7_62X39, EMunicion.WIN_308, EMunicion.SHELL_12g, EMunicion.SHELL_10g, EMunicion.SHELL_20g });
-            // 
             // lblCapacidad
             // 
             lblCapacidad.AutoSize = true;
@@ -167,6 +162,7 @@
             Controls.Add(lblAccesorios);
             Controls.Add(lblCapacidad);
             Controls.Add(txtCapacidad);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "FrmAgregarEscopeta";
             Text = "Agregar escopeta de bombeo";
             Controls.SetChildIndex(txtFabricante, 0);

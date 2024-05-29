@@ -185,6 +185,7 @@
             Controls.Add(lblAccesorios);
             Controls.Add(lblCapacidadCargador);
             Controls.Add(txtCapacidadCargador);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "FrmAgregarFusil";
             Text = "Agregar fusil de asalto";
             Controls.SetChildIndex(txtFabricante, 0);

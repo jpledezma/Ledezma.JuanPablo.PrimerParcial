@@ -24,6 +24,7 @@ namespace CRUD
         {
             InitializeComponent();
             this.escopetaCreada = new EscopetaBombeo();
+            this.MaximizeBox = false;
         }
 
         public FrmAgregarEscopeta(EscopetaBombeo escopeta) : this()

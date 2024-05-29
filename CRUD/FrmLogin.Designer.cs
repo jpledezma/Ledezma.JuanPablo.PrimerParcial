@@ -34,6 +34,8 @@
             lblUsuario = new Label();
             lblClave = new Label();
             btnIngresar = new Button();
+            btnLimpiar = new Button();
+            btnAutocompletar = new Button();
             SuspendLayout();
             // 
             // txtUsuario
@@ -43,7 +45,6 @@
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(141, 23);
             txtUsuario.TabIndex = 0;
-            txtUsuario.Text = "sharris@maiden.com.uk";
             // 
             // txtClave
             // 
@@ -53,7 +54,6 @@
             txtClave.PasswordChar = '*';
             txtClave.Size = new Size(141, 23);
             txtClave.TabIndex = 1;
-            txtClave.Text = "eddie666";
             // 
             // lblTitulo
             // 
@@ -95,27 +95,59 @@
             btnIngresar.FlatStyle = FlatStyle.Flat;
             btnIngresar.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnIngresar.ForeColor = Color.FromArgb(240, 240, 240);
-            btnIngresar.Location = new Point(127, 291);
+            btnIngresar.Location = new Point(116, 281);
             btnIngresar.Name = "btnIngresar";
-            btnIngresar.Size = new Size(94, 37);
+            btnIngresar.Size = new Size(116, 37);
             btnIngresar.TabIndex = 5;
             btnIngresar.Text = "Ingresar";
             btnIngresar.UseVisualStyleBackColor = false;
             btnIngresar.Click += btnIngresar_Click;
+            // 
+            // btnLimpiar
+            // 
+            btnLimpiar.BackColor = Color.FromArgb(2, 118, 170);
+            btnLimpiar.FlatStyle = FlatStyle.Flat;
+            btnLimpiar.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnLimpiar.ForeColor = Color.FromArgb(240, 240, 240);
+            btnLimpiar.Location = new Point(116, 333);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new Size(116, 37);
+            btnLimpiar.TabIndex = 6;
+            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.UseVisualStyleBackColor = false;
+            btnLimpiar.Click += btnLimpiar_Click;
+            // 
+            // btnAutocompletar
+            // 
+            btnAutocompletar.BackColor = Color.FromArgb(2, 118, 170);
+            btnAutocompletar.FlatStyle = FlatStyle.Flat;
+            btnAutocompletar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAutocompletar.ForeColor = Color.FromArgb(240, 240, 240);
+            btnAutocompletar.Location = new Point(116, 385);
+            btnAutocompletar.Name = "btnAutocompletar";
+            btnAutocompletar.Size = new Size(116, 37);
+            btnAutocompletar.TabIndex = 7;
+            btnAutocompletar.Text = "Autocompletar";
+            btnAutocompletar.UseVisualStyleBackColor = false;
+            btnAutocompletar.Click += btnAutocompletar_Click;
             // 
             // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 40, 51);
-            ClientSize = new Size(385, 393);
+            ClientSize = new Size(385, 456);
+            Controls.Add(btnAutocompletar);
+            Controls.Add(btnLimpiar);
             Controls.Add(btnIngresar);
             Controls.Add(lblClave);
             Controls.Add(lblUsuario);
             Controls.Add(lblTitulo);
             Controls.Add(txtClave);
             Controls.Add(txtUsuario);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "FrmLogin";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             Load += FrmLogin_Load;
             ResumeLayout(false);
@@ -130,5 +162,7 @@
         private Label lblUsuario;
         private Label lblClave;
         private Button btnIngresar;
+        private Button btnLimpiar;
+        private Button btnAutocompletar;
     }
 }

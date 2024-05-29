@@ -64,7 +64,7 @@
             // 
             // lstVisor
             // 
-            lstVisor.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lstVisor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lstVisor.BackColor = Color.FromArgb(15, 15, 15);
             lstVisor.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
             lstVisor.ForeColor = Color.FromArgb(212, 189, 113);
@@ -72,7 +72,7 @@
             lstVisor.ItemHeight = 16;
             lstVisor.Location = new Point(12, 56);
             lstVisor.Name = "lstVisor";
-            lstVisor.Size = new Size(1020, 404);
+            lstVisor.Size = new Size(1020, 420);
             lstVisor.TabIndex = 9;
             // 
             // lblTipo

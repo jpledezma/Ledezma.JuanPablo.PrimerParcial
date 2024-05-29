@@ -24,6 +24,7 @@ namespace CRUD
         {
             InitializeComponent();
             this.fusilCreado = new FusilAsalto();
+            this.MaximizeBox = false;
         }
 
         public FrmAgregarFusil(FusilAsalto fusil) : this()

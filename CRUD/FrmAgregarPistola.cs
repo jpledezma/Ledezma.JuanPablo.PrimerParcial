@@ -24,6 +24,7 @@ namespace CRUD
         {
             InitializeComponent();
             this.pistolaCreada = new PistolaSemiautomatica();
+            this.MaximizeBox = false;
         }
 
         public FrmAgregarPistola(PistolaSemiautomatica pistola) : this()

@@ -14,6 +14,7 @@ namespace CRUD
         {
             InitializeComponent();
             this.usuarios = new List<Usuario>();
+            this.MaximizeBox = false;
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
@@ -46,6 +47,18 @@ namespace CRUD
 
             this.usuarioLogueado = this.usuarios[indiceUsuario];
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            this.txtClave.Clear();
+            this.txtUsuario.Clear();
+        }
+
+        private void btnAutocompletar_Click(object sender, EventArgs e)
+        {
+            this.txtUsuario.Text = "sharris@maiden.com.uk";
+            this.txtClave.Text = "eddie666";
         }
 
         private void LeerUsuarios()
