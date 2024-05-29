@@ -373,7 +373,7 @@
             ForeColor = SystemColors.ButtonFace;
             MainMenuStrip = mnuMenuPrincipal;
             Name = "FrmCRUD";
-            Text = "Principal";
+            Text = "Armeria";
             FormClosing += FrmCRUD_FormClosing;
             mnuMenuPrincipal.ResumeLayout(false);
             mnuMenuPrincipal.PerformLayout();

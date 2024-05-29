@@ -52,7 +52,7 @@
             ClientSize = new Size(874, 450);
             Controls.Add(txtVisorLog);
             Name = "FrmLog";
-            Text = "FrmLog";
+            Text = "Registro de usuarios";
             ResumeLayout(false);
         }
 
