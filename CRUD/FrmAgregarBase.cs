@@ -105,15 +105,7 @@ namespace CRUD
             if (arma.MaterialesConstruccion.Contains(EMaterial.Polimero))
                 this.chkPolimero.Checked = true;
 
-            this.txtFabricante.Enabled = false;
-            this.txtModelo.Enabled = false;
             this.txtNumeroSerie.Enabled = false;
-            this.txtPeso.Enabled = false;
-            this.cboCalibre.Enabled = false;
-            this.chkAcero.Enabled = false;
-            this.chkAluminio.Enabled = false;
-            this.chkMadera.Enabled = false;
-            this.chkPolimero.Enabled = false;
         }
     }
 }

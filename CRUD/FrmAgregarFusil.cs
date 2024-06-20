@@ -85,8 +85,6 @@ namespace CRUD
         protected override void LeerDatosArma(ArmaDeFuego arma)
         {
             base.LeerDatosArma(arma);
-            this.txtCapacidadCargador.Enabled = false;
-            this.txtCadencia.Enabled = false;
 
             this.txtCapacidadCargador.Text = this.fusilCreado.CapacidadCargador.ToString();
             this.txtCadencia.Text = this.fusilCreado.Cadencia.ToString();

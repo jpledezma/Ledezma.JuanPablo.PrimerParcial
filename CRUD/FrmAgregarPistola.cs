@@ -74,7 +74,6 @@ namespace CRUD
         protected override void LeerDatosArma(ArmaDeFuego arma)
         {
             base.LeerDatosArma(arma);
-            this.txtCapacidadCargador.Enabled = false;
 
             this.txtCapacidadCargador.Text = this.pistolaCreada.CapacidadCargador.ToString();
             if (this.pistolaCreada.Accesorios.Contains(EAccesorioPistola.Linterna)) this.chkLinterna.Checked = true;

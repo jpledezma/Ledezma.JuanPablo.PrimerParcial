@@ -77,7 +77,6 @@ namespace CRUD
         protected override void LeerDatosArma(ArmaDeFuego arma)
         {
             base.LeerDatosArma(arma);
-            this.txtCapacidad.Enabled = false;
 
             this.txtCapacidad.Text = this.escopetaCreada.Capacidad.ToString();
             if (this.escopetaCreada.Accesorios.Contains(EAccesorioEscopeta.Correa)) this.chkCorrea.Checked = true;
