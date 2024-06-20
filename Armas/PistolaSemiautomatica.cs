@@ -154,6 +154,38 @@ namespace Armas
 
             return this.seguroActivo;
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        #endregion
+
+        #region Sobrecarga de operadores
+        public static bool operator ==(PistolaSemiautomatica pistola1, PistolaSemiautomatica pistola2)
+        {
+            return (pistola1.NumeroSerie == pistola2.NumeroSerie);
+        }
+
+        public static bool operator !=(PistolaSemiautomatica pistola1, PistolaSemiautomatica pistola2)
+        {
+            return !(pistola1 == pistola2);
+        }
+
+        public static implicit operator string(PistolaSemiautomatica pistola)
+        {
+            return pistola.ToString();
+        }
         #endregion
     }
 }

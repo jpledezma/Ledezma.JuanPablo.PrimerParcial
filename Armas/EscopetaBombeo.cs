@@ -186,6 +186,38 @@ namespace Armas
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        #endregion
+
+        #region Sobrecarga de operadores
+        public static bool operator ==(EscopetaBombeo escopeta1, EscopetaBombeo escopeta2)
+        {
+            return (escopeta1.NumeroSerie == escopeta2.NumeroSerie);
+        }
+
+        public static bool operator !=(EscopetaBombeo escopeta1, EscopetaBombeo escopeta2)
+        {
+            return !(escopeta1 == escopeta2);
+        }
+
+        public static implicit operator string(EscopetaBombeo escopeta)
+        {
+            return escopeta.ToString();
+        }
         #endregion
     }
 }
