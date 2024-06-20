@@ -27,7 +27,8 @@ namespace CRUD
             this.armeria = new Armeria();
             this.usuario = new Usuario();
             this.mnuTxtDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
-            this.mnuCboOrdenar.SelectedIndex = 0;
+            this.mnuCboOrden.SelectedIndex = 0;
+            this.mnuCboCriterio.SelectedIndex = 0;
         }
         public FrmCRUD(Usuario usuario) : this()
         {
@@ -182,7 +183,7 @@ namespace CRUD
             }
         }
 
-        private void deserializarXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        private void mnuBtnDeserializarXml_Click(object sender, EventArgs e)
         {
             try
             {
@@ -201,29 +202,16 @@ namespace CRUD
 
         private void mnuBtnOrdenar_Click(object sender, EventArgs e)
         {
-            string propiedad = "";
+            string propiedad;
+            int indiceCriterio = this.mnuCboCriterio.SelectedIndex;
+            string[] criterios = { "calibre", "fabricante", "numero_serie",
+                                   "peso", "precio", "tipo"
+                                 };
+            propiedad = criterios[indiceCriterio];
 
-            if (sender == this.mnuBtnOrdenarCalibre)
-                propiedad = "calibre";
-
-            else if (sender == this.mnuBtnOrdenarFabricante)
-                propiedad = "fabricante";
-
-            if (sender == this.mnuBtnOrdenarNumeroSerie)
-                propiedad = "numero_serie";
-
-            else if (sender == this.mnuBtnOrdenarPeso)
-                propiedad = "peso";
-
-            if (sender == this.mnuBtnOrdenarPrecio)
-                propiedad = "precio";
-
-            else if (sender == this.mnuBtnOrdenarTipo)
-                propiedad = "tipo";
-
-            if (this.mnuCboOrdenar.Text == "Ascendente")
+            if (this.mnuCboOrden.Text == "Ascendente")
                 this.armeria.OrdenarArmeria(propiedad);
-            else if (this.mnuCboOrdenar.Text == "Descendente")
+            else if (this.mnuCboOrden.Text == "Descendente")
                 this.armeria.OrdenarArmeria(propiedad, true);
             this.ActualizarVisor();
         }

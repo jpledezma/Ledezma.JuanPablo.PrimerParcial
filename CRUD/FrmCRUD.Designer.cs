@@ -37,6 +37,13 @@
             lblCalibre = new Label();
             lblPrecio = new Label();
             mnuMenuPrincipal = new MenuStrip();
+            mnuArchivo = new ToolStripMenuItem();
+            mnuBtnGuardar = new ToolStripMenuItem();
+            mnuBtnSerializarJson = new ToolStripMenuItem();
+            mnuBtnSerializarXml = new ToolStripMenuItem();
+            mnuBtnCargar = new ToolStripMenuItem();
+            mnuBtnDeserializarXml = new ToolStripMenuItem();
+            mnuArma = new ToolStripMenuItem();
             mnuBtnAgregar = new ToolStripMenuItem();
             mnuBtnPistola = new ToolStripMenuItem();
             mnuBtnFusil = new ToolStripMenuItem();
@@ -45,19 +52,9 @@
             mnuBtnEliminar = new ToolStripMenuItem();
             mnuBtnVerDetalles = new ToolStripMenuItem();
             mnuTxtDatosLogin = new ToolStripTextBox();
-            mnuBtnGuardar = new ToolStripMenuItem();
-            mnuBtnSerializarJson = new ToolStripMenuItem();
-            mnuBtnSerializarXml = new ToolStripMenuItem();
-            mnuBtnCargar = new ToolStripMenuItem();
-            deserializarXMLToolStripMenuItem = new ToolStripMenuItem();
             mnuBtnOrdenar = new ToolStripMenuItem();
-            mnuBtnOrdenarTipo = new ToolStripMenuItem();
-            mnuBtnOrdenarPrecio = new ToolStripMenuItem();
-            mnuBtnOrdenarPeso = new ToolStripMenuItem();
-            mnuBtnOrdenarCalibre = new ToolStripMenuItem();
-            mnuBtnOrdenarFabricante = new ToolStripMenuItem();
-            mnuBtnOrdenarNumeroSerie = new ToolStripMenuItem();
-            mnuCboOrdenar = new ToolStripComboBox();
+            mnuCboCriterio = new ToolStripComboBox();
+            mnuCboOrden = new ToolStripComboBox();
             mnuBtnRegistro = new ToolStripMenuItem();
             mnuMenuPrincipal.SuspendLayout();
             SuspendLayout();
@@ -148,12 +145,71 @@
             // mnuMenuPrincipal
             // 
             mnuMenuPrincipal.BackColor = Color.FromArgb(150, 150, 165);
-            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar, mnuBtnVerDetalles, mnuTxtDatosLogin, mnuBtnGuardar, mnuBtnCargar, mnuBtnOrdenar, mnuCboOrdenar, mnuBtnRegistro });
+            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuArchivo, mnuArma, mnuBtnVerDetalles, mnuTxtDatosLogin, mnuBtnOrdenar, mnuCboCriterio, mnuCboOrden, mnuBtnRegistro });
             mnuMenuPrincipal.Location = new Point(0, 0);
             mnuMenuPrincipal.Name = "mnuMenuPrincipal";
             mnuMenuPrincipal.Size = new Size(1044, 27);
             mnuMenuPrincipal.TabIndex = 18;
             mnuMenuPrincipal.Text = "Menu principal";
+            // 
+            // mnuArchivo
+            // 
+            mnuArchivo.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnGuardar, mnuBtnCargar });
+            mnuArchivo.Name = "mnuArchivo";
+            mnuArchivo.Size = new Size(60, 23);
+            mnuArchivo.Text = "Archivo";
+            // 
+            // mnuBtnGuardar
+            // 
+            mnuBtnGuardar.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnGuardar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnSerializarJson, mnuBtnSerializarXml });
+            mnuBtnGuardar.ForeColor = Color.Black;
+            mnuBtnGuardar.Name = "mnuBtnGuardar";
+            mnuBtnGuardar.Size = new Size(116, 22);
+            mnuBtnGuardar.Text = "Guardar";
+            // 
+            // mnuBtnSerializarJson
+            // 
+            mnuBtnSerializarJson.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnSerializarJson.ForeColor = Color.Black;
+            mnuBtnSerializarJson.Name = "mnuBtnSerializarJson";
+            mnuBtnSerializarJson.Size = new Size(151, 22);
+            mnuBtnSerializarJson.Text = "Serializar JSON";
+            mnuBtnSerializarJson.Click += mnuBtnSerializarJson_Click;
+            // 
+            // mnuBtnSerializarXml
+            // 
+            mnuBtnSerializarXml.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnSerializarXml.ForeColor = Color.Black;
+            mnuBtnSerializarXml.Name = "mnuBtnSerializarXml";
+            mnuBtnSerializarXml.Size = new Size(151, 22);
+            mnuBtnSerializarXml.Text = "Serializar XML";
+            mnuBtnSerializarXml.Click += mnuBtnSerializarXml_Click;
+            // 
+            // mnuBtnCargar
+            // 
+            mnuBtnCargar.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnCargar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnDeserializarXml });
+            mnuBtnCargar.ForeColor = Color.Black;
+            mnuBtnCargar.Name = "mnuBtnCargar";
+            mnuBtnCargar.Size = new Size(116, 22);
+            mnuBtnCargar.Text = "Cargar";
+            // 
+            // mnuBtnDeserializarXml
+            // 
+            mnuBtnDeserializarXml.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnDeserializarXml.ForeColor = Color.Black;
+            mnuBtnDeserializarXml.Name = "mnuBtnDeserializarXml";
+            mnuBtnDeserializarXml.Size = new Size(160, 22);
+            mnuBtnDeserializarXml.Text = "Deserializar XML";
+            mnuBtnDeserializarXml.Click += mnuBtnDeserializarXml_Click;
+            // 
+            // mnuArma
+            // 
+            mnuArma.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar });
+            mnuArma.Name = "mnuArma";
+            mnuArma.Size = new Size(48, 23);
+            mnuArma.Text = "Arma";
             // 
             // mnuBtnAgregar
             // 
@@ -161,8 +217,8 @@
             mnuBtnAgregar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnPistola, mnuBtnFusil, mnuBtnEscopeta });
             mnuBtnAgregar.ForeColor = Color.Black;
             mnuBtnAgregar.Name = "mnuBtnAgregar";
-            mnuBtnAgregar.Size = new Size(93, 23);
-            mnuBtnAgregar.Text = "Agregar Arma";
+            mnuBtnAgregar.Size = new Size(125, 22);
+            mnuBtnAgregar.Text = "Agregar";
             // 
             // mnuBtnPistola
             // 
@@ -193,17 +249,19 @@
             // 
             // mnuBtnModificar
             // 
+            mnuBtnModificar.BackColor = Color.FromArgb(150, 150, 165);
             mnuBtnModificar.ForeColor = Color.Black;
             mnuBtnModificar.Name = "mnuBtnModificar";
-            mnuBtnModificar.Size = new Size(70, 23);
+            mnuBtnModificar.Size = new Size(125, 22);
             mnuBtnModificar.Text = "Modificar";
             mnuBtnModificar.Click += mnuBtnModificar_Click;
             // 
             // mnuBtnEliminar
             // 
+            mnuBtnEliminar.BackColor = Color.FromArgb(150, 150, 165);
             mnuBtnEliminar.ForeColor = Color.Black;
             mnuBtnEliminar.Name = "mnuBtnEliminar";
-            mnuBtnEliminar.Size = new Size(62, 23);
+            mnuBtnEliminar.Size = new Size(125, 22);
             mnuBtnEliminar.Text = "Eliminar";
             mnuBtnEliminar.Click += mnuBtnEliminar_Click;
             // 
@@ -230,121 +288,31 @@
             mnuTxtDatosLogin.Text = "datos-login";
             mnuTxtDatosLogin.TextBoxTextAlign = HorizontalAlignment.Center;
             // 
-            // mnuBtnGuardar
-            // 
-            mnuBtnGuardar.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnGuardar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnSerializarJson, mnuBtnSerializarXml });
-            mnuBtnGuardar.ForeColor = Color.Black;
-            mnuBtnGuardar.Name = "mnuBtnGuardar";
-            mnuBtnGuardar.Size = new Size(61, 23);
-            mnuBtnGuardar.Text = "Guardar";
-            // 
-            // mnuBtnSerializarJson
-            // 
-            mnuBtnSerializarJson.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnSerializarJson.ForeColor = Color.Black;
-            mnuBtnSerializarJson.Name = "mnuBtnSerializarJson";
-            mnuBtnSerializarJson.Size = new Size(151, 22);
-            mnuBtnSerializarJson.Text = "Serializar JSON";
-            mnuBtnSerializarJson.Click += mnuBtnSerializarJson_Click;
-            // 
-            // mnuBtnSerializarXml
-            // 
-            mnuBtnSerializarXml.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnSerializarXml.ForeColor = Color.Black;
-            mnuBtnSerializarXml.Name = "mnuBtnSerializarXml";
-            mnuBtnSerializarXml.Size = new Size(151, 22);
-            mnuBtnSerializarXml.Text = "Serializar XML";
-            mnuBtnSerializarXml.Click += mnuBtnSerializarXml_Click;
-            // 
-            // mnuBtnCargar
-            // 
-            mnuBtnCargar.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnCargar.DropDownItems.AddRange(new ToolStripItem[] { deserializarXMLToolStripMenuItem });
-            mnuBtnCargar.ForeColor = Color.Black;
-            mnuBtnCargar.Name = "mnuBtnCargar";
-            mnuBtnCargar.Size = new Size(54, 23);
-            mnuBtnCargar.Text = "Cargar";
-            // 
-            // deserializarXMLToolStripMenuItem
-            // 
-            deserializarXMLToolStripMenuItem.BackColor = Color.FromArgb(150, 150, 165);
-            deserializarXMLToolStripMenuItem.ForeColor = Color.Black;
-            deserializarXMLToolStripMenuItem.Name = "deserializarXMLToolStripMenuItem";
-            deserializarXMLToolStripMenuItem.Size = new Size(160, 22);
-            deserializarXMLToolStripMenuItem.Text = "Deserializar XML";
-            deserializarXMLToolStripMenuItem.Click += deserializarXMLToolStripMenuItem_Click;
-            // 
             // mnuBtnOrdenar
             // 
-            mnuBtnOrdenar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnOrdenarTipo, mnuBtnOrdenarPrecio, mnuBtnOrdenarPeso, mnuBtnOrdenarCalibre, mnuBtnOrdenarFabricante, mnuBtnOrdenarNumeroSerie });
             mnuBtnOrdenar.ForeColor = Color.Black;
             mnuBtnOrdenar.Name = "mnuBtnOrdenar";
             mnuBtnOrdenar.Size = new Size(90, 23);
             mnuBtnOrdenar.Text = "Ordenar visor";
+            mnuBtnOrdenar.Click += mnuBtnOrdenar_Click;
             // 
-            // mnuBtnOrdenarTipo
+            // mnuCboCriterio
             // 
-            mnuBtnOrdenarTipo.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnOrdenarTipo.ForeColor = Color.Black;
-            mnuBtnOrdenarTipo.Name = "mnuBtnOrdenarTipo";
-            mnuBtnOrdenarTipo.Size = new Size(180, 22);
-            mnuBtnOrdenarTipo.Text = "Por tipo";
-            mnuBtnOrdenarTipo.Click += mnuBtnOrdenar_Click;
+            mnuCboCriterio.BackColor = Color.FromArgb(180, 180, 198);
+            mnuCboCriterio.DropDownStyle = ComboBoxStyle.DropDownList;
+            mnuCboCriterio.FlatStyle = FlatStyle.Standard;
+            mnuCboCriterio.Items.AddRange(new object[] { "Calibre", "Fabricante", "Número de serie", "Peso", "Precio", "Tipo" });
+            mnuCboCriterio.Name = "mnuCboCriterio";
+            mnuCboCriterio.Size = new Size(121, 23);
             // 
-            // mnuBtnOrdenarPrecio
+            // mnuCboOrden
             // 
-            mnuBtnOrdenarPrecio.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnOrdenarPrecio.ForeColor = Color.Black;
-            mnuBtnOrdenarPrecio.Name = "mnuBtnOrdenarPrecio";
-            mnuBtnOrdenarPrecio.Size = new Size(180, 22);
-            mnuBtnOrdenarPrecio.Text = "Por precio";
-            mnuBtnOrdenarPrecio.Click += mnuBtnOrdenar_Click;
-            // 
-            // mnuBtnOrdenarPeso
-            // 
-            mnuBtnOrdenarPeso.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnOrdenarPeso.ForeColor = Color.Black;
-            mnuBtnOrdenarPeso.Name = "mnuBtnOrdenarPeso";
-            mnuBtnOrdenarPeso.Size = new Size(180, 22);
-            mnuBtnOrdenarPeso.Text = "Por peso";
-            mnuBtnOrdenarPeso.Click += mnuBtnOrdenar_Click;
-            // 
-            // mnuBtnOrdenarCalibre
-            // 
-            mnuBtnOrdenarCalibre.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnOrdenarCalibre.ForeColor = Color.Black;
-            mnuBtnOrdenarCalibre.Name = "mnuBtnOrdenarCalibre";
-            mnuBtnOrdenarCalibre.Size = new Size(180, 22);
-            mnuBtnOrdenarCalibre.Text = "Por calibre";
-            mnuBtnOrdenarCalibre.Click += mnuBtnOrdenar_Click;
-            // 
-            // mnuBtnOrdenarFabricante
-            // 
-            mnuBtnOrdenarFabricante.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnOrdenarFabricante.ForeColor = Color.Black;
-            mnuBtnOrdenarFabricante.Name = "mnuBtnOrdenarFabricante";
-            mnuBtnOrdenarFabricante.Size = new Size(180, 22);
-            mnuBtnOrdenarFabricante.Text = "Por fabricante";
-            mnuBtnOrdenarFabricante.Click += mnuBtnOrdenar_Click;
-            // 
-            // mnuBtnOrdenarNumeroSerie
-            // 
-            mnuBtnOrdenarNumeroSerie.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnOrdenarNumeroSerie.ForeColor = Color.Black;
-            mnuBtnOrdenarNumeroSerie.Name = "mnuBtnOrdenarNumeroSerie";
-            mnuBtnOrdenarNumeroSerie.Size = new Size(180, 22);
-            mnuBtnOrdenarNumeroSerie.Text = "Por número de serie";
-            mnuBtnOrdenarNumeroSerie.Click += mnuBtnOrdenar_Click;
-            // 
-            // mnuCboOrdenar
-            // 
-            mnuCboOrdenar.BackColor = Color.FromArgb(180, 180, 198);
-            mnuCboOrdenar.DropDownStyle = ComboBoxStyle.DropDownList;
-            mnuCboOrdenar.FlatStyle = FlatStyle.Standard;
-            mnuCboOrdenar.Items.AddRange(new object[] { "Ascendente", "Descendente" });
-            mnuCboOrdenar.Name = "mnuCboOrdenar";
-            mnuCboOrdenar.Size = new Size(121, 23);
+            mnuCboOrden.BackColor = Color.FromArgb(180, 180, 198);
+            mnuCboOrden.DropDownStyle = ComboBoxStyle.DropDownList;
+            mnuCboOrden.FlatStyle = FlatStyle.Standard;
+            mnuCboOrden.Items.AddRange(new object[] { "Ascendente", "Descendente" });
+            mnuCboOrden.Name = "mnuCboOrden";
+            mnuCboOrden.Size = new Size(121, 23);
             // 
             // mnuBtnRegistro
             // 
@@ -403,15 +371,12 @@
         private ToolStripMenuItem mnuBtnSerializarJson;
         private ToolStripMenuItem mnuBtnSerializarXml;
         private ToolStripMenuItem mnuBtnCargar;
-        private ToolStripMenuItem deserializarXMLToolStripMenuItem;
+        private ToolStripMenuItem mnuBtnDeserializarXml;
         private ToolStripMenuItem mnuBtnOrdenar;
-        private ToolStripMenuItem mnuBtnOrdenarTipo;
-        private ToolStripMenuItem mnuBtnOrdenarPrecio;
-        private ToolStripMenuItem mnuBtnOrdenarPeso;
-        private ToolStripComboBox mnuCboOrdenar;
-        private ToolStripMenuItem mnuBtnOrdenarCalibre;
-        private ToolStripMenuItem mnuBtnOrdenarFabricante;
-        private ToolStripMenuItem mnuBtnOrdenarNumeroSerie;
+        private ToolStripComboBox mnuCboOrden;
         private ToolStripMenuItem mnuBtnRegistro;
+        private ToolStripComboBox mnuCboCriterio;
+        private ToolStripMenuItem mnuArma;
+        private ToolStripMenuItem mnuArchivo;
     }
 }
