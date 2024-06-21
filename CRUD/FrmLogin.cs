@@ -57,8 +57,8 @@ namespace CRUD
 
         private void btnAutocompletar_Click(object sender, EventArgs e)
         {
-            this.txtUsuario.Text = "sharris@maiden.com.uk";
-            this.txtClave.Text = "eddie666";
+            this.txtUsuario.Text = "admin@admin.com";
+            this.txtClave.Text = "12345678";
         }
 
         private void LeerUsuarios()

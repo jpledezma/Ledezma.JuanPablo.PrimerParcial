@@ -24,6 +24,7 @@ namespace CRUD
         #region Constructores
         public FrmCRUD()
         {
+            // TODO agregar funciones a los perfiles
             InitializeComponent();
             this.armeria = new Armeria();
             this.usuario = new Usuario();
@@ -45,6 +46,7 @@ namespace CRUD
                 nombreUsuario = "Usuario desconocido - ";
             }
             this.mnuTxtDatosLogin.Text = nombreUsuario + this.mnuTxtDatosLogin.Text;
+            this.OcultarItemsMenu(usuario);
             this.RegistrarAccion("Inició sesión");
         }
         #endregion
@@ -457,6 +459,21 @@ namespace CRUD
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al registrar la acción {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void OcultarItemsMenu(Usuario usuario)
+        {
+            if (usuario.perfil == "supervisor")
+            {
+                this.mnuBtnEliminar.Visible = false;
+                this.mnuBtnRegistro.Visible = false;
+            }
+            else if (usuario.perfil == "vendedor")
+            {
+                this.mnuBtnRegistro.Visible = false;
+                this.mnuArma.Visible = false;
+                this.mnuBtnGuardar.Visible = false;
             }
         }
         #endregion
