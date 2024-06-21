@@ -165,7 +165,7 @@
             mnuBtnGuardar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnSerializarJson, mnuBtnSerializarXml });
             mnuBtnGuardar.ForeColor = Color.Black;
             mnuBtnGuardar.Name = "mnuBtnGuardar";
-            mnuBtnGuardar.Size = new Size(116, 22);
+            mnuBtnGuardar.Size = new Size(180, 22);
             mnuBtnGuardar.Text = "Guardar";
             // 
             // mnuBtnSerializarJson
@@ -192,7 +192,7 @@
             mnuBtnCargar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnDeserializarXml });
             mnuBtnCargar.ForeColor = Color.Black;
             mnuBtnCargar.Name = "mnuBtnCargar";
-            mnuBtnCargar.Size = new Size(116, 22);
+            mnuBtnCargar.Size = new Size(180, 22);
             mnuBtnCargar.Text = "Cargar";
             // 
             // mnuBtnDeserializarXml

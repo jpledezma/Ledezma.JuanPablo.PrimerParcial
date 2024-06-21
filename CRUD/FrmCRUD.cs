@@ -19,6 +19,7 @@ namespace CRUD
     {
         private Armeria armeria;
         private Usuario usuario;
+        private bool cambiosSinGuardar;
 
         #region Constructores
         public FrmCRUD()
@@ -29,6 +30,7 @@ namespace CRUD
             this.mnuTxtDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
             this.mnuCboOrden.SelectedIndex = 0;
             this.mnuCboCriterio.SelectedIndex = 0;
+            this.cambiosSinGuardar = false;
         }
         public FrmCRUD(Usuario usuario) : this()
         {
@@ -50,8 +52,9 @@ namespace CRUD
         #region Eventos
         private void FrmCRUD_FormClosing(object sender, FormClosingEventArgs e)
         {
+            string mensaje = "¿Seguro que desea salir de la aplicación?\nSe perderán todos los cambios sin guardar.";
             DialogResult respuesta;
-            respuesta = MessageBox.Show("¿Seguro que desea salir de la aplicación?", "Información", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            respuesta = MessageBox.Show(mensaje, "Información", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
             if (respuesta != DialogResult.Yes)
             {
@@ -67,9 +70,14 @@ namespace CRUD
             FrmAgregarPistola frmAgregarPistola = new FrmAgregarPistola();
             DialogResult resultado = frmAgregarPistola.ShowDialog();
             if (resultado == DialogResult.OK)
+            {
                 this.armeria += frmAgregarPistola.PistolaCreada;
-            this.ActualizarVisor();
-            this.RegistrarAccion($"Agregó {frmAgregarPistola.PistolaCreada} a la armería");
+                this.ActualizarVisor();
+                this.RegistrarAccion($"Agregó {frmAgregarPistola.PistolaCreada} a la armería");
+
+                this.Text += this.cambiosSinGuardar == false ? "*" : "";
+                this.cambiosSinGuardar = true;
+            }
         }
 
         private void mnuBtnFusil_Click(object sender, EventArgs e)
@@ -77,9 +85,14 @@ namespace CRUD
             FrmAgregarFusil frmAgregarFusil = new FrmAgregarFusil();
             DialogResult resultado = frmAgregarFusil.ShowDialog();
             if (resultado == DialogResult.OK)
+            {
                 this.armeria += frmAgregarFusil.FusilCreado;
-            this.ActualizarVisor();
-            this.RegistrarAccion($"Agregó {frmAgregarFusil.FusilCreado} a la armería");
+                this.ActualizarVisor();
+                this.RegistrarAccion($"Agregó {frmAgregarFusil.FusilCreado} a la armería");
+
+                this.Text += this.cambiosSinGuardar == false ? "*" : "";
+                this.cambiosSinGuardar = true;
+            }
         }
 
         private void mnuBtnEscopeta_Click(object sender, EventArgs e)
@@ -87,9 +100,14 @@ namespace CRUD
             FrmAgregarEscopeta frmAgregarEscopeta = new FrmAgregarEscopeta();
             DialogResult resultado = frmAgregarEscopeta.ShowDialog();
             if (resultado == DialogResult.OK)
+            {
                 this.armeria += frmAgregarEscopeta.EscopetaCreada;
-            this.ActualizarVisor();
-            this.RegistrarAccion($"Agregó {frmAgregarEscopeta.EscopetaCreada} a la armería");
+                this.ActualizarVisor();
+                this.RegistrarAccion($"Agregó {frmAgregarEscopeta.EscopetaCreada} a la armería");
+
+                this.Text += this.cambiosSinGuardar == false ? "*" : "";
+                this.cambiosSinGuardar = true;
+            }
         }
 
         private void mnuBtnEliminar_Click(object sender, EventArgs e)
@@ -109,9 +127,13 @@ namespace CRUD
             if (resultado == DialogResult.Yes)
             {
                 this.armeria -= armaSeleccionada;
+                this.ActualizarVisor();
+                this.RegistrarAccion($"Eliminó {armaSeleccionada} de la armería");
+
+                this.Text += this.cambiosSinGuardar == false ? "*" : "";
+                this.cambiosSinGuardar = true;
             }
-            this.ActualizarVisor();
-            this.RegistrarAccion($"Eliminó {armaSeleccionada} de la armería");
+            
         }
 
         private void mnuBtnModificar_Click(object sender, EventArgs e)
@@ -138,6 +160,9 @@ namespace CRUD
 
             this.ActualizarVisor();
             this.RegistrarAccion($"Modificó {this.armeria[indiceSeleccionado]} en la armería");
+
+            this.Text += this.cambiosSinGuardar == false ? "*" : "";
+            this.cambiosSinGuardar = true;
         }
 
         private void mnuBtnVerDetalles_Click(object sender, EventArgs e)
@@ -160,6 +185,9 @@ namespace CRUD
                 if (path == String.Empty) { return; }
                 this.SerializarJson(path);
                 this.RegistrarAccion($"Guardó la lista actual de armas en formato .json en {path}");
+
+                this.Text = this.Text.TrimEnd('*');
+                this.cambiosSinGuardar = false;
             }
             catch (Exception ex)
             {
@@ -175,6 +203,9 @@ namespace CRUD
                 if (path == String.Empty) { return; }
                 this.SerializarXml(path);
                 this.RegistrarAccion($"Guardó la lista actual de armas en formato .xml en {path}");
+
+                this.Text = this.Text.TrimEnd('*');
+                this.cambiosSinGuardar = false;
             }
             catch (Exception ex)
             {
@@ -185,6 +216,16 @@ namespace CRUD
 
         private void mnuBtnDeserializarXml_Click(object sender, EventArgs e)
         {
+            if (this.cambiosSinGuardar)
+            {
+                string mensaje = "Tiene cambios sin guardar.\n¿Desea continuar de todos modos?";
+                DialogResult respuesta;
+                respuesta = MessageBox.Show(mensaje, "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (respuesta == DialogResult.No)
+                {
+                    return;
+                }
+            }
             try
             {
                 string path = this.ObtenerPathCargar("xml");
@@ -198,10 +239,17 @@ namespace CRUD
                 MessageBox.Show($"No se pudo cargar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.ActualizarVisor();
+
+            this.Text = this.Text.TrimEnd('*');
+            this.cambiosSinGuardar = false;
         }
 
         private void mnuBtnOrdenar_Click(object sender, EventArgs e)
         {
+            if (this.armeria.Armas.Count == 0)
+            {
+                return;
+            }
             string propiedad;
             int indiceCriterio = this.mnuCboCriterio.SelectedIndex;
             string[] criterios = { "calibre", "fabricante", "numero_serie",
@@ -213,7 +261,10 @@ namespace CRUD
                 this.armeria.OrdenarArmeria(propiedad);
             else if (this.mnuCboOrden.Text == "Descendente")
                 this.armeria.OrdenarArmeria(propiedad, true);
+
             this.ActualizarVisor();
+            this.Text += this.cambiosSinGuardar == false ? "*" : "";
+            this.cambiosSinGuardar = true;
         }
 
         private void mnuBtnRegistro_Click(object sender, EventArgs e)
