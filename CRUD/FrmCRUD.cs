@@ -462,19 +462,20 @@ namespace CRUD
             }
         }
 
-        private void OcultarItemsMenu(Usuario usuario)
+        private void OcultarItemsMenu(Usuario? usuario)
         {
-            if (usuario.perfil == "supervisor")
-            {
-                this.mnuBtnEliminar.Visible = false;
-                this.mnuBtnRegistro.Visible = false;
-            }
-            else if (usuario.perfil == "vendedor")
+            if (usuario is null || usuario.perfil != "administrador" && usuario.perfil != "supervisor")
             {
                 this.mnuBtnRegistro.Visible = false;
                 this.mnuArma.Visible = false;
                 this.mnuBtnGuardar.Visible = false;
             }
+            else if (usuario.perfil == "supervisor")
+            {
+                this.mnuBtnEliminar.Visible = false;
+                this.mnuBtnRegistro.Visible = false;
+            }
+            
         }
         #endregion
     }
