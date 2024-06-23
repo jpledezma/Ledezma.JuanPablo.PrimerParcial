@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Armas
 {
-    public class Armeria
+    public class Armeria : IEnumerable<ArmaDeFuego>
     {
         private List<ArmaDeFuego> armas;
 
@@ -16,6 +16,7 @@ namespace Armas
             get { return new List<ArmaDeFuego>(armas); }
         }
 
+        // Indexador
         public ArmaDeFuego this[int indice]
         {
             get
@@ -40,6 +41,7 @@ namespace Armas
             }
         }
 
+        #region Constructores
         public Armeria()
         {
             this.armas = new List<ArmaDeFuego>();
@@ -49,6 +51,9 @@ namespace Armas
         {
             this.armas = new List<ArmaDeFuego>(armas);
         }
+        #endregion
+
+        #region Sobrecarga de operadores
 
         public static Armeria operator +(Armeria armeria, ArmaDeFuego armaAgregada)
         {
@@ -77,6 +82,9 @@ namespace Armas
             }
             return armeria;
         }
+        #endregion
+
+        #region Métodos
 
         /// <summary>
         /// Se ordena la lista de armas con el método de burbuja, según el criterio de comparación elegido.
@@ -156,5 +164,15 @@ namespace Armas
             }
             return comparacion;
         }
+
+        public IEnumerator<ArmaDeFuego> GetEnumerator()
+        {
+            return this.armas.GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+        #endregion
     }
 }

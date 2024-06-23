@@ -254,9 +254,15 @@ namespace CRUD
             }
             string propiedad;
             int indiceCriterio = this.mnuCboCriterio.SelectedIndex;
-            string[] criterios = { "calibre", "fabricante", "numero_serie",
-                                   "peso", "precio", "tipo"
+            string[] criterios = { 
+                                    "calibre",
+                                    "fabricante",
+                                    "numero_serie",
+                                    "peso", 
+                                    "precio", 
+                                    "tipo"
                                  };
+
             propiedad = criterios[indiceCriterio];
 
             if (this.mnuCboOrden.Text == "Ascendente")
@@ -296,7 +302,7 @@ namespace CRUD
         private void ActualizarVisor()
         {
             this.lstVisor.Items.Clear();
-            foreach (var arma in this.armeria.Armas)
+            foreach (var arma in this.armeria)
             {
                 this.lstVisor.Items.Add(ArmaDeFuego.MostrarEnVisor(arma));
             }
