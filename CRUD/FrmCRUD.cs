@@ -17,16 +17,15 @@ namespace CRUD
 {
     public partial class FrmCRUD : Form
     {
-        private Armeria armeria;
+        private Armeria<ArmaDeFuego> armeria;
         private Usuario usuario;
         private bool cambiosSinGuardar;
 
         #region Constructores
         public FrmCRUD()
         {
-            // TODO agregar funciones a los perfiles
             InitializeComponent();
-            this.armeria = new Armeria();
+            this.armeria = new Armeria<ArmaDeFuego>();
             this.usuario = new Usuario();
             this.mnuTxtDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
             this.mnuCboOrden.SelectedIndex = 0;
@@ -437,7 +436,7 @@ namespace CRUD
                 XmlSerializer ser = new XmlSerializer(typeof(List<ArmaDeFuego>));
 
                 List<ArmaDeFuego> armas = (List<ArmaDeFuego>)ser.Deserialize(reader);
-                this.armeria = new Armeria(armas);
+                this.armeria = new Armeria<ArmaDeFuego>(armas);
             }
         }
 

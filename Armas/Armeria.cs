@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace Armas
 {
-    public class Armeria : IEnumerable<ArmaDeFuego>
+    public class Armeria<T> : IEnumerable<T>
+        where T : ArmaDeFuego
     {
-        private List<ArmaDeFuego> armas;
+        private List<T> armas;
 
-        public List<ArmaDeFuego> Armas
+        public List<T> Armas
         {
-            get { return new List<ArmaDeFuego>(armas); }
+            get { return new List<T>(armas); }
         }
 
         // Indexador
-        public ArmaDeFuego this[int indice]
+        public T this[int indice]
         {
             get
             {
@@ -44,22 +45,22 @@ namespace Armas
         #region Constructores
         public Armeria()
         {
-            this.armas = new List<ArmaDeFuego>();
+            this.armas = new List<T>();
         }
 
-        public Armeria(List<ArmaDeFuego> armas)
+        public Armeria(List<T> armas)
         {
-            this.armas = new List<ArmaDeFuego>(armas);
+            this.armas = new List<T>(armas);
         }
         #endregion
 
         #region Sobrecarga de operadores
 
-        public static Armeria operator +(Armeria armeria, ArmaDeFuego armaAgregada)
+        public static Armeria<T> operator +(Armeria<T> armeria, T armaAgregada)
         {
             bool estaIncluida = false;
 
-            foreach(ArmaDeFuego arma in armeria.Armas)
+            foreach(T arma in armeria.Armas)
             {
                 if (armaAgregada == arma)
                 {
@@ -74,7 +75,7 @@ namespace Armas
             return armeria;
         }
 
-        public static Armeria operator -(Armeria armeria, ArmaDeFuego arma)
+        public static Armeria<T> operator -(Armeria<T> armeria, T arma)
         {
             if (armeria.armas.Contains(arma)) 
             {
@@ -93,25 +94,26 @@ namespace Armas
         /// <param name="ordenInvertido"></param>
         public void OrdenarArmeria(string propiedad = "tipo", bool ordenInvertido = false)
         {
-            // método de la burbuja, ineficiente pero sencillo
             for (int i = 0; i < this.armas.Count - 1; i++)
             {
                 for (int j = i + 1; j < this.armas.Count; j++)
                 {
                     if (!ordenInvertido)
                     {
+                        // swap
                         if (Comparar(this.armas[i], this.armas[j], propiedad))
                         {
-                            ArmaDeFuego aux = this.armas[j];
+                            T aux = this.armas[j];
                             this.armas[j] = this.armas[i];
                             this.armas[i] = aux;
                         }
                     }
                     else
                     {
+                        // swap
                         if (Comparar(this.armas[j], this.armas[i], propiedad))
                         {
-                            ArmaDeFuego aux = this.armas[j];
+                            T aux = this.armas[j];
                             this.armas[j] = this.armas[i];
                             this.armas[i] = aux;
                         }
@@ -131,7 +133,7 @@ namespace Armas
         /// <b>true</b> si la propiedad numérica de a1 es mayor a la de a2, 
         /// o si la propiedad string de a1 está después de la de a2 por orden alfabético
         /// </returns>
-        public static bool Comparar(ArmaDeFuego a1, ArmaDeFuego a2, string propiedad)
+        public static bool Comparar(T a1, T a2, string propiedad)
         {
             bool comparacion = false;
             switch (propiedad)
@@ -165,7 +167,7 @@ namespace Armas
             return comparacion;
         }
 
-        public IEnumerator<ArmaDeFuego> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             return this.armas.GetEnumerator();
         }
