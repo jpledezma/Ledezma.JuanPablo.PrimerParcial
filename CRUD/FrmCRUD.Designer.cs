@@ -56,6 +56,7 @@
             mnuCboCriterio = new ToolStripComboBox();
             mnuCboOrden = new ToolStripComboBox();
             mnuBtnRegistro = new ToolStripMenuItem();
+            mnuBtnGuardarDB = new ToolStripMenuItem();
             mnuMenuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
@@ -162,7 +163,7 @@
             // mnuBtnGuardar
             // 
             mnuBtnGuardar.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnGuardar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnSerializarJson, mnuBtnSerializarXml });
+            mnuBtnGuardar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnSerializarJson, mnuBtnSerializarXml, mnuBtnGuardarDB });
             mnuBtnGuardar.ForeColor = Color.Black;
             mnuBtnGuardar.Name = "mnuBtnGuardar";
             mnuBtnGuardar.Size = new Size(180, 22);
@@ -173,7 +174,7 @@
             mnuBtnSerializarJson.BackColor = Color.FromArgb(150, 150, 165);
             mnuBtnSerializarJson.ForeColor = Color.Black;
             mnuBtnSerializarJson.Name = "mnuBtnSerializarJson";
-            mnuBtnSerializarJson.Size = new Size(151, 22);
+            mnuBtnSerializarJson.Size = new Size(207, 22);
             mnuBtnSerializarJson.Text = "Serializar JSON";
             mnuBtnSerializarJson.Click += mnuBtnSerializarJson_Click;
             // 
@@ -182,7 +183,7 @@
             mnuBtnSerializarXml.BackColor = Color.FromArgb(150, 150, 165);
             mnuBtnSerializarXml.ForeColor = Color.Black;
             mnuBtnSerializarXml.Name = "mnuBtnSerializarXml";
-            mnuBtnSerializarXml.Size = new Size(151, 22);
+            mnuBtnSerializarXml.Size = new Size(207, 22);
             mnuBtnSerializarXml.Text = "Serializar XML";
             mnuBtnSerializarXml.Click += mnuBtnSerializarXml_Click;
             // 
@@ -323,6 +324,15 @@
             mnuBtnRegistro.Text = "Ver registro";
             mnuBtnRegistro.Click += mnuBtnRegistro_Click;
             // 
+            // mnuBtnGuardarDB
+            // 
+            mnuBtnGuardarDB.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnGuardarDB.ForeColor = Color.Black;
+            mnuBtnGuardarDB.Name = "mnuBtnGuardarDB";
+            mnuBtnGuardarDB.Size = new Size(207, 22);
+            mnuBtnGuardarDB.Text = "Guardar en base de datos";
+            mnuBtnGuardarDB.Click += mnuBtnGuardarDB_Click;
+            // 
             // FrmCRUD
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -378,5 +388,6 @@
         private ToolStripComboBox mnuCboCriterio;
         private ToolStripMenuItem mnuArma;
         private ToolStripMenuItem mnuArchivo;
+        private ToolStripMenuItem mnuBtnGuardarDB;
     }
 }

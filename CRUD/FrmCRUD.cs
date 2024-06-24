@@ -1,4 +1,5 @@
-﻿using Armas;
+﻿using ADO;
+using Armas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -134,7 +135,7 @@ namespace CRUD
                 this.Text += this.cambiosSinGuardar == false ? "*" : "";
                 this.cambiosSinGuardar = true;
             }
-            
+
         }
 
         private void mnuBtnModificar_Click(object sender, EventArgs e)
@@ -253,12 +254,12 @@ namespace CRUD
             }
             string propiedad;
             int indiceCriterio = this.mnuCboCriterio.SelectedIndex;
-            string[] criterios = { 
+            string[] criterios = {
                                     "calibre",
                                     "fabricante",
                                     "numero_serie",
-                                    "peso", 
-                                    "precio", 
+                                    "peso",
+                                    "precio",
                                     "tipo"
                                  };
 
@@ -480,8 +481,31 @@ namespace CRUD
                 this.mnuBtnEliminar.Visible = false;
                 this.mnuBtnRegistro.Visible = false;
             }
-            
+
         }
         #endregion
+
+        private void mnuBtnGuardarDB_Click(object sender, EventArgs e)
+        {
+            var ado = new AccesoDB();
+            if (ado.ProbarConexion())
+            {
+                MessageBox.Show("Funcionó");
+            }
+            else
+            {
+                MessageBox.Show("NO Funcionó");
+            }
+            StringBuilder sb = new StringBuilder();
+            var datos = ado.ObtenerListaDato();
+            foreach (var dato in datos)
+            {
+                sb.AppendLine();
+                this.armeria += dato;
+            }
+            //MessageBox.Show(sb.ToString());
+            this.ActualizarVisor();
+        }
+
     }
 }

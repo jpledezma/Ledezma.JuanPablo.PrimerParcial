@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Armas", "Armas\Armas.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUD", "CRUD\CRUD.csproj", "{EA86E216-5D74-43ED-825F-093C3289B07B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Municion", "Municion\Municion.csproj", "{4401E6D6-CF68-4373-B85A-CAE9EF9F9E34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Municion", "Municion\Municion.csproj", "{4401E6D6-CF68-4373-B85A-CAE9EF9F9E34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO", "ADO\ADO.csproj", "{99BCD589-2DB7-4883-ABAD-B58C12002526}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{4401E6D6-CF68-4373-B85A-CAE9EF9F9E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4401E6D6-CF68-4373-B85A-CAE9EF9F9E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4401E6D6-CF68-4373-B85A-CAE9EF9F9E34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99BCD589-2DB7-4883-ABAD-B58C12002526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99BCD589-2DB7-4883-ABAD-B58C12002526}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99BCD589-2DB7-4883-ABAD-B58C12002526}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99BCD589-2DB7-4883-ABAD-B58C12002526}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
