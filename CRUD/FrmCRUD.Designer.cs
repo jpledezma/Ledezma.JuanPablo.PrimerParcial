@@ -41,6 +41,7 @@
             mnuBtnGuardar = new ToolStripMenuItem();
             mnuBtnSerializarJson = new ToolStripMenuItem();
             mnuBtnSerializarXml = new ToolStripMenuItem();
+            mnuBtnGuardarDB = new ToolStripMenuItem();
             mnuBtnCargar = new ToolStripMenuItem();
             mnuBtnDeserializarXml = new ToolStripMenuItem();
             mnuArma = new ToolStripMenuItem();
@@ -56,7 +57,7 @@
             mnuCboCriterio = new ToolStripComboBox();
             mnuCboOrden = new ToolStripComboBox();
             mnuBtnRegistro = new ToolStripMenuItem();
-            mnuBtnGuardarDB = new ToolStripMenuItem();
+            mnuBtnCargarDB = new ToolStripMenuItem();
             mnuMenuPrincipal.SuspendLayout();
             SuspendLayout();
             // 
@@ -187,10 +188,19 @@
             mnuBtnSerializarXml.Text = "Serializar XML";
             mnuBtnSerializarXml.Click += mnuBtnSerializarXml_Click;
             // 
+            // mnuBtnGuardarDB
+            // 
+            mnuBtnGuardarDB.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnGuardarDB.ForeColor = Color.Black;
+            mnuBtnGuardarDB.Name = "mnuBtnGuardarDB";
+            mnuBtnGuardarDB.Size = new Size(207, 22);
+            mnuBtnGuardarDB.Text = "Guardar en base de datos";
+            mnuBtnGuardarDB.Click += mnuBtnGuardarDB_Click;
+            // 
             // mnuBtnCargar
             // 
             mnuBtnCargar.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnCargar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnDeserializarXml });
+            mnuBtnCargar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnDeserializarXml, mnuBtnCargarDB });
             mnuBtnCargar.ForeColor = Color.Black;
             mnuBtnCargar.Name = "mnuBtnCargar";
             mnuBtnCargar.Size = new Size(180, 22);
@@ -201,7 +211,7 @@
             mnuBtnDeserializarXml.BackColor = Color.FromArgb(150, 150, 165);
             mnuBtnDeserializarXml.ForeColor = Color.Black;
             mnuBtnDeserializarXml.Name = "mnuBtnDeserializarXml";
-            mnuBtnDeserializarXml.Size = new Size(160, 22);
+            mnuBtnDeserializarXml.Size = new Size(218, 22);
             mnuBtnDeserializarXml.Text = "Deserializar XML";
             mnuBtnDeserializarXml.Click += mnuBtnDeserializarXml_Click;
             // 
@@ -324,14 +334,14 @@
             mnuBtnRegistro.Text = "Ver registro";
             mnuBtnRegistro.Click += mnuBtnRegistro_Click;
             // 
-            // mnuBtnGuardarDB
+            // mnuBtnCargarDB
             // 
-            mnuBtnGuardarDB.BackColor = Color.FromArgb(150, 150, 165);
-            mnuBtnGuardarDB.ForeColor = Color.Black;
-            mnuBtnGuardarDB.Name = "mnuBtnGuardarDB";
-            mnuBtnGuardarDB.Size = new Size(207, 22);
-            mnuBtnGuardarDB.Text = "Guardar en base de datos";
-            mnuBtnGuardarDB.Click += mnuBtnGuardarDB_Click;
+            mnuBtnCargarDB.BackColor = Color.FromArgb(150, 150, 165);
+            mnuBtnCargarDB.ForeColor = Color.Black;
+            mnuBtnCargarDB.Name = "mnuBtnCargarDB";
+            mnuBtnCargarDB.Size = new Size(218, 22);
+            mnuBtnCargarDB.Text = "Cargar desde base de datos";
+            mnuBtnCargarDB.Click += mnuBtnCargarDB_Click;
             // 
             // FrmCRUD
             // 
@@ -389,5 +399,6 @@
         private ToolStripMenuItem mnuArma;
         private ToolStripMenuItem mnuArchivo;
         private ToolStripMenuItem mnuBtnGuardarDB;
+        private ToolStripMenuItem mnuBtnCargarDB;
     }
 }

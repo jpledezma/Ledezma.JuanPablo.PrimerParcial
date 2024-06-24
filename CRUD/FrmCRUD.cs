@@ -490,14 +490,48 @@ namespace CRUD
             var ado = new AccesoDB();
             if (ado.ProbarConexion())
             {
-                MessageBox.Show("Funcionó");
+                MessageBox.Show("Funcionó la conexión");
             }
             else
             {
-                MessageBox.Show("NO Funcionó");
+                MessageBox.Show("NO Funcionó la conexión");
+                return;
+            }
+
+            bool funciono = true;
+            foreach (ArmaDeFuego arma in this.armeria)
+            {
+                if (ado.AgregarArma(arma) == false)
+                {
+                    funciono = false;
+                    break;
+                }
+            }
+
+            if (funciono)
+            {
+                MessageBox.Show("Funcionó el guardado");
+            }
+            else
+            {
+                MessageBox.Show("NO Funcionó el guardado");
+            }
+        }
+
+        private void mnuBtnCargarDB_Click(object sender, EventArgs e)
+        {
+            var ado = new AccesoDB();
+            if (ado.ProbarConexion())
+            {
+                MessageBox.Show("Funcionó la conexión");
+            }
+            else
+            {
+                MessageBox.Show("NO Funcionó la conexión");
+                return;
             }
             StringBuilder sb = new StringBuilder();
-            var datos = ado.ObtenerListaDato();
+            var datos = ado.ObtenerListaArmas();
             foreach (var dato in datos)
             {
                 sb.AppendLine();
@@ -506,6 +540,5 @@ namespace CRUD
             //MessageBox.Show(sb.ToString());
             this.ActualizarVisor();
         }
-
     }
 }

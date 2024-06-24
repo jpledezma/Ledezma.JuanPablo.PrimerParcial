@@ -1,6 +1,7 @@
 ﻿using Armas;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Reflection.Emit;
 using System.Text.Json;
 
 namespace ADO
@@ -46,7 +47,7 @@ namespace ADO
             return rta;
         }
 
-        public List<ArmaDeFuego> ObtenerListaDato()
+        public List<ArmaDeFuego> ObtenerListaArmas()
         {
             List<ArmaDeFuego> listaArmas = new List<ArmaDeFuego>();
 
@@ -55,7 +56,7 @@ namespace ADO
                 this.comando = new SqlCommand();
 
                 this.comando.CommandType = CommandType.Text;
-                this.comando.CommandText = "SELECT id, Tipo, Fabricante, Modelo, NumeroSerie, PesoBase, CalibreMunicion, MaterialesConstruccion, Capacidad, Cadencia, Precio, Accesorios  FROM armeria";
+                this.comando.CommandText = "SELECT id, Tipo, Fabricante, Modelo, NumeroSerie, PesoBase, CalibreMunicion, MaterialesConstruccion, Capacidad, Cadencia, Precio, Accesorios FROM armeria";
                 this.comando.Connection = this.conexion;
 
                 this.conexion.Open();
@@ -82,6 +83,76 @@ namespace ADO
             }
 
             return listaArmas;
+        }
+
+        public bool AgregarArma(ArmaDeFuego arma)
+        {
+            bool rta = true;
+
+            try
+            {
+
+                this.comando = new SqlCommand();
+
+                this.comando.Parameters.AddWithValue("@Tipo", arma.GetType().Name);
+                this.comando.Parameters.AddWithValue("@Fabricante", arma.Fabricante);
+                this.comando.Parameters.AddWithValue("@Modelo", arma.Modelo);
+                this.comando.Parameters.AddWithValue("@NumeroSerie", arma.NumeroSerie);
+                this.comando.Parameters.AddWithValue("@PesoBase", arma.PesoBase.ToString());
+                this.comando.Parameters.AddWithValue("@Precio", arma.Precio.ToString());
+                this.comando.Parameters.AddWithValue("@CalibreMunicion", JsonSerializer.Serialize(arma.CalibreMunicion));
+                this.comando.Parameters.AddWithValue("@MaterialesConstruccion", JsonSerializer.Serialize(arma.MaterialesConstruccion));
+
+                if (arma.GetType().Name == typeof(PistolaSemiautomatica).Name)
+                {
+                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((PistolaSemiautomatica)arma).CapacidadCargador));
+                    this.comando.Parameters.AddWithValue("@Cadencia", 0);
+                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((PistolaSemiautomatica)arma).Accesorios));
+                }
+                else if (arma.GetType().Name == typeof(FusilAsalto).Name)
+                {
+                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((FusilAsalto)arma).CapacidadCargador));
+                    this.comando.Parameters.AddWithValue("@Cadencia", ((int)((FusilAsalto)arma).Cadencia));
+                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((FusilAsalto)arma).Accesorios));
+                }
+                else
+                {
+                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((EscopetaBombeo)arma).Capacidad));
+                    this.comando.Parameters.AddWithValue("@Cadencia", 0);
+                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((EscopetaBombeo)arma).Accesorios));
+                }
+
+                string sql = "INSERT INTO armeria ";
+                sql += "(Tipo, Fabricante, Modelo, NumeroSerie, PesoBase, CalibreMunicion, MaterialesConstruccion, Capacidad, Cadencia, Precio, Accesorios) ";
+                sql += "VALUES(@Tipo, @Fabricante, @Modelo, @NumeroSerie, @PesoBase, @CalibreMunicion, @MaterialesConstruccion, @Capacidad, @Cadencia, @Precio, @Accesorios)";
+
+                this.comando.CommandType = CommandType.Text;
+                this.comando.CommandText = sql;
+                this.comando.Connection = this.conexion;
+
+                this.conexion.Open();
+
+                int filasAfectadas = this.comando.ExecuteNonQuery();
+
+                if (filasAfectadas == 0)
+                {
+                    rta = false;
+                }
+
+            }
+            catch (Exception e)
+            {
+                rta = false;
+            }
+            finally
+            {
+                if (this.conexion.State == ConnectionState.Open)
+                {
+                    this.conexion.Close();
+                }
+            }
+
+            return rta;
         }
 
         private ArmaDeFuego CrearArma() 
