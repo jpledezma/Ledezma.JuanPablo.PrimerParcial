@@ -81,6 +81,11 @@ namespace Armas
             {
                 armeria.armas.Remove(arma);
             }
+            else
+            {
+                throw new Exception("El elemento que se quiere eliminar no existe en la armeria.");
+            }
+
             return armeria;
         }
         #endregion

@@ -130,9 +130,16 @@ namespace CRUD
             resultado = MessageBox.Show($"¿Seguro que desea eliminar el arma {armaSeleccionada}?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (resultado == DialogResult.Yes)
             {
-                this.armeria -= armaSeleccionada;
+                try
+                {
+                    this.armeria -= armaSeleccionada;
+                    this.RegistrarAccion($"Eliminó {armaSeleccionada} de la armería");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 this.ActualizarVisor();
-                this.RegistrarAccion($"Eliminó {armaSeleccionada} de la armería");
 
                 this.Text += this.cambiosSinGuardar == false ? "*" : "";
                 this.cambiosSinGuardar = true;
