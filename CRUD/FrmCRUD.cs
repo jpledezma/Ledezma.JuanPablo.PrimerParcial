@@ -18,6 +18,8 @@ namespace CRUD
 {
     public partial class FrmCRUD : Form
     {
+        // Agregar excepcion propia si se saca un arma que no existe a la armeria
+        // ICargadorExtraible: propeerty CArgador, Method Expulsar cargador (new Cargador(0)), Insertar cargador (new Cargador(Capacidad))
         private Armeria<ArmaDeFuego> armeria;
         private Usuario usuario;
         private bool cambiosSinGuardar;
