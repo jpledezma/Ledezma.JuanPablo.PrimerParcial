@@ -7,8 +7,7 @@ namespace Armas
     [XmlInclude(typeof(PistolaSemiautomatica))]
     [XmlInclude(typeof(FusilAsalto))]
     [XmlInclude(typeof(EscopetaBombeo))]
-    // Todo esto es un desastre por culpa del xml
-    public abstract class ArmaDeFuego
+    public abstract class ArmaDeFuego : IProductoArmeria
     {
         private string fabricante;
         private string modelo;
@@ -186,16 +185,16 @@ namespace Armas
         /// </summary>
         /// <param name="arma"></param>
         /// <returns>Datos con el formato del visor.</returns>
-        public static string MostrarEnVisor(ArmaDeFuego arma)
+        public string MostrarEnVisor()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("{0,-28}", arma.GetType().Name.ToString()));
-            sb.Append(String.Format("{0,-20}", arma.fabricante));
-            sb.Append(String.Format("{0,-20}", arma.modelo));
-            sb.Append(String.Format("{0,-20}", arma.numeroSerie));
-            sb.Append(String.Format("{0,-20}", $"{arma.pesoTotal:N2} Kg"));
-            sb.Append(String.Format("{0,-20}", $"{arma.calibreMunicion}"));
-            sb.Append(String.Format("{0,-20}", $"${arma.precio:N2}"));
+            sb.Append(String.Format("{0,-28}", this.GetType().Name.ToString()));
+            sb.Append(String.Format("{0,-20}", this.fabricante));
+            sb.Append(String.Format("{0,-20}", this.modelo));
+            sb.Append(String.Format("{0,-20}", this.numeroSerie));
+            sb.Append(String.Format("{0,-20}", $"{this.pesoTotal:N2} Kg"));
+            sb.Append(String.Format("{0,-20}", $"{this.calibreMunicion}"));
+            sb.Append(String.Format("{0,-20}", $"${this.precio:N2}"));
 
             return sb.ToString();
         }

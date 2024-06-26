@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Armas
 {
     public class Armeria<T> : IEnumerable<T>
-        where T : ArmaDeFuego
+        where T : IProductoArmeria
     {
         private List<T> armas;
 
@@ -35,7 +35,7 @@ namespace Armas
                     throw new IndexOutOfRangeException();
                 }
                 // Sólo permite modificar un arma existente
-                if (this.armas[indice] == value)
+                if (this.armas[indice].Equals(value))
                 {
                     this.armas[indice] = value;
                 }
@@ -62,7 +62,7 @@ namespace Armas
 
             foreach(T arma in armeria.Armas)
             {
-                if (armaAgregada == arma)
+                if (armaAgregada.Equals(arma))
                 {
                     estaIncluida = true;
                     break;
@@ -157,16 +157,25 @@ namespace Armas
                     if (a1.Fabricante.CompareTo(a2.Fabricante) == 1)
                         comparacion = true;
                     break;
-                case "calibre":
-                    if (a1.CalibreMunicion.CompareTo(a2.CalibreMunicion) == 1)
-                        comparacion = true;
-                    break;
                 case "numero_serie":
                     if (a1.NumeroSerie.CompareTo(a2.NumeroSerie) == 1)
                         comparacion = true;
                     break;
-                default:
-                    comparacion = false;
+                case "calibre":
+                    ArmaDeFuego? arma1 = a1 as ArmaDeFuego;
+                    ArmaDeFuego? arma2 = a2 as ArmaDeFuego;
+                    if (arma1 is null)
+                    {
+                        comparacion = false;
+                        break;
+                    }
+                    if (arma2 is null)
+                    {
+                        comparacion = true;
+                        break;
+                    }
+                    if (arma1.CalibreMunicion.CompareTo(arma2.CalibreMunicion) == 1)
+                        comparacion = true;
                     break;
             }
             return comparacion;
