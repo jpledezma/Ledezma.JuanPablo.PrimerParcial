@@ -22,17 +22,23 @@ namespace CRUD
         private Armeria<ArmaDeFuego> armeria;
         private Usuario usuario;
         private bool cambiosSinGuardar;
+        private List<ArmaDeFuego> armasModificadas;
+        private List<ArmaDeFuego> armasEliminadas;
+        bool cargadoDesdeDB;
 
         #region Constructores
         public FrmCRUD()
         {
             InitializeComponent();
             this.armeria = new Armeria<ArmaDeFuego>();
+            this.armasModificadas = new List<ArmaDeFuego>();
+            this.armasEliminadas = new List<ArmaDeFuego>();
             this.usuario = new Usuario();
             this.mnuTxtDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
             this.mnuCboOrden.SelectedIndex = 0;
             this.mnuCboCriterio.SelectedIndex = 0;
             this.cambiosSinGuardar = false;
+            this.cargadoDesdeDB = false;
         }
         public FrmCRUD(Usuario usuario) : this()
         {
@@ -133,6 +139,8 @@ namespace CRUD
                 {
                     this.armeria -= armaSeleccionada;
                     this.RegistrarAccion($"Eliminó {armaSeleccionada} de la armería");
+                    if (this.cargadoDesdeDB)
+                        this.armasEliminadas.Add(armaSeleccionada);
                 }
                 catch(Exception ex)
                 {
@@ -155,24 +163,31 @@ namespace CRUD
                 return;
             }
 
+            bool modificacion = false;
             if (this.armeria[indiceSeleccionado].GetType() == typeof(PistolaSemiautomatica))
             {
-                ModificarArma((PistolaSemiautomatica)this.armeria[indiceSeleccionado]);
+                modificacion = ModificarArma((PistolaSemiautomatica)this.armeria[indiceSeleccionado]);
             }
             else if (this.armeria[indiceSeleccionado].GetType() == typeof(FusilAsalto))
             {
-                ModificarArma((FusilAsalto)this.armeria[indiceSeleccionado]);
+                modificacion = ModificarArma((FusilAsalto)this.armeria[indiceSeleccionado]);
             }
             else if (this.armeria[indiceSeleccionado].GetType() == typeof(EscopetaBombeo))
             {
-                ModificarArma((EscopetaBombeo)this.armeria[indiceSeleccionado]);
+                modificacion = ModificarArma((EscopetaBombeo)this.armeria[indiceSeleccionado]);
             }
 
-            this.ActualizarVisor();
-            this.RegistrarAccion($"Modificó {this.armeria[indiceSeleccionado]} en la armería");
+            if (modificacion)
+            {
+                if(this.cargadoDesdeDB)
+                    this.armasModificadas.Add(this.armeria[indiceSeleccionado]);
 
-            this.Text += this.cambiosSinGuardar == false ? "*" : "";
-            this.cambiosSinGuardar = true;
+                this.RegistrarAccion($"Modificó {this.armeria[indiceSeleccionado]} en la armería");
+                this.Text += this.cambiosSinGuardar == false ? "*" : "";
+                this.cambiosSinGuardar = true;
+            }
+            
+            this.ActualizarVisor();
         }
 
         private void mnuBtnVerDetalles_Click(object sender, EventArgs e)
@@ -252,6 +267,7 @@ namespace CRUD
 
             this.Text = this.Text.TrimEnd('*');
             this.cambiosSinGuardar = false;
+            this.cargadoDesdeDB = false;
         }
 
         private void mnuBtnOrdenar_Click(object sender, EventArgs e)
@@ -316,34 +332,43 @@ namespace CRUD
             }
         }
 
-        private void ModificarArma(PistolaSemiautomatica pistola)
+        private bool ModificarArma(PistolaSemiautomatica pistola)
         {
+            bool armaModificada = false;
             FrmAgregarPistola frmModificarPistola = new FrmAgregarPistola(pistola);
             DialogResult resultado = frmModificarPistola.ShowDialog();
             if (resultado == DialogResult.OK)
             {
                 this.armeria[this.lstVisor.SelectedIndex] = frmModificarPistola.PistolaCreada;
+                armaModificada = true;
             }
+            return armaModificada;
         }
 
-        private void ModificarArma(FusilAsalto fusil)
+        private bool ModificarArma(FusilAsalto fusil)
         {
+            bool armaModificada = false;
             FrmAgregarFusil frmModificarFusil = new FrmAgregarFusil(fusil);
             DialogResult resultado = frmModificarFusil.ShowDialog();
             if (resultado == DialogResult.OK)
             {
                 this.armeria[this.lstVisor.SelectedIndex] = frmModificarFusil.FusilCreado;
+                armaModificada = true;
             }
+            return armaModificada;
         }
 
-        private void ModificarArma(EscopetaBombeo escopeta)
+        private bool ModificarArma(EscopetaBombeo escopeta)
         {
+            bool armaModificada = false;
             FrmAgregarEscopeta frmModificarEscopeta = new FrmAgregarEscopeta(escopeta);
             DialogResult resultado = frmModificarEscopeta.ShowDialog();
             if (resultado == DialogResult.OK)
             {
                 this.armeria[this.lstVisor.SelectedIndex] = frmModificarEscopeta.EscopetaCreada;
+                armaModificada = true;
             }
+            return armaModificada;
         }
 
         /// <summary>
@@ -508,31 +533,46 @@ namespace CRUD
 
             Armeria<ArmaDeFuego> armasEnDB = new Armeria<ArmaDeFuego>(ado.ObtenerListaArmas());
 
-            bool funciono = true;
+            // Sólo elimino/modifico armas si la lista fue cargada desde la DB, para evitar comportamiento no deseado
+            if (this.cargadoDesdeDB)
+            {
+                foreach (ArmaDeFuego arma in this.armasEliminadas)
+                {
+                    ado.EliminarArma(arma);
+                }
+                foreach (ArmaDeFuego arma in this.armasModificadas)
+                {
+                    ado.ModificarArma(arma);
+                }
+            }
+
             int armasAgregadas = 0;
+            int armasDuplicadas = 0;
+            int fallos = 0;
             foreach (ArmaDeFuego arma in this.armeria)
             {
                 if (armasEnDB.Armas.Contains(arma))
+                {
+                    armasDuplicadas++;
                     continue;
+                }
 
-                if (ado.AgregarArma(arma) == false)
-                    funciono = false;
-
-                armasAgregadas++;
+                if(ado.AgregarArma(arma) == true)
+                    armasAgregadas++;
+                else
+                    fallos++;
             }
 
-            if (funciono)
-            {
-                MessageBox.Show($"Los datos se guardaron exitosamente.\nArmas agregadas: {armasAgregadas}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.RegistrarAccion($"Actualizó la base de datos");
-                this.Text = this.Text.TrimEnd('*');
-                this.cambiosSinGuardar = false;
-            }
-            else
-            {
-                MessageBox.Show("No se pudo guardar uno o más registros.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.RegistrarAccion($"Intentó actualizar la base de datos, pero ocurrió un error");
-            }
+            string msj = "Se actualizó la base de datos.\n";
+            msj += $"Armas agregadas: {armasAgregadas}\n";
+            msj += $"Armas NO agregadas (duplicadas): {armasDuplicadas}\n";
+            msj += $"Armas NO agregadas (fallido): {fallos}\n";
+            msj += $"Armas modificadas: {this.armasModificadas.Count}\n";
+            msj += $"Armas eliminadas: {this.armasEliminadas.Count}";
+            MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.RegistrarAccion($"Actualizó la base de datos");
+            this.Text = this.Text.TrimEnd('*');
+            this.cambiosSinGuardar = false;
         }
 
         private void mnuBtnCargarDB_Click(object sender, EventArgs e)
@@ -560,6 +600,7 @@ namespace CRUD
             this.ActualizarVisor();
             this.Text = this.Text.TrimEnd('*');
             this.cambiosSinGuardar = false;
+            this.cargadoDesdeDB = true;
         }
 
         private bool ProbarConexion(AccesoDB ado)

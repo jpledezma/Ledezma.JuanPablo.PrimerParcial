@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Reflection.Emit;
+using System.Text;
 using System.Text.Json;
 
 namespace ADO
@@ -136,6 +137,125 @@ namespace ADO
 
             }
             catch (Exception e)
+            {
+                rta = false;
+            }
+            finally
+            {
+                if (this.conexion.State == ConnectionState.Open)
+                {
+                    this.conexion.Close();
+                }
+            }
+
+            return rta;
+        }
+
+        public bool EliminarArma(ArmaDeFuego arma)
+        {
+            bool rta = true;
+
+            try
+            {
+                this.comando = new SqlCommand();
+
+                this.comando.Parameters.AddWithValue("@NumeroSerie", arma.NumeroSerie);
+
+                string sql = "DELETE FROM armeria ";
+                sql += "WHERE NumeroSerie = @NumeroSerie";
+
+                this.comando.CommandType = CommandType.Text;
+                this.comando.CommandText = sql;
+                this.comando.Connection = this.conexion;
+
+                this.conexion.Open();
+
+                int filasAfectadas = this.comando.ExecuteNonQuery();
+
+                if (filasAfectadas == 0)
+                {
+                    rta = false;
+                }
+
+            }
+            catch (Exception)
+            {
+                rta = false;
+            }
+            finally
+            {
+                if (this.conexion.State == ConnectionState.Open)
+                {
+                    this.conexion.Close();
+                }
+            }
+
+            return rta;
+        }
+
+        public bool ModificarArma(ArmaDeFuego arma)
+        {
+            bool rta = true;
+
+            try
+            {
+                this.comando = new SqlCommand();
+
+                this.comando.Parameters.AddWithValue("@Fabricante", arma.Fabricante);
+                this.comando.Parameters.AddWithValue("@Modelo", arma.Modelo);
+                this.comando.Parameters.AddWithValue("@NumeroSerie", arma.NumeroSerie);
+                this.comando.Parameters.AddWithValue("@PesoBase", arma.PesoBase.ToString());
+                this.comando.Parameters.AddWithValue("@Precio", arma.Precio.ToString());
+                this.comando.Parameters.AddWithValue("@CalibreMunicion", JsonSerializer.Serialize(arma.CalibreMunicion));
+                this.comando.Parameters.AddWithValue("@MaterialesConstruccion", JsonSerializer.Serialize(arma.MaterialesConstruccion));
+
+                if (arma.GetType().Name == typeof(PistolaSemiautomatica).Name)
+                {
+                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((PistolaSemiautomatica)arma).CapacidadCargador));
+                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((PistolaSemiautomatica)arma).Accesorios));
+                    this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
+                }
+                else if (arma.GetType().Name == typeof(FusilAsalto).Name)
+                {
+                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((FusilAsalto)arma).CapacidadCargador));
+                    this.comando.Parameters.AddWithValue("@Cadencia", ((int)((FusilAsalto)arma).Cadencia));
+                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((FusilAsalto)arma).Accesorios));
+                }
+                else
+                {
+                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((EscopetaBombeo)arma).Capacidad));
+                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((EscopetaBombeo)arma).Accesorios));
+                    this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
+                }
+
+                StringBuilder sql = new StringBuilder();
+                sql.Append("UPDATE armeria SET ");
+                sql.Append("Fabricante = @Fabricante, ");
+                sql.Append("Modelo = @Modelo, ");
+                sql.Append("PesoBase = @PesoBase, ");
+                sql.Append("Precio = @Precio, ");
+                sql.Append("CalibreMunicion = @CalibreMunicion, ");
+                sql.Append("MaterialesConstruccion = @MaterialesConstruccion, ");
+                sql.Append("Capacidad = @Capacidad, ");
+                sql.Append("Accesorios = @Accesorios, ");
+                sql.Append("Cadencia = @Cadencia ");
+                sql.Append("WHERE NumeroSerie = @NumeroSerie");
+
+                this.comando.CommandType = CommandType.Text;
+                this.comando.CommandText = sql.ToString();
+                this.comando.Connection = this.conexion;
+
+                this.conexion.Open();
+
+                int filasAfectadas = this.comando.ExecuteNonQuery();
+
+                if (filasAfectadas == 0)
+                {
+                    rta = false;
+                }
+
+            }
+            catch (Exception)
             {
                 rta = false;
             }
