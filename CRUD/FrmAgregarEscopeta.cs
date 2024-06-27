@@ -31,6 +31,7 @@ namespace CRUD
         {
             this.escopetaCreada = escopeta;
             this.LeerDatosArma(escopeta);
+            this.Text = "Modificar " + escopeta;
         }
 
         protected override bool CrearArma()

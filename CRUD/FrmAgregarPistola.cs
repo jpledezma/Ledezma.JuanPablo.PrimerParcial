@@ -31,6 +31,7 @@ namespace CRUD
         {
             this.pistolaCreada = pistola;
             this.LeerDatosArma(pistola);
+            this.Text = "Modificar " + pistola;
         }
 
         protected override bool CrearArma()
