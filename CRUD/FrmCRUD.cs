@@ -18,6 +18,7 @@ namespace CRUD
 {
     public partial class FrmCRUD : Form
     {
+        // los cambios sin guardar podrian ser un evento
         private Armeria<ArmaDeFuego> armeria;
         private Usuario usuario;
         private bool cambiosSinGuardar;
@@ -494,58 +495,84 @@ namespace CRUD
 
         private void mnuBtnGuardarDB_Click(object sender, EventArgs e)
         {
-            var ado = new AccesoDB();
-            if (ado.ProbarConexion())
-            {
-                MessageBox.Show("Funcionó la conexión");
-            }
-            else
-            {
-                MessageBox.Show("NO Funcionó la conexión");
+            string mensaje = "Esta acción no se puede deshacer.\n¿Desea continuar de todos modos?";
+            DialogResult respuesta;
+            respuesta = MessageBox.Show(mensaje, "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (respuesta == DialogResult.No)
                 return;
-            }
+
+                var ado = new AccesoDB();
+
+            if (!this.ProbarConexion(ado))
+                return;
+
+            Armeria<ArmaDeFuego> armasEnDB = new Armeria<ArmaDeFuego>(ado.ObtenerListaArmas());
 
             bool funciono = true;
+            int armasAgregadas = 0;
             foreach (ArmaDeFuego arma in this.armeria)
             {
+                if (armasEnDB.Armas.Contains(arma))
+                    continue;
+
                 if (ado.AgregarArma(arma) == false)
-                {
                     funciono = false;
-                    break;
-                }
+
+                armasAgregadas++;
             }
 
             if (funciono)
             {
-                MessageBox.Show("Funcionó el guardado");
+                MessageBox.Show($"Los datos se guardaron exitosamente.\nArmas agregadas: {armasAgregadas}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.RegistrarAccion($"Actualizó la base de datos");
+                this.Text = this.Text.TrimEnd('*');
+                this.cambiosSinGuardar = false;
             }
             else
             {
-                MessageBox.Show("NO Funcionó el guardado");
+                MessageBox.Show("No se pudo guardar uno o más registros.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.RegistrarAccion($"Intentó actualizar la base de datos, pero ocurrió un error");
             }
         }
 
         private void mnuBtnCargarDB_Click(object sender, EventArgs e)
         {
             var ado = new AccesoDB();
+
+            if (!this.ProbarConexion(ado))
+                return;
+
+            if (this.cambiosSinGuardar)
+            {
+                string mensaje = "Tiene cambios sin guardar.\n¿Desea continuar de todos modos?";
+                DialogResult respuesta;
+                respuesta = MessageBox.Show(mensaje, "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (respuesta == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            
+            var datos = ado.ObtenerListaArmas();
+
+            this.armeria = new Armeria<ArmaDeFuego>(datos);
+
+            this.ActualizarVisor();
+            this.Text = this.Text.TrimEnd('*');
+            this.cambiosSinGuardar = false;
+        }
+
+        private bool ProbarConexion(AccesoDB ado)
+        {
             if (ado.ProbarConexion())
             {
-                MessageBox.Show("Funcionó la conexión");
+                return true;
             }
             else
             {
-                MessageBox.Show("NO Funcionó la conexión");
-                return;
+                MessageBox.Show("No se pudo conectar a la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
-            StringBuilder sb = new StringBuilder();
-            var datos = ado.ObtenerListaArmas();
-            foreach (var dato in datos)
-            {
-                sb.AppendLine();
-                this.armeria += dato;
-            }
-            //MessageBox.Show(sb.ToString());
-            this.ActualizarVisor();
         }
     }
 }

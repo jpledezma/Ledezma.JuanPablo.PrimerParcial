@@ -106,7 +106,7 @@ namespace ADO
                 if (arma.GetType().Name == typeof(PistolaSemiautomatica).Name)
                 {
                     this.comando.Parameters.AddWithValue("@Capacidad", ((int)((PistolaSemiautomatica)arma).CapacidadCargador));
-                    this.comando.Parameters.AddWithValue("@Cadencia", 0);
+                    this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
                     this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((PistolaSemiautomatica)arma).Accesorios));
                 }
                 else if (arma.GetType().Name == typeof(FusilAsalto).Name)
@@ -118,7 +118,7 @@ namespace ADO
                 else
                 {
                     this.comando.Parameters.AddWithValue("@Capacidad", ((int)((EscopetaBombeo)arma).Capacidad));
-                    this.comando.Parameters.AddWithValue("@Cadencia", 0);
+                    this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
                     this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((EscopetaBombeo)arma).Accesorios));
                 }
 
@@ -132,12 +132,7 @@ namespace ADO
 
                 this.conexion.Open();
 
-                int filasAfectadas = this.comando.ExecuteNonQuery();
-
-                if (filasAfectadas == 0)
-                {
-                    rta = false;
-                }
+                this.comando.ExecuteNonQuery();
 
             }
             catch (Exception e)
