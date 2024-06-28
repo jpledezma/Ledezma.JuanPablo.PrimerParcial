@@ -268,6 +268,8 @@ namespace CRUD
             this.Text = this.Text.TrimEnd('*');
             this.cambiosSinGuardar = false;
             this.cargadoDesdeDB = false;
+            this.armasEliminadas.Clear();
+            this.armasModificadas.Clear();
         }
 
         private void mnuBtnOrdenar_Click(object sender, EventArgs e)
@@ -319,6 +321,95 @@ namespace CRUD
 
             FrmLog frmLog = new FrmLog(log);
             frmLog.Show();
+        }
+
+        private void mnuBtnGuardarDB_Click(object sender, EventArgs e)
+        {
+            string mensaje = "Esta acción no se puede deshacer.\n¿Desea continuar de todos modos?";
+            DialogResult respuesta;
+            respuesta = MessageBox.Show(mensaje, "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (respuesta == DialogResult.No)
+                return;
+
+            var ado = new AccesoDB();
+
+            if (!this.ProbarConexionDB(ado))
+                return;
+
+            Armeria<ArmaDeFuego> armasEnDB = new Armeria<ArmaDeFuego>(ado.ObtenerListaArmas());
+
+            // Sólo elimino/modifico armas si la lista fue cargada desde la DB, para evitar comportamiento no deseado
+            if (this.cargadoDesdeDB)
+            {
+                foreach (ArmaDeFuego arma in this.armasEliminadas)
+                {
+                    ado.EliminarArma(arma);
+                }
+                foreach (ArmaDeFuego arma in this.armasModificadas)
+                {
+                    ado.ModificarArma(arma);
+                }
+            }
+
+            int armasAgregadas = 0;
+            int armasDuplicadas = 0;
+            int fallos = 0;
+            foreach (ArmaDeFuego arma in this.armeria)
+            {
+                if (armasEnDB.Armas.Contains(arma))
+                {
+                    armasDuplicadas++;
+                    continue;
+                }
+
+                if (ado.AgregarArma(arma) == true)
+                    armasAgregadas++;
+                else
+                    fallos++;
+            }
+
+            string msj = "Se actualizó la base de datos.\n";
+            msj += $"Armas agregadas: {armasAgregadas}\n";
+            msj += $"Armas NO agregadas (duplicadas): {armasDuplicadas}\n";
+            msj += $"Armas NO agregadas (fallido): {fallos}\n";
+            msj += $"Armas modificadas: {this.armasModificadas.Count}\n";
+            msj += $"Armas eliminadas: {this.armasEliminadas.Count}";
+            MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.RegistrarAccion($"Actualizó la base de datos");
+            this.Text = this.Text.TrimEnd('*');
+            this.cambiosSinGuardar = false;
+            this.armasModificadas.Clear();
+            this.armasEliminadas.Clear();
+        }
+
+        private void mnuBtnCargarDB_Click(object sender, EventArgs e)
+        {
+            var ado = new AccesoDB();
+
+            if (!this.ProbarConexionDB(ado))
+                return;
+
+            if (this.cambiosSinGuardar)
+            {
+                string mensaje = "Tiene cambios sin guardar.\n¿Desea continuar de todos modos?";
+                DialogResult respuesta;
+                respuesta = MessageBox.Show(mensaje, "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (respuesta == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
+            var datos = ado.ObtenerListaArmas();
+
+            this.armeria = new Armeria<ArmaDeFuego>(datos);
+
+            this.ActualizarVisor();
+            this.Text = this.Text.TrimEnd('*');
+            this.cambiosSinGuardar = false;
+            this.cargadoDesdeDB = true;
+            this.armasEliminadas.Clear();
+            this.armasModificadas.Clear();
         }
         #endregion
 
@@ -516,94 +607,8 @@ namespace CRUD
             }
 
         }
-        #endregion
 
-        private void mnuBtnGuardarDB_Click(object sender, EventArgs e)
-        {
-            string mensaje = "Esta acción no se puede deshacer.\n¿Desea continuar de todos modos?";
-            DialogResult respuesta;
-            respuesta = MessageBox.Show(mensaje, "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            if (respuesta == DialogResult.No)
-                return;
-
-                var ado = new AccesoDB();
-
-            if (!this.ProbarConexion(ado))
-                return;
-
-            Armeria<ArmaDeFuego> armasEnDB = new Armeria<ArmaDeFuego>(ado.ObtenerListaArmas());
-
-            // Sólo elimino/modifico armas si la lista fue cargada desde la DB, para evitar comportamiento no deseado
-            if (this.cargadoDesdeDB)
-            {
-                foreach (ArmaDeFuego arma in this.armasEliminadas)
-                {
-                    ado.EliminarArma(arma);
-                }
-                foreach (ArmaDeFuego arma in this.armasModificadas)
-                {
-                    ado.ModificarArma(arma);
-                }
-            }
-
-            int armasAgregadas = 0;
-            int armasDuplicadas = 0;
-            int fallos = 0;
-            foreach (ArmaDeFuego arma in this.armeria)
-            {
-                if (armasEnDB.Armas.Contains(arma))
-                {
-                    armasDuplicadas++;
-                    continue;
-                }
-
-                if(ado.AgregarArma(arma) == true)
-                    armasAgregadas++;
-                else
-                    fallos++;
-            }
-
-            string msj = "Se actualizó la base de datos.\n";
-            msj += $"Armas agregadas: {armasAgregadas}\n";
-            msj += $"Armas NO agregadas (duplicadas): {armasDuplicadas}\n";
-            msj += $"Armas NO agregadas (fallido): {fallos}\n";
-            msj += $"Armas modificadas: {this.armasModificadas.Count}\n";
-            msj += $"Armas eliminadas: {this.armasEliminadas.Count}";
-            MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.RegistrarAccion($"Actualizó la base de datos");
-            this.Text = this.Text.TrimEnd('*');
-            this.cambiosSinGuardar = false;
-        }
-
-        private void mnuBtnCargarDB_Click(object sender, EventArgs e)
-        {
-            var ado = new AccesoDB();
-
-            if (!this.ProbarConexion(ado))
-                return;
-
-            if (this.cambiosSinGuardar)
-            {
-                string mensaje = "Tiene cambios sin guardar.\n¿Desea continuar de todos modos?";
-                DialogResult respuesta;
-                respuesta = MessageBox.Show(mensaje, "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (respuesta == DialogResult.No)
-                {
-                    return;
-                }
-            }
-            
-            var datos = ado.ObtenerListaArmas();
-
-            this.armeria = new Armeria<ArmaDeFuego>(datos);
-
-            this.ActualizarVisor();
-            this.Text = this.Text.TrimEnd('*');
-            this.cambiosSinGuardar = false;
-            this.cargadoDesdeDB = true;
-        }
-
-        private bool ProbarConexion(AccesoDB ado)
+        private bool ProbarConexionDB(AccesoDB ado)
         {
             if (ado.ProbarConexion())
             {
@@ -615,5 +620,6 @@ namespace CRUD
                 return false;
             }
         }
+        #endregion
     }
 }
