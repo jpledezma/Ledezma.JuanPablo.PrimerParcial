@@ -92,36 +92,7 @@ namespace ADO
 
             try
             {
-
-                this.comando = new SqlCommand();
-
-                this.comando.Parameters.AddWithValue("@Tipo", arma.GetType().Name);
-                this.comando.Parameters.AddWithValue("@Fabricante", arma.Fabricante);
-                this.comando.Parameters.AddWithValue("@Modelo", arma.Modelo);
-                this.comando.Parameters.AddWithValue("@NumeroSerie", arma.NumeroSerie);
-                this.comando.Parameters.AddWithValue("@PesoBase", arma.PesoBase.ToString());
-                this.comando.Parameters.AddWithValue("@Precio", arma.Precio.ToString());
-                this.comando.Parameters.AddWithValue("@CalibreMunicion", JsonSerializer.Serialize(arma.CalibreMunicion));
-                this.comando.Parameters.AddWithValue("@MaterialesConstruccion", JsonSerializer.Serialize(arma.MaterialesConstruccion));
-
-                if (arma.GetType().Name == typeof(PistolaSemiautomatica).Name)
-                {
-                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((PistolaSemiautomatica)arma).CapacidadCargador));
-                    this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
-                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((PistolaSemiautomatica)arma).Accesorios));
-                }
-                else if (arma.GetType().Name == typeof(FusilAsalto).Name)
-                {
-                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((FusilAsalto)arma).CapacidadCargador));
-                    this.comando.Parameters.AddWithValue("@Cadencia", ((int)((FusilAsalto)arma).Cadencia));
-                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((FusilAsalto)arma).Accesorios));
-                }
-                else
-                {
-                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((EscopetaBombeo)arma).Capacidad));
-                    this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
-                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((EscopetaBombeo)arma).Accesorios));
-                }
+                this.AgregarParametrosComando(arma);
 
                 string sql = "INSERT INTO armeria ";
                 sql += "(Tipo, Fabricante, Modelo, NumeroSerie, PesoBase, CalibreMunicion, MaterialesConstruccion, Capacidad, Cadencia, Precio, Accesorios) ";
@@ -200,35 +171,7 @@ namespace ADO
 
             try
             {
-                this.comando = new SqlCommand();
-
-                this.comando.Parameters.AddWithValue("@Tipo", arma.GetType().Name);
-                this.comando.Parameters.AddWithValue("@Fabricante", arma.Fabricante);
-                this.comando.Parameters.AddWithValue("@Modelo", arma.Modelo);
-                this.comando.Parameters.AddWithValue("@NumeroSerie", arma.NumeroSerie);
-                this.comando.Parameters.AddWithValue("@PesoBase", arma.PesoBase.ToString());
-                this.comando.Parameters.AddWithValue("@Precio", arma.Precio.ToString());
-                this.comando.Parameters.AddWithValue("@CalibreMunicion", JsonSerializer.Serialize(arma.CalibreMunicion));
-                this.comando.Parameters.AddWithValue("@MaterialesConstruccion", JsonSerializer.Serialize(arma.MaterialesConstruccion));
-
-                if (arma.GetType().Name == typeof(PistolaSemiautomatica).Name)
-                {
-                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((PistolaSemiautomatica)arma).CapacidadCargador));
-                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((PistolaSemiautomatica)arma).Accesorios));
-                    this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
-                }
-                else if (arma.GetType().Name == typeof(FusilAsalto).Name)
-                {
-                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((FusilAsalto)arma).CapacidadCargador));
-                    this.comando.Parameters.AddWithValue("@Cadencia", ((int)((FusilAsalto)arma).Cadencia));
-                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((FusilAsalto)arma).Accesorios));
-                }
-                else
-                {
-                    this.comando.Parameters.AddWithValue("@Capacidad", ((int)((EscopetaBombeo)arma).Capacidad));
-                    this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((EscopetaBombeo)arma).Accesorios));
-                    this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
-                }
+                this.AgregarParametrosComando(arma);
 
                 StringBuilder sql = new StringBuilder();
                 sql.Append("UPDATE armeria SET ");
@@ -278,49 +221,68 @@ namespace ADO
 
             if (this.lector["Tipo"].ToString() == typeof(PistolaSemiautomatica).Name)
             {
-                arma = new PistolaSemiautomatica(
-                    this.lector.GetString("Fabricante"),
-                    this.lector.GetString("Modelo"),
-                    this.lector.GetString("NumeroSerie"),
-                    this.lector.GetDouble("PesoBase"),
-                    JsonSerializer.Deserialize<EMunicion>(this.lector["CalibreMunicion"].ToString()),
-                    JsonSerializer.Deserialize<List<EMaterial>>(this.lector["MaterialesConstruccion"].ToString()),
-                    (uint)this.lector.GetInt32("Capacidad"),
-                    this.lector.GetDouble("Precio"),
-                    JsonSerializer.Deserialize<List<EAccesorioPistola>>(this.lector["Accesorios"].ToString())
-                    );
+                arma = new PistolaSemiautomatica();
+                arma.PesoBase = this.lector.GetDouble("PesoBase");
+                ((PistolaSemiautomatica)arma).CapacidadCargador = (uint)this.lector.GetInt32("Capacidad");
+                ((PistolaSemiautomatica)arma).Accesorios = JsonSerializer.Deserialize<EAccesorioPistola[]>(this.lector["Accesorios"].ToString());
             }
             else if (this.lector["Tipo"].ToString() == typeof(FusilAsalto).Name)
             {
-                arma = new FusilAsalto(
-                   this.lector.GetString("Fabricante"),
-                   this.lector.GetString("Modelo"),
-                   this.lector.GetString("NumeroSerie"),
-                   this.lector.GetDouble("PesoBase"),
-                   JsonSerializer.Deserialize<EMunicion>(this.lector["CalibreMunicion"].ToString()),
-                   JsonSerializer.Deserialize<List<EMaterial>>(this.lector["MaterialesConstruccion"].ToString()),
-                   (uint)this.lector.GetInt32("Capacidad"),
-                   (uint)this.lector.GetInt32("Cadencia"),
-                    this.lector.GetDouble("Precio"),
-                   JsonSerializer.Deserialize<List<EAccesorioFusil>>(this.lector["Accesorios"].ToString())
-                   );
+                arma = new FusilAsalto();
+                arma.PesoBase = this.lector.GetDouble("PesoBase");
+                ((FusilAsalto)arma).CapacidadCargador = (uint)this.lector.GetInt32("Capacidad");
+                ((FusilAsalto)arma).Cadencia = (uint)this.lector.GetInt32("Cadencia");
+                ((FusilAsalto)arma).Accesorios = JsonSerializer.Deserialize<EAccesorioFusil[]>(this.lector["Accesorios"].ToString());
             }
             else
             {
-                arma = new EscopetaBombeo(
-                   this.lector.GetString("Fabricante"),
-                   this.lector.GetString("Modelo"),
-                   this.lector.GetString("NumeroSerie"),
-                   this.lector.GetDouble("PesoBase"),
-                   JsonSerializer.Deserialize<EMunicion>(this.lector["CalibreMunicion"].ToString()),
-                   JsonSerializer.Deserialize<List<EMaterial>>(this.lector["MaterialesConstruccion"].ToString()),
-                   (uint)this.lector.GetInt32("Capacidad"),
-                    this.lector.GetDouble("Precio"),
-                   JsonSerializer.Deserialize<List<EAccesorioEscopeta>>(this.lector["Accesorios"].ToString())
-                   );
+                arma = new EscopetaBombeo();
+                arma.PesoBase = this.lector.GetDouble("PesoBase");
+                ((EscopetaBombeo)arma).Capacidad = (uint)this.lector.GetInt32("Capacidad");
+                ((EscopetaBombeo)arma).Accesorios = JsonSerializer.Deserialize<EAccesorioEscopeta[]>(this.lector["Accesorios"].ToString());
             }
 
+            arma.Fabricante = this.lector.GetString("Fabricante");
+            arma.Modelo = this.lector.GetString("Modelo");
+            arma.NumeroSerie = this.lector.GetString("NumeroSerie");
+            arma.CalibreMunicion = JsonSerializer.Deserialize<EMunicion>(this.lector["CalibreMunicion"].ToString());
+            arma.MaterialesConstruccion = JsonSerializer.Deserialize<EMaterial[]>(this.lector["MaterialesConstruccion"].ToString());
+            arma.Precio = this.lector.GetDouble("Precio");
+
             return arma;
+        }
+
+        private void AgregarParametrosComando(ArmaDeFuego arma)
+        {
+            this.comando = new SqlCommand();
+
+            this.comando.Parameters.AddWithValue("@Tipo", arma.GetType().Name);
+            this.comando.Parameters.AddWithValue("@Fabricante", arma.Fabricante);
+            this.comando.Parameters.AddWithValue("@Modelo", arma.Modelo);
+            this.comando.Parameters.AddWithValue("@NumeroSerie", arma.NumeroSerie);
+            this.comando.Parameters.AddWithValue("@PesoBase", arma.PesoBase.ToString());
+            this.comando.Parameters.AddWithValue("@Precio", arma.Precio.ToString());
+            this.comando.Parameters.AddWithValue("@CalibreMunicion", JsonSerializer.Serialize(arma.CalibreMunicion));
+            this.comando.Parameters.AddWithValue("@MaterialesConstruccion", JsonSerializer.Serialize(arma.MaterialesConstruccion));
+
+            if (arma.GetType().Name == typeof(PistolaSemiautomatica).Name)
+            {
+                this.comando.Parameters.AddWithValue("@Capacidad", ((int)((PistolaSemiautomatica)arma).CapacidadCargador));
+                this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
+                this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((PistolaSemiautomatica)arma).Accesorios));
+            }
+            else if (arma.GetType().Name == typeof(FusilAsalto).Name)
+            {
+                this.comando.Parameters.AddWithValue("@Capacidad", ((int)((FusilAsalto)arma).CapacidadCargador));
+                this.comando.Parameters.AddWithValue("@Cadencia", ((int)((FusilAsalto)arma).Cadencia));
+                this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((FusilAsalto)arma).Accesorios));
+            }
+            else
+            {
+                this.comando.Parameters.AddWithValue("@Capacidad", ((int)((EscopetaBombeo)arma).Capacidad));
+                this.comando.Parameters.AddWithValue("@Cadencia", DBNull.Value);
+                this.comando.Parameters.AddWithValue("@Accesorios", JsonSerializer.Serialize(((EscopetaBombeo)arma).Accesorios));
+            }
         }
     }
 }
