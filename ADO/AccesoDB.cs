@@ -160,9 +160,10 @@ namespace ADO
                 this.comando = new SqlCommand();
 
                 this.comando.Parameters.AddWithValue("@NumeroSerie", arma.NumeroSerie);
+                this.comando.Parameters.AddWithValue("@Tipo", arma.GetType().Name);
 
                 string sql = "DELETE FROM armeria ";
-                sql += "WHERE NumeroSerie = @NumeroSerie";
+                sql += "WHERE NumeroSerie = @NumeroSerie AND Tipo = @Tipo";
 
                 this.comando.CommandType = CommandType.Text;
                 this.comando.CommandText = sql;
@@ -201,6 +202,7 @@ namespace ADO
             {
                 this.comando = new SqlCommand();
 
+                this.comando.Parameters.AddWithValue("@Tipo", arma.GetType().Name);
                 this.comando.Parameters.AddWithValue("@Fabricante", arma.Fabricante);
                 this.comando.Parameters.AddWithValue("@Modelo", arma.Modelo);
                 this.comando.Parameters.AddWithValue("@NumeroSerie", arma.NumeroSerie);
@@ -239,7 +241,7 @@ namespace ADO
                 sql.Append("Capacidad = @Capacidad, ");
                 sql.Append("Accesorios = @Accesorios, ");
                 sql.Append("Cadencia = @Cadencia ");
-                sql.Append("WHERE NumeroSerie = @NumeroSerie");
+                sql.Append("WHERE NumeroSerie = @NumeroSerie AND Tipo = @Tipo");
 
                 this.comando.CommandType = CommandType.Text;
                 this.comando.CommandText = sql.ToString();
