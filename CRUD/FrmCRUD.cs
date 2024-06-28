@@ -8,6 +8,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,6 +25,7 @@ namespace CRUD
         private bool cambiosSinGuardar;
         private List<ArmaDeFuego> armasModificadas;
         private List<ArmaDeFuego> armasEliminadas;
+        private Armeria<ArmaDeFuego>.Comparar[] comparaciones;
         bool cargadoDesdeDB;
 
         #region Constructores
@@ -39,6 +41,23 @@ namespace CRUD
             this.mnuCboCriterio.SelectedIndex = 0;
             this.cambiosSinGuardar = false;
             this.cargadoDesdeDB = false;
+            this.comparaciones = new Armeria<ArmaDeFuego>.Comparar[]
+            {
+                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.CalibreMunicion.ToString().CompareTo(a2.CalibreMunicion.ToString()) == 1; },
+                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.Fabricante.CompareTo(a2.Fabricante) == 1; },
+                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.NumeroSerie.CompareTo(a2.NumeroSerie) == 1; },
+                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.PesoTotal > a2.PesoTotal; },
+                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.Precio > a2.Precio; },
+                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.GetType().Name.CompareTo(a2.GetType().Name) == 1; },
+            };
+            /*
+                Calibre
+                Fabricante
+                Número de serie
+                Peso
+                Precio
+                Tipo
+            */
         }
         public FrmCRUD(Usuario usuario) : this()
         {
@@ -131,8 +150,8 @@ namespace CRUD
             ArmaDeFuego armaSeleccionada = this.armeria[indiceSeleccionado];
 
             DialogResult resultado;
-
-            resultado = MessageBox.Show($"¿Seguro que desea eliminar el arma {armaSeleccionada}?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            string msj = $"¿Seguro que desea eliminar el arma {armaSeleccionada}?";
+            resultado = MessageBox.Show(msj, "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (resultado == DialogResult.Yes)
             {
                 try
@@ -272,7 +291,7 @@ namespace CRUD
             this.armasModificadas.Clear();
         }
 
-        private void mnuBtnOrdenar_Click(object sender, EventArgs e)
+        /*private void mnuBtnOrdenar_Click(object sender, EventArgs e)
         {
             if (this.armeria.Armas.Count == 0)
             {
@@ -295,6 +314,26 @@ namespace CRUD
                 this.armeria.OrdenarArmeria(propiedad);
             else if (this.mnuCboOrden.Text == "Descendente")
                 this.armeria.OrdenarArmeria(propiedad, true);
+
+            this.ActualizarVisor();
+            this.Text += this.cambiosSinGuardar == false ? "*" : "";
+            this.cambiosSinGuardar = true;
+        }*/
+        private void mnuBtnOrdenar_Click(object sender, EventArgs e)
+        {
+            if (this.armeria.Armas.Count == 0)
+            {
+                return;
+            }
+            
+            int indiceCriterio = this.mnuCboCriterio.SelectedIndex;
+
+            Armeria<ArmaDeFuego>.Comparar comparacion = this.comparaciones[indiceCriterio];
+
+            if (this.mnuCboOrden.Text == "Ascendente")
+                this.armeria.OrdenarArmeria(comparacion);
+            else if (this.mnuCboOrden.Text == "Descendente")
+                this.armeria.OrdenarArmeria(comparacion, true);
 
             this.ActualizarVisor();
             this.Text += this.cambiosSinGuardar == false ? "*" : "";

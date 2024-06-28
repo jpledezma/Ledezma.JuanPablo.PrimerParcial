@@ -10,6 +10,8 @@ namespace Armas
     public class Armeria<T> : IEnumerable<T>
         where T : IProductoArmeria
     {
+        public delegate bool Comparar(T p1, T p2);
+
         private List<T> armas;
 
         public List<T> Armas
@@ -97,7 +99,7 @@ namespace Armas
         /// </summary>
         /// <param name="propiedad"></param>
         /// <param name="ordenInvertido"></param>
-        public void OrdenarArmeria(string propiedad = "tipo", bool ordenInvertido = false)
+        public void OrdenarArmeria(Comparar comparacion, bool ordenInvertido = false)
         {
             for (int i = 0; i < this.armas.Count - 1; i++)
             {
@@ -106,7 +108,7 @@ namespace Armas
                     if (!ordenInvertido)
                     {
                         // swap
-                        if (Comparar(this.armas[i], this.armas[j], propiedad))
+                        if (comparacion(this.armas[i], this.armas[j]))
                         {
                             T aux = this.armas[j];
                             this.armas[j] = this.armas[i];
@@ -116,7 +118,7 @@ namespace Armas
                     else
                     {
                         // swap
-                        if (Comparar(this.armas[j], this.armas[i], propiedad))
+                        if (comparacion(this.armas[j], this.armas[i]))
                         {
                             T aux = this.armas[j];
                             this.armas[j] = this.armas[i];
@@ -125,60 +127,6 @@ namespace Armas
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Se comparan 2 armas según la propiedad especificada.
-        /// 
-        /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="a2"></param>
-        /// <param name="propiedad"></param>
-        /// <returns>
-        /// <b>true</b> si la propiedad numérica de a1 es mayor a la de a2, 
-        /// o si la propiedad string de a1 está después de la de a2 por orden alfabético
-        /// </returns>
-        public static bool Comparar(T a1, T a2, string propiedad)
-        {
-            bool comparacion = false;
-            switch (propiedad)
-            {
-                case "peso":
-                    comparacion = a1.PesoTotal > a2.PesoTotal;
-                    break;
-                case "precio":
-                    comparacion = a1.Precio > a2.Precio;
-                    break;
-                case "tipo":
-                    if (a1.GetType().Name.CompareTo(a2.GetType().Name) == 1)
-                        comparacion = true;
-                    break;
-                case "fabricante":
-                    if (a1.Fabricante.CompareTo(a2.Fabricante) == 1)
-                        comparacion = true;
-                    break;
-                case "numero_serie":
-                    if (a1.NumeroSerie.CompareTo(a2.NumeroSerie) == 1)
-                        comparacion = true;
-                    break;
-                case "calibre":
-                    ArmaDeFuego? arma1 = a1 as ArmaDeFuego;
-                    ArmaDeFuego? arma2 = a2 as ArmaDeFuego;
-                    if (arma1 is null)
-                    {
-                        comparacion = false;
-                        break;
-                    }
-                    if (arma2 is null)
-                    {
-                        comparacion = true;
-                        break;
-                    }
-                    if (arma1.CalibreMunicion.CompareTo(arma2.CalibreMunicion) == 1)
-                        comparacion = true;
-                    break;
-            }
-            return comparacion;
         }
 
         public IEnumerator<T> GetEnumerator()
