@@ -32,7 +32,7 @@ namespace CRUD
         public FrmCRUD()
         {
             InitializeComponent();
-            this.armeria = new Armeria<ArmaDeFuego>();
+            this.InstanciarArmeria();
             this.armasModificadas = new List<ArmaDeFuego>();
             this.armasEliminadas = new List<ArmaDeFuego>();
             this.usuario = new Usuario();
@@ -43,12 +43,12 @@ namespace CRUD
             this.cargadoDesdeDB = false;
             this.comparaciones = new Armeria<ArmaDeFuego>.Comparar[]
             {
-                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.CalibreMunicion.ToString().CompareTo(a2.CalibreMunicion.ToString()) == 1; },
-                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.Fabricante.CompareTo(a2.Fabricante) == 1; },
-                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.NumeroSerie.CompareTo(a2.NumeroSerie) == 1; },
-                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.PesoTotal > a2.PesoTotal; },
-                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.Precio > a2.Precio; },
-                (ArmaDeFuego a1, ArmaDeFuego a2) => { return a1.GetType().Name.CompareTo(a2.GetType().Name) == 1; },
+                (ArmaDeFuego a1, ArmaDeFuego a2) => a1.CalibreMunicion.ToString().CompareTo(a2.CalibreMunicion.ToString()) == 1,
+                (ArmaDeFuego a1, ArmaDeFuego a2) => a1.Fabricante.CompareTo(a2.Fabricante) == 1,
+                (ArmaDeFuego a1, ArmaDeFuego a2) => a1.NumeroSerie.CompareTo(a2.NumeroSerie) == 1,
+                (ArmaDeFuego a1, ArmaDeFuego a2) => a1.PesoTotal > a2.PesoTotal,
+                (ArmaDeFuego a1, ArmaDeFuego a2) => a1.Precio > a2.Precio,
+                (ArmaDeFuego a1, ArmaDeFuego a2) => a1.GetType().Name.CompareTo(a2.GetType().Name) == 1,
             };
             /*
                 Calibre
@@ -99,9 +99,7 @@ namespace CRUD
             DialogResult resultado = frmAgregarPistola.ShowDialog();
             if (resultado == DialogResult.OK)
             {
-                this.armeria += frmAgregarPistola.PistolaCreada;
-                this.ActualizarVisor();
-                this.RegistrarAccion($"Agregó {frmAgregarPistola.PistolaCreada} a la armería");
+                this.AgregarArma(frmAgregarPistola.PistolaCreada);
 
                 this.Text += this.cambiosSinGuardar == false ? "*" : "";
                 this.cambiosSinGuardar = true;
@@ -114,9 +112,7 @@ namespace CRUD
             DialogResult resultado = frmAgregarFusil.ShowDialog();
             if (resultado == DialogResult.OK)
             {
-                this.armeria += frmAgregarFusil.FusilCreado;
-                this.ActualizarVisor();
-                this.RegistrarAccion($"Agregó {frmAgregarFusil.FusilCreado} a la armería");
+                this.AgregarArma(frmAgregarFusil.FusilCreado);
 
                 this.Text += this.cambiosSinGuardar == false ? "*" : "";
                 this.cambiosSinGuardar = true;
@@ -129,9 +125,7 @@ namespace CRUD
             DialogResult resultado = frmAgregarEscopeta.ShowDialog();
             if (resultado == DialogResult.OK)
             {
-                this.armeria += frmAgregarEscopeta.EscopetaCreada;
-                this.ActualizarVisor();
-                this.RegistrarAccion($"Agregó {frmAgregarEscopeta.EscopetaCreada} a la armería");
+                this.AgregarArma(frmAgregarEscopeta.EscopetaCreada);
 
                 this.Text += this.cambiosSinGuardar == false ? "*" : "";
                 this.cambiosSinGuardar = true;
@@ -291,34 +285,6 @@ namespace CRUD
             this.armasModificadas.Clear();
         }
 
-        /*private void mnuBtnOrdenar_Click(object sender, EventArgs e)
-        {
-            if (this.armeria.Armas.Count == 0)
-            {
-                return;
-            }
-            string propiedad;
-            int indiceCriterio = this.mnuCboCriterio.SelectedIndex;
-            string[] criterios = {
-                                    "calibre",
-                                    "fabricante",
-                                    "numero_serie",
-                                    "peso",
-                                    "precio",
-                                    "tipo"
-                                 };
-
-            propiedad = criterios[indiceCriterio];
-
-            if (this.mnuCboOrden.Text == "Ascendente")
-                this.armeria.OrdenarArmeria(propiedad);
-            else if (this.mnuCboOrden.Text == "Descendente")
-                this.armeria.OrdenarArmeria(propiedad, true);
-
-            this.ActualizarVisor();
-            this.Text += this.cambiosSinGuardar == false ? "*" : "";
-            this.cambiosSinGuardar = true;
-        }*/
         private void mnuBtnOrdenar_Click(object sender, EventArgs e)
         {
             if (this.armeria.Armas.Count == 0)
@@ -441,7 +407,7 @@ namespace CRUD
 
             var datos = ado.ObtenerListaArmas();
 
-            this.armeria = new Armeria<ArmaDeFuego>(datos);
+            this.InstanciarArmeria(datos);
 
             this.ActualizarVisor();
             this.Text = this.Text.TrimEnd('*');
@@ -460,6 +426,21 @@ namespace CRUD
             {
                 this.lstVisor.Items.Add(arma.MostrarEnVisor());
             }
+        }
+
+        private void AgregarArma(ArmaDeFuego arma)
+        {
+            try
+            {
+                this.armeria += arma;
+                this.RegistrarAccion($"Agregó {arma} a la armería");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.RegistrarAccion($"Intentó agregar {arma} a la armería, pero ya existía un arma con su tipo y número de serie.");
+            }
+            this.ActualizarVisor();
         }
 
         private bool ModificarArma(PistolaSemiautomatica pistola)
@@ -600,7 +581,7 @@ namespace CRUD
                 XmlSerializer ser = new XmlSerializer(typeof(List<ArmaDeFuego>));
 
                 List<ArmaDeFuego> armas = (List<ArmaDeFuego>)ser.Deserialize(reader);
-                this.armeria = new Armeria<ArmaDeFuego>(armas);
+                this.InstanciarArmeria(armas);
             }
         }
 
@@ -658,6 +639,17 @@ namespace CRUD
                 MessageBox.Show("No se pudo conectar a la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+        }
+
+        private void InstanciarArmeria(List<ArmaDeFuego>? armas = null)
+        {
+            if (armas == null)
+                this.armeria = new Armeria<ArmaDeFuego>();
+            else
+                this.armeria = new Armeria<ArmaDeFuego>(armas);
+
+            this.armeria.EventoEliminacion += (string msj) => MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.armeria.EventoInsercion += (string msj) => MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
     }

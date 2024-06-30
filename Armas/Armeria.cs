@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +12,8 @@ namespace Armas
         where T : IProductoArmeria
     {
         public delegate bool Comparar(T p1, T p2);
-
+        public event Action<string>? EventoEliminacion;
+        public event Action<string>? EventoInsercion;
         private List<T> armas;
 
         public List<T> Armas
@@ -73,6 +75,12 @@ namespace Armas
             if (!estaIncluida)
             {
                 armeria.armas.Add(armaAgregada);
+                if(armeria.EventoInsercion is not null)
+                    armeria.EventoInsercion($"Se agregó {armaAgregada} de la armería");
+            }
+            else
+            {
+                throw new Exception("El elemento que se quiere agregar ya existe en la armeria.");
             }
             return armeria;
         }
@@ -82,6 +90,8 @@ namespace Armas
             if (armeria.armas.Contains(arma)) 
             {
                 armeria.armas.Remove(arma);
+                if (armeria.EventoEliminacion is not null)
+                    armeria.EventoEliminacion($"Se aliminó {arma} de la armería");
             }
             else
             {

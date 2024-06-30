@@ -239,7 +239,7 @@
             mnuBtnAgregar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnPistola, mnuBtnFusil, mnuBtnEscopeta });
             mnuBtnAgregar.ForeColor = Color.Black;
             mnuBtnAgregar.Name = "mnuBtnAgregar";
-            mnuBtnAgregar.Size = new Size(125, 22);
+            mnuBtnAgregar.Size = new Size(180, 22);
             mnuBtnAgregar.Text = "Agregar";
             // 
             // mnuBtnPistola
@@ -274,7 +274,7 @@
             mnuBtnModificar.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnModificar.ForeColor = Color.Black;
             mnuBtnModificar.Name = "mnuBtnModificar";
-            mnuBtnModificar.Size = new Size(125, 22);
+            mnuBtnModificar.Size = new Size(180, 22);
             mnuBtnModificar.Text = "Modificar";
             mnuBtnModificar.Click += mnuBtnModificar_Click;
             // 
@@ -283,7 +283,7 @@
             mnuBtnEliminar.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnEliminar.ForeColor = Color.Black;
             mnuBtnEliminar.Name = "mnuBtnEliminar";
-            mnuBtnEliminar.Size = new Size(125, 22);
+            mnuBtnEliminar.Size = new Size(180, 22);
             mnuBtnEliminar.Text = "Eliminar";
             mnuBtnEliminar.Click += mnuBtnEliminar_Click;
             // 
