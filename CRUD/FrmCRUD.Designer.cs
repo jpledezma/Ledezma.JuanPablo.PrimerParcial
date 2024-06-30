@@ -53,12 +53,15 @@
             mnuBtnModificar = new ToolStripMenuItem();
             mnuBtnEliminar = new ToolStripMenuItem();
             mnuBtnVerDetalles = new ToolStripMenuItem();
-            mnuTxtDatosLogin = new ToolStripTextBox();
             mnuBtnOrdenar = new ToolStripMenuItem();
             mnuCboCriterio = new ToolStripComboBox();
             mnuCboOrden = new ToolStripComboBox();
             mnuBtnRegistro = new ToolStripMenuItem();
+            stsEstado = new StatusStrip();
+            stsLblEstadoTareas = new ToolStripStatusLabel();
+            stsLblDatosLogin = new ToolStripStatusLabel();
             mnuMenuPrincipal.SuspendLayout();
+            stsEstado.SuspendLayout();
             SuspendLayout();
             // 
             // lstVisor
@@ -71,7 +74,7 @@
             lstVisor.ItemHeight = 16;
             lstVisor.Location = new Point(12, 56);
             lstVisor.Name = "lstVisor";
-            lstVisor.Size = new Size(1020, 420);
+            lstVisor.Size = new Size(1020, 372);
             lstVisor.TabIndex = 9;
             lstVisor.KeyDown += lstVisor_KeyDown;
             // 
@@ -148,7 +151,8 @@
             // mnuMenuPrincipal
             // 
             mnuMenuPrincipal.BackColor = Color.FromArgb(150, 160, 170);
-            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuArchivo, mnuArma, mnuBtnVerDetalles, mnuTxtDatosLogin, mnuBtnOrdenar, mnuCboCriterio, mnuCboOrden, mnuBtnRegistro });
+            mnuMenuPrincipal.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            mnuMenuPrincipal.Items.AddRange(new ToolStripItem[] { mnuArchivo, mnuArma, mnuBtnVerDetalles, mnuBtnOrdenar, mnuCboCriterio, mnuCboOrden, mnuBtnRegistro });
             mnuMenuPrincipal.Location = new Point(0, 0);
             mnuMenuPrincipal.Name = "mnuMenuPrincipal";
             mnuMenuPrincipal.Size = new Size(1044, 27);
@@ -160,7 +164,7 @@
             mnuArchivo.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnGuardar, mnuBtnCargar });
             mnuArchivo.ForeColor = Color.Black;
             mnuArchivo.Name = "mnuArchivo";
-            mnuArchivo.Size = new Size(60, 23);
+            mnuArchivo.Size = new Size(63, 23);
             mnuArchivo.Text = "Archivo";
             // 
             // mnuBtnGuardar
@@ -169,7 +173,7 @@
             mnuBtnGuardar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnSerializarJson, mnuBtnSerializarXml, mnuBtnGuardarDB });
             mnuBtnGuardar.ForeColor = Color.Black;
             mnuBtnGuardar.Name = "mnuBtnGuardar";
-            mnuBtnGuardar.Size = new Size(116, 22);
+            mnuBtnGuardar.Size = new Size(124, 22);
             mnuBtnGuardar.Text = "Guardar";
             // 
             // mnuBtnSerializarJson
@@ -177,7 +181,7 @@
             mnuBtnSerializarJson.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnSerializarJson.ForeColor = Color.Black;
             mnuBtnSerializarJson.Name = "mnuBtnSerializarJson";
-            mnuBtnSerializarJson.Size = new Size(207, 22);
+            mnuBtnSerializarJson.Size = new Size(230, 22);
             mnuBtnSerializarJson.Text = "Serializar JSON";
             mnuBtnSerializarJson.Click += mnuBtnSerializarJson_Click;
             // 
@@ -186,7 +190,7 @@
             mnuBtnSerializarXml.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnSerializarXml.ForeColor = Color.Black;
             mnuBtnSerializarXml.Name = "mnuBtnSerializarXml";
-            mnuBtnSerializarXml.Size = new Size(207, 22);
+            mnuBtnSerializarXml.Size = new Size(230, 22);
             mnuBtnSerializarXml.Text = "Serializar XML";
             mnuBtnSerializarXml.Click += mnuBtnSerializarXml_Click;
             // 
@@ -195,7 +199,7 @@
             mnuBtnGuardarDB.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnGuardarDB.ForeColor = Color.Black;
             mnuBtnGuardarDB.Name = "mnuBtnGuardarDB";
-            mnuBtnGuardarDB.Size = new Size(207, 22);
+            mnuBtnGuardarDB.Size = new Size(230, 22);
             mnuBtnGuardarDB.Text = "Guardar en base de datos";
             mnuBtnGuardarDB.Click += mnuBtnGuardarDB_Click;
             // 
@@ -205,7 +209,7 @@
             mnuBtnCargar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnDeserializarXml, mnuBtnCargarDB });
             mnuBtnCargar.ForeColor = Color.Black;
             mnuBtnCargar.Name = "mnuBtnCargar";
-            mnuBtnCargar.Size = new Size(116, 22);
+            mnuBtnCargar.Size = new Size(124, 22);
             mnuBtnCargar.Text = "Cargar";
             // 
             // mnuBtnDeserializarXml
@@ -213,7 +217,7 @@
             mnuBtnDeserializarXml.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnDeserializarXml.ForeColor = Color.Black;
             mnuBtnDeserializarXml.Name = "mnuBtnDeserializarXml";
-            mnuBtnDeserializarXml.Size = new Size(218, 22);
+            mnuBtnDeserializarXml.Size = new Size(244, 22);
             mnuBtnDeserializarXml.Text = "Deserializar XML";
             mnuBtnDeserializarXml.Click += mnuBtnDeserializarXml_Click;
             // 
@@ -222,7 +226,7 @@
             mnuBtnCargarDB.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnCargarDB.ForeColor = Color.Black;
             mnuBtnCargarDB.Name = "mnuBtnCargarDB";
-            mnuBtnCargarDB.Size = new Size(218, 22);
+            mnuBtnCargarDB.Size = new Size(244, 22);
             mnuBtnCargarDB.Text = "Cargar desde base de datos";
             mnuBtnCargarDB.Click += mnuBtnCargarDB_Click;
             // 
@@ -231,7 +235,7 @@
             mnuArma.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnAgregar, mnuBtnModificar, mnuBtnEliminar });
             mnuArma.ForeColor = Color.Black;
             mnuArma.Name = "mnuArma";
-            mnuArma.Size = new Size(48, 23);
+            mnuArma.Size = new Size(51, 23);
             mnuArma.Text = "Arma";
             // 
             // mnuBtnAgregar
@@ -240,7 +244,7 @@
             mnuBtnAgregar.DropDownItems.AddRange(new ToolStripItem[] { mnuBtnPistola, mnuBtnFusil, mnuBtnEscopeta });
             mnuBtnAgregar.ForeColor = Color.Black;
             mnuBtnAgregar.Name = "mnuBtnAgregar";
-            mnuBtnAgregar.Size = new Size(125, 22);
+            mnuBtnAgregar.Size = new Size(132, 22);
             mnuBtnAgregar.Text = "Agregar";
             // 
             // mnuBtnPistola
@@ -248,7 +252,7 @@
             mnuBtnPistola.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnPistola.ForeColor = Color.Black;
             mnuBtnPistola.Name = "mnuBtnPistola";
-            mnuBtnPistola.Size = new Size(198, 22);
+            mnuBtnPistola.Size = new Size(210, 22);
             mnuBtnPistola.Text = "Pistola Semiautomática";
             mnuBtnPistola.Click += mnuBtnPistola_Click;
             // 
@@ -257,7 +261,7 @@
             mnuBtnFusil.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnFusil.ForeColor = Color.Black;
             mnuBtnFusil.Name = "mnuBtnFusil";
-            mnuBtnFusil.Size = new Size(198, 22);
+            mnuBtnFusil.Size = new Size(210, 22);
             mnuBtnFusil.Text = "Fusil de asalto";
             mnuBtnFusil.Click += mnuBtnFusil_Click;
             // 
@@ -266,7 +270,7 @@
             mnuBtnEscopeta.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnEscopeta.ForeColor = Color.Black;
             mnuBtnEscopeta.Name = "mnuBtnEscopeta";
-            mnuBtnEscopeta.Size = new Size(198, 22);
+            mnuBtnEscopeta.Size = new Size(210, 22);
             mnuBtnEscopeta.Text = "Escopeta de bombeo";
             mnuBtnEscopeta.Click += mnuBtnEscopeta_Click;
             // 
@@ -275,7 +279,7 @@
             mnuBtnModificar.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnModificar.ForeColor = Color.Black;
             mnuBtnModificar.Name = "mnuBtnModificar";
-            mnuBtnModificar.Size = new Size(125, 22);
+            mnuBtnModificar.Size = new Size(132, 22);
             mnuBtnModificar.Text = "Modificar";
             mnuBtnModificar.Click += mnuBtnModificar_Click;
             // 
@@ -284,7 +288,7 @@
             mnuBtnEliminar.BackColor = Color.FromArgb(150, 160, 170);
             mnuBtnEliminar.ForeColor = Color.Black;
             mnuBtnEliminar.Name = "mnuBtnEliminar";
-            mnuBtnEliminar.Size = new Size(125, 22);
+            mnuBtnEliminar.Size = new Size(132, 22);
             mnuBtnEliminar.Text = "Eliminar";
             mnuBtnEliminar.Click += mnuBtnEliminar_Click;
             // 
@@ -292,30 +296,16 @@
             // 
             mnuBtnVerDetalles.ForeColor = Color.Black;
             mnuBtnVerDetalles.Name = "mnuBtnVerDetalles";
-            mnuBtnVerDetalles.Size = new Size(78, 23);
+            mnuBtnVerDetalles.Size = new Size(88, 23);
             mnuBtnVerDetalles.Text = "Ver detalles";
             mnuBtnVerDetalles.Click += mnuBtnVerDetalles_Click;
             // 
-            // mnuTxtDatosLogin
-            // 
-            mnuTxtDatosLogin.Alignment = ToolStripItemAlignment.Right;
-            mnuTxtDatosLogin.AutoSize = false;
-            mnuTxtDatosLogin.BackColor = Color.FromArgb(150, 160, 170);
-            mnuTxtDatosLogin.BorderStyle = BorderStyle.None;
-            mnuTxtDatosLogin.ForeColor = Color.Black;
-            mnuTxtDatosLogin.Name = "mnuTxtDatosLogin";
-            mnuTxtDatosLogin.ReadOnly = true;
-            mnuTxtDatosLogin.RightToLeft = RightToLeft.No;
-            mnuTxtDatosLogin.ShortcutsEnabled = false;
-            mnuTxtDatosLogin.Size = new Size(200, 20);
-            mnuTxtDatosLogin.Text = "datos-login";
-            mnuTxtDatosLogin.TextBoxTextAlign = HorizontalAlignment.Center;
-            // 
             // mnuBtnOrdenar
             // 
+            mnuBtnOrdenar.CheckOnClick = true;
             mnuBtnOrdenar.ForeColor = Color.Black;
             mnuBtnOrdenar.Name = "mnuBtnOrdenar";
-            mnuBtnOrdenar.Size = new Size(90, 23);
+            mnuBtnOrdenar.Size = new Size(101, 23);
             mnuBtnOrdenar.Text = "Ordenar visor";
             mnuBtnOrdenar.Click += mnuBtnOrdenar_Click;
             // 
@@ -340,18 +330,45 @@
             // mnuBtnRegistro
             // 
             mnuBtnRegistro.Alignment = ToolStripItemAlignment.Right;
+            mnuBtnRegistro.BackColor = Color.FromArgb(170, 180, 190);
             mnuBtnRegistro.ForeColor = Color.Black;
             mnuBtnRegistro.Name = "mnuBtnRegistro";
-            mnuBtnRegistro.Size = new Size(78, 23);
-            mnuBtnRegistro.Text = "Ver registro";
+            mnuBtnRegistro.Size = new Size(161, 23);
+            mnuBtnRegistro.Text = "Ver registro de usuarios";
             mnuBtnRegistro.Click += mnuBtnRegistro_Click;
+            // 
+            // stsEstado
+            // 
+            stsEstado.BackColor = Color.FromArgb(150, 160, 170);
+            stsEstado.Items.AddRange(new ToolStripItem[] { stsLblEstadoTareas, stsLblDatosLogin });
+            stsEstado.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            stsEstado.Location = new Point(0, 454);
+            stsEstado.Name = "stsEstado";
+            stsEstado.Size = new Size(1044, 22);
+            stsEstado.TabIndex = 19;
+            stsEstado.Text = "Estado";
+            // 
+            // stsLblEstadoTareas
+            // 
+            stsLblEstadoTareas.ForeColor = Color.Black;
+            stsLblEstadoTareas.Name = "stsLblEstadoTareas";
+            stsLblEstadoTareas.Size = new Size(88, 17);
+            stsLblEstadoTareas.Text = "Nada por hacer";
+            // 
+            // stsLblDatosLogin
+            // 
+            stsLblDatosLogin.ForeColor = Color.Black;
+            stsLblDatosLogin.Name = "stsLblDatosLogin";
+            stsLblDatosLogin.Size = new Size(68, 17);
+            stsLblDatosLogin.Text = "datos-login";
             // 
             // FrmCRUD
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 40, 51);
-            ClientSize = new Size(1044, 495);
+            ClientSize = new Size(1044, 476);
+            Controls.Add(stsEstado);
             Controls.Add(lblPrecio);
             Controls.Add(lblCalibre);
             Controls.Add(lblPeso);
@@ -369,6 +386,8 @@
             FormClosing += FrmCRUD_FormClosing;
             mnuMenuPrincipal.ResumeLayout(false);
             mnuMenuPrincipal.PerformLayout();
+            stsEstado.ResumeLayout(false);
+            stsEstado.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -390,7 +409,6 @@
         private ToolStripMenuItem mnuBtnModificar;
         private ToolStripMenuItem mnuBtnEliminar;
         private ToolStripMenuItem mnuBtnVerDetalles;
-        private ToolStripTextBox mnuTxtDatosLogin;
         private ToolStripMenuItem mnuBtnGuardar;
         private ToolStripMenuItem mnuBtnSerializarJson;
         private ToolStripMenuItem mnuBtnSerializarXml;
@@ -404,5 +422,8 @@
         private ToolStripMenuItem mnuArchivo;
         private ToolStripMenuItem mnuBtnGuardarDB;
         private ToolStripMenuItem mnuBtnCargarDB;
+        private StatusStrip stsEstado;
+        private ToolStripStatusLabel stsLblDatosLogin;
+        private ToolStripStatusLabel stsLblEstadoTareas;
     }
 }

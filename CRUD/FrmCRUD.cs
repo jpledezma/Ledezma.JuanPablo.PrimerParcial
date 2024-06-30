@@ -19,7 +19,6 @@ namespace CRUD
 {
     public partial class FrmCRUD : Form
     {
-        // los cambios sin guardar podrian ser un evento
         private Armeria<ArmaDeFuego> armeria;
         private Usuario usuario;
         private bool cambiosSinGuardar;
@@ -36,7 +35,7 @@ namespace CRUD
             this.armasModificadas = new List<ArmaDeFuego>();
             this.armasEliminadas = new List<ArmaDeFuego>();
             this.usuario = new Usuario();
-            this.mnuTxtDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            this.stsLblDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
             this.mnuCboOrden.SelectedIndex = 0;
             this.mnuCboCriterio.SelectedIndex = 0;
             this.cambiosSinGuardar = false;
@@ -58,6 +57,7 @@ namespace CRUD
                 Precio
                 Tipo
             */
+            this.stsLblDatosLogin.Alignment = ToolStripItemAlignment.Right;
         }
         public FrmCRUD(Usuario usuario) : this()
         {
@@ -71,7 +71,7 @@ namespace CRUD
             {
                 nombreUsuario = "Usuario desconocido - ";
             }
-            this.mnuTxtDatosLogin.Text = nombreUsuario + this.mnuTxtDatosLogin.Text;
+            this.stsLblDatosLogin.Text = nombreUsuario + this.stsLblDatosLogin.Text;
             this.OcultarItemsMenu(usuario);
             this.RegistrarAccion("Inició sesión");
         }
@@ -415,6 +415,7 @@ namespace CRUD
             this.cargadoDesdeDB = true;
             this.armasEliminadas.Clear();
             this.armasModificadas.Clear();
+            this.RegistrarAccion($"Cargó una lista de armas a la armería desde la base de datos");
         }
 
         private void lstVisor_KeyDown(object sender, KeyEventArgs e)
