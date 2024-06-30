@@ -21,6 +21,7 @@ namespace CRUD
     {
         private Armeria<ArmaDeFuego> armeria;
         private Usuario usuario;
+        private AccesoDB ado;
         private bool cambiosSinGuardar;
         private List<ArmaDeFuego> armasModificadas;
         private List<ArmaDeFuego> armasEliminadas;
@@ -35,11 +36,14 @@ namespace CRUD
             this.armasModificadas = new List<ArmaDeFuego>();
             this.armasEliminadas = new List<ArmaDeFuego>();
             this.usuario = new Usuario();
+            this.ado = new AccesoDB(); 
             this.stsLblDatosLogin.Text = DateTime.Now.ToString("dd/MM/yyyy");
             this.mnuCboOrden.SelectedIndex = 0;
             this.mnuCboCriterio.SelectedIndex = 0;
+            this.stsLblDatosLogin.Alignment = ToolStripItemAlignment.Right;
             this.cambiosSinGuardar = false;
             this.cargadoDesdeDB = false;
+            this.ado.EventoAdvertencia += (string msj) => MessageBox.Show(msj, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             this.comparaciones = new Armeria<ArmaDeFuego>.Comparar[]
             {
                 (ArmaDeFuego a1, ArmaDeFuego a2) => a1.CalibreMunicion.ToString().CompareTo(a2.CalibreMunicion.ToString()) == 1,
@@ -57,7 +61,6 @@ namespace CRUD
                 Precio
                 Tipo
             */
-            this.stsLblDatosLogin.Alignment = ToolStripItemAlignment.Right;
         }
         public FrmCRUD(Usuario usuario) : this()
         {
@@ -336,23 +339,21 @@ namespace CRUD
             if (respuesta == DialogResult.No)
                 return;
 
-            var ado = new AccesoDB();
-
-            if (!this.ProbarConexionDB(ado))
+            if (!this.ado.ProbarConexion())
                 return;
 
-            Armeria<ArmaDeFuego> armasEnDB = new Armeria<ArmaDeFuego>(ado.ObtenerListaArmas());
+            Armeria<ArmaDeFuego> armasEnDB = new Armeria<ArmaDeFuego>(this.ado.ObtenerListaArmas());
 
             // Sólo elimino/modifico armas si la lista fue cargada desde la DB, para evitar comportamiento no deseado
             if (this.cargadoDesdeDB)
             {
                 foreach (ArmaDeFuego arma in this.armasEliminadas)
                 {
-                    ado.EliminarArma(arma);
+                    this.ado.EliminarArma(arma);
                 }
                 foreach (ArmaDeFuego arma in this.armasModificadas)
                 {
-                    ado.ModificarArma(arma);
+                    this.ado.ModificarArma(arma);
                 }
             }
 
@@ -367,7 +368,7 @@ namespace CRUD
                     continue;
                 }
 
-                if (ado.AgregarArma(arma) == true)
+                if (this.ado.AgregarArma(arma) == true)
                     armasAgregadas++;
                 else
                     fallos++;
@@ -380,6 +381,7 @@ namespace CRUD
             msj += $"Armas modificadas: {this.armasModificadas.Count}\n";
             msj += $"Armas eliminadas: {this.armasEliminadas.Count}";
             MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             this.RegistrarAccion($"Actualizó la base de datos");
             this.Text = this.Text.TrimEnd('*');
             this.cambiosSinGuardar = false;
@@ -389,9 +391,7 @@ namespace CRUD
 
         private void mnuBtnCargarDB_Click(object sender, EventArgs e)
         {
-            var ado = new AccesoDB();
-
-            if (!this.ProbarConexionDB(ado))
+            if (!this.ado.ProbarConexion())
                 return;
 
             if (this.cambiosSinGuardar)
@@ -405,7 +405,7 @@ namespace CRUD
                 }
             }
 
-            var datos = ado.ObtenerListaArmas();
+            List<ArmaDeFuego> datos = this.ado.ObtenerListaArmas();
 
             this.InstanciarArmeria(datos);
 
@@ -654,19 +654,6 @@ namespace CRUD
                 this.mnuBtnRegistro.Visible = false;
             }
 
-        }
-
-        private bool ProbarConexionDB(AccesoDB ado)
-        {
-            if (ado.ProbarConexion())
-            {
-                return true;
-            }
-            else
-            {
-                MessageBox.Show("No se pudo conectar a la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
         }
 
         private void InstanciarArmeria(List<ArmaDeFuego>? armas = null)

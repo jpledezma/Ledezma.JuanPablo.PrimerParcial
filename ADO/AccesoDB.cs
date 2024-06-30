@@ -10,6 +10,7 @@ namespace ADO
     // Que lluevan las advertencias
     public class AccesoDB
     {
+        public event Action<string>? EventoAdvertencia;
         private static string stringConexion;
         private SqlConnection conexion;
         private SqlCommand? comando;
@@ -33,9 +34,13 @@ namespace ADO
             {
                 this.conexion.Open();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 rta = false;
+                if (this.EventoAdvertencia is not null)
+                {
+                    EventoAdvertencia($"No se pudo conectar a la base de datos123456.\n{ex.Message}");
+                }
             }
             finally
             {
@@ -73,7 +78,10 @@ namespace ADO
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                if (this.EventoAdvertencia is not null)
+                {
+                    EventoAdvertencia($"Ocurrió un error al cargar los elementos.\n{ex.Message}");
+                }
             }
             finally
             {
@@ -107,9 +115,13 @@ namespace ADO
                 this.comando.ExecuteNonQuery();
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 rta = false;
+                if (this.EventoAdvertencia is not null)
+                {
+                    EventoAdvertencia($"Ocurrió un error inesperado.\n{ex.Message}");
+                }
             }
             finally
             {
@@ -150,9 +162,13 @@ namespace ADO
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 rta = false;
+                if (this.EventoAdvertencia is not null)
+                {
+                    EventoAdvertencia($"Ocurrió un error inesperado.\n{ex.Message}");
+                }
             }
             finally
             {
@@ -200,9 +216,13 @@ namespace ADO
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 rta = false;
+                if (this.EventoAdvertencia is not null)
+                {
+                    EventoAdvertencia($"Ocurrió un error inesperado.\n{ex.Message}");
+                }
             }
             finally
             {
