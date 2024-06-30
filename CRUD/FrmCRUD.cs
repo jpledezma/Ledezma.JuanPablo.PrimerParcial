@@ -155,7 +155,7 @@ namespace CRUD
                     if (this.cargadoDesdeDB)
                         this.armasEliminadas.Add(armaSeleccionada);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -192,14 +192,14 @@ namespace CRUD
 
             if (modificacion)
             {
-                if(this.cargadoDesdeDB)
+                if (this.cargadoDesdeDB)
                     this.armasModificadas.Add(this.armeria[indiceSeleccionado]);
 
                 this.RegistrarAccion($"Modificó {this.armeria[indiceSeleccionado]} en la armería");
                 this.Text += this.cambiosSinGuardar == false ? "*" : "";
                 this.cambiosSinGuardar = true;
             }
-            
+
             this.ActualizarVisor();
         }
 
@@ -291,7 +291,7 @@ namespace CRUD
             {
                 return;
             }
-            
+
             int indiceCriterio = this.mnuCboCriterio.SelectedIndex;
 
             Armeria<ArmaDeFuego>.Comparar comparacion = this.comparaciones[indiceCriterio];
@@ -416,6 +416,33 @@ namespace CRUD
             this.armasEliminadas.Clear();
             this.armasModificadas.Clear();
         }
+
+        private void lstVisor_KeyDown(object sender, KeyEventArgs e)
+        {
+            int indiceSeleccionado = this.lstVisor.SelectedIndex;
+
+            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Insert){
+                this.mnuArma.ShowDropDown();
+                this.mnuBtnAgregar.ShowDropDown();
+                this.mnuBtnPistola.ShowDropDown();
+            }
+            
+            if (indiceSeleccionado == -1)
+                return;
+
+            switch (e.KeyCode)
+            {
+                case Keys.Enter or Keys.Space:
+                    this.mnuBtnVerDetalles_Click(sender, e);
+                    break;
+                case Keys.Delete:
+                    this.mnuBtnEliminar_Click(sender, e);
+                    break;
+                case Keys.M:
+                    this.mnuBtnModificar_Click(sender, e);
+                    break;
+            }
+        }
         #endregion
 
         #region Metodos
@@ -435,7 +462,7 @@ namespace CRUD
                 this.armeria += arma;
                 this.RegistrarAccion($"Agregó {arma} a la armería");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.RegistrarAccion($"Intentó agregar {arma} a la armería, pero ya existía un arma con su tipo y número de serie.");
