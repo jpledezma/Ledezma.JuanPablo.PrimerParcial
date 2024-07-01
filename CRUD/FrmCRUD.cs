@@ -103,9 +103,7 @@ namespace CRUD
             if (resultado == DialogResult.OK)
             {
                 this.AgregarArma(frmAgregarPistola.PistolaCreada);
-
-                this.Text += this.cambiosSinGuardar == false ? "*" : "";
-                this.cambiosSinGuardar = true;
+                this.NotificarCambiosRealizados(sender);
             }
         }
 
@@ -116,9 +114,7 @@ namespace CRUD
             if (resultado == DialogResult.OK)
             {
                 this.AgregarArma(frmAgregarFusil.FusilCreado);
-
-                this.Text += this.cambiosSinGuardar == false ? "*" : "";
-                this.cambiosSinGuardar = true;
+                this.NotificarCambiosRealizados(sender);
             }
         }
 
@@ -129,9 +125,7 @@ namespace CRUD
             if (resultado == DialogResult.OK)
             {
                 this.AgregarArma(frmAgregarEscopeta.EscopetaCreada);
-
-                this.Text += this.cambiosSinGuardar == false ? "*" : "";
-                this.cambiosSinGuardar = true;
+                this.NotificarCambiosRealizados(sender);
             }
         }
 
@@ -163,9 +157,7 @@ namespace CRUD
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 this.ActualizarVisor();
-
-                this.Text += this.cambiosSinGuardar == false ? "*" : "";
-                this.cambiosSinGuardar = true;
+                this.NotificarCambiosRealizados(sender);
             }
 
         }
@@ -199,8 +191,7 @@ namespace CRUD
                     this.armasModificadas.Add(this.armeria[indiceSeleccionado]);
 
                 this.RegistrarAccion($"Modificó {this.armeria[indiceSeleccionado]} en la armería");
-                this.Text += this.cambiosSinGuardar == false ? "*" : "";
-                this.cambiosSinGuardar = true;
+                this.NotificarCambiosRealizados(sender);
             }
 
             this.ActualizarVisor();
@@ -227,8 +218,7 @@ namespace CRUD
                 this.SerializarJson(path);
                 this.RegistrarAccion($"Guardó la lista actual de armas en formato .json en {path}");
 
-                this.Text = this.Text.TrimEnd('*');
-                this.cambiosSinGuardar = false;
+                this.NotificarCambiosRealizados(sender);
             }
             catch (Exception ex)
             {
@@ -245,8 +235,7 @@ namespace CRUD
                 this.SerializarXml(path);
                 this.RegistrarAccion($"Guardó la lista actual de armas en formato .xml en {path}");
 
-                this.Text = this.Text.TrimEnd('*');
-                this.cambiosSinGuardar = false;
+                this.NotificarCambiosRealizados(sender);
             }
             catch (Exception ex)
             {
@@ -280,12 +269,7 @@ namespace CRUD
                 MessageBox.Show($"No se pudo cargar el archivo\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             this.ActualizarVisor();
-
-            this.Text = this.Text.TrimEnd('*');
-            this.cambiosSinGuardar = false;
-            this.cargadoDesdeDB = false;
-            this.armasEliminadas.Clear();
-            this.armasModificadas.Clear();
+            this.NotificarCambiosRealizados(sender);
         }
 
         private void mnuBtnOrdenar_Click(object sender, EventArgs e)
@@ -305,8 +289,6 @@ namespace CRUD
                 this.armeria.OrdenarArmeria(comparacion, true);
 
             this.ActualizarVisor();
-            this.Text += this.cambiosSinGuardar == false ? "*" : "";
-            this.cambiosSinGuardar = true;
         }
 
         private void mnuBtnRegistro_Click(object sender, EventArgs e)
@@ -381,12 +363,7 @@ namespace CRUD
             msj += $"Armas modificadas: {this.armasModificadas.Count}\n";
             msj += $"Armas eliminadas: {this.armasEliminadas.Count}";
             MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            this.RegistrarAccion($"Actualizó la base de datos");
-            this.Text = this.Text.TrimEnd('*');
-            this.cambiosSinGuardar = false;
-            this.armasModificadas.Clear();
-            this.armasEliminadas.Clear();
+            this.NotificarCambiosRealizados(sender);
         }
 
         private void mnuBtnCargarDB_Click(object sender, EventArgs e)
@@ -405,17 +382,10 @@ namespace CRUD
                 }
             }
 
-            List<ArmaDeFuego> datos = this.ado.ObtenerListaArmas();
+            this.Cursor = Cursors.AppStarting;
+            this.stsLblEstadoTareas.Text = "Cargando desde la base de datos...";
 
-            this.InstanciarArmeria(datos);
-
-            this.ActualizarVisor();
-            this.Text = this.Text.TrimEnd('*');
-            this.cambiosSinGuardar = false;
-            this.cargadoDesdeDB = true;
-            this.armasEliminadas.Clear();
-            this.armasModificadas.Clear();
-            this.RegistrarAccion($"Cargó una lista de armas a la armería desde la base de datos");
+            Task.Run( () => this.CargarDB() );            
         }
 
         private void lstVisor_KeyDown(object sender, KeyEventArgs e)
@@ -665,6 +635,73 @@ namespace CRUD
 
             this.armeria.EventoEliminacion += (string msj) => MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.armeria.EventoInsercion += (string msj) => MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void CargarDB()
+        {
+            if (this.stsEstado.InvokeRequired)
+            {
+                Action delegado = new Action(this.CargarDB);
+                //Thread.Sleep(3000);
+                List<ArmaDeFuego> datos = this.ado.ObtenerListaArmas();
+                this.InstanciarArmeria(datos);
+                this.stsEstado.Invoke(delegado);
+            }
+            else
+            {
+                this.ActualizarVisor();
+                this.stsLblEstadoTareas.Text = "Listo";
+                this.Cursor = Cursors.Default;
+                this.NotificarCambiosRealizados(this.mnuBtnCargarDB);
+            }
+        }
+
+        private void NotificarCambiosRealizados(object sender)
+        {
+            string? msj = null;
+
+            if (sender == this.mnuBtnGuardarDB)
+            {
+                this.Text = this.Text.TrimEnd('*');
+                this.cambiosSinGuardar = false;
+                this.armasEliminadas.Clear();
+                this.armasModificadas.Clear();
+                msj = "Actualizó la base de datos";
+            }
+            else if (sender == this.mnuBtnCargarDB)
+            {
+                this.Text = this.Text.TrimEnd('*');
+                this.cambiosSinGuardar = false;
+                this.cargadoDesdeDB = true;
+                this.armasEliminadas.Clear();
+                this.armasModificadas.Clear();
+                msj = "Cargó una lista de armas a la armería desde la base de datos";
+            }
+            else if(sender == this.mnuBtnDeserializarXml)
+            {
+                this.Text = this.Text.TrimEnd('*');
+                this.cambiosSinGuardar = false;
+                this.cargadoDesdeDB = false;
+                this.armasEliminadas.Clear();
+                this.armasModificadas.Clear();
+            }
+            else if (sender == this.mnuBtnSerializarJson || sender == this.mnuBtnSerializarXml)
+            {
+                this.Text = this.Text.TrimEnd('*');
+                this.cambiosSinGuardar = false;
+            }
+            else if (sender == this.mnuBtnPistola || sender ==this.mnuBtnFusil || sender == this.mnuBtnEscopeta || 
+                sender == this.mnuBtnModificar || sender == this.mnuBtnEliminar)
+            {
+                this.Text += this.cambiosSinGuardar == false ? "*" : "";
+                this.cambiosSinGuardar = true;
+            }
+            
+
+            if (msj is not null)
+            {
+                this.RegistrarAccion(msj);
+            }
         }
         #endregion
     }
