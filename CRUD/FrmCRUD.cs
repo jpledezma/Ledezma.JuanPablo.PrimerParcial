@@ -368,9 +368,6 @@ namespace CRUD
 
         private void mnuBtnCargarDB_Click(object sender, EventArgs e)
         {
-            if (!this.ado.ProbarConexion())
-                return;
-
             if (this.cambiosSinGuardar)
             {
                 string mensaje = "Tiene cambios sin guardar.\n¿Desea continuar de todos modos?";
@@ -384,6 +381,14 @@ namespace CRUD
 
             this.Cursor = Cursors.AppStarting;
             this.stsLblEstadoTareas.Text = "Cargando desde la base de datos...";
+
+            // meter esto en el task
+            if (!this.ado.ProbarConexion())
+            {
+                this.stsLblEstadoTareas.Text = "Listo";
+                this.Cursor = Cursors.Default;
+                return;
+            }
 
             Task.Run( () => this.CargarDB() );            
         }
@@ -417,6 +422,10 @@ namespace CRUD
         #endregion
 
         #region Metodos
+
+        /// <summary>
+        /// Se eliminan todos los elementos de la listbox Visor. Luego se le agregan los elementos de la armería.
+        /// </summary>
         private void ActualizarVisor()
         {
             this.lstVisor.Items.Clear();
@@ -426,6 +435,10 @@ namespace CRUD
             }
         }
 
+        /// <summary>
+        /// Se intenta agregar un arma a la armeria. Si ya existe una con su tipo y numero de serie, se muestra un mensaje de error.
+        /// </summary>
+        /// <param name="arma"></param>
         private void AgregarArma(ArmaDeFuego arma)
         {
             try
@@ -441,6 +454,12 @@ namespace CRUD
             this.ActualizarVisor();
         }
 
+        /// <summary>
+        /// Se abre un formulario para modificar las propiedades de la pistola seleccionada.
+        /// Si se aceptan los cambios, se modifica la pistola en la armeria.
+        /// </summary>
+        /// <param name="pistola"></param>
+        /// <returns><b>true</b> Si se aceptan los cambios. <b>false</b> Si se cancela la modificacion</returns>
         private bool ModificarArma(PistolaSemiautomatica pistola)
         {
             bool armaModificada = false;
@@ -454,6 +473,12 @@ namespace CRUD
             return armaModificada;
         }
 
+        /// <summary>
+        /// Se abre un formulario para modificar las propiedades del fusil seleccionado.
+        /// Si se aceptan los cambios, se modifica el fusil en la armeria.
+        /// </summary>
+        /// <param name="fusil"></param>
+        /// <returns><b>true</b> Si se aceptan los cambios. <b>false</b> Si se cancela la modificacion</returns>
         private bool ModificarArma(FusilAsalto fusil)
         {
             bool armaModificada = false;
@@ -467,6 +492,12 @@ namespace CRUD
             return armaModificada;
         }
 
+        /// <summary>
+        /// Se abre un formulario para modificar las propiedades de la escopeta seleccionada.
+        /// Si se aceptan los cambios, se modifica la escopeta en la armeria.
+        /// </summary>
+        /// <param name="escopeta"></param>
+        /// <returns><b>true</b> Si se aceptan los cambios. <b>false</b> Si se cancela la modificacion</returns>
         private bool ModificarArma(EscopetaBombeo escopeta)
         {
             bool armaModificada = false;
