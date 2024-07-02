@@ -321,49 +321,9 @@ namespace CRUD
             if (respuesta == DialogResult.No)
                 return;
 
-            if (!this.ado.ProbarConexion())
-                return;
-
-            Armeria<ArmaDeFuego> armasEnDB = new Armeria<ArmaDeFuego>(this.ado.ObtenerListaArmas());
-
-            // Sólo elimino/modifico armas si la lista fue cargada desde la DB, para evitar comportamiento no deseado
-            if (this.cargadoDesdeDB)
-            {
-                foreach (ArmaDeFuego arma in this.armasEliminadas)
-                {
-                    this.ado.EliminarArma(arma);
-                }
-                foreach (ArmaDeFuego arma in this.armasModificadas)
-                {
-                    this.ado.ModificarArma(arma);
-                }
-            }
-
-            int armasAgregadas = 0;
-            int armasDuplicadas = 0;
-            int fallos = 0;
-            foreach (ArmaDeFuego arma in this.armeria)
-            {
-                if (armasEnDB.Armas.Contains(arma))
-                {
-                    armasDuplicadas++;
-                    continue;
-                }
-
-                if (this.ado.AgregarArma(arma) == true)
-                    armasAgregadas++;
-                else
-                    fallos++;
-            }
-
-            string msj = "Se actualizó la base de datos.\n";
-            msj += $"Armas agregadas: {armasAgregadas}\n";
-            msj += $"Armas NO agregadas (duplicadas): {armasDuplicadas}\n";
-            msj += $"Armas NO agregadas (fallido): {fallos}\n";
-            msj += $"Armas modificadas: {this.armasModificadas.Count}\n";
-            msj += $"Armas eliminadas: {this.armasEliminadas.Count}";
-            MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.NotificarCambiosRealizados(sender);
+            this.Cursor = Cursors.AppStarting;
+            this.stsLblEstadoTareas.Text = "Actualizando la base de datos...";
+            Task.Run( () => this.GuardarDB() );
         }
 
         private void mnuBtnCargarDB_Click(object sender, EventArgs e)
@@ -404,10 +364,10 @@ namespace CRUD
                     this.mnuBtnVerDetalles_Click(sender, e);
                     break;
                 case Keys.Delete:
-                    this.mnuBtnEliminar_Click(sender, e);
+                    this.mnuBtnEliminar_Click(this.mnuBtnEliminar, e);
                     break;
                 case Keys.M:
-                    this.mnuBtnModificar_Click(sender, e);
+                    this.mnuBtnModificar_Click(this.mnuBtnModificar, e);
                     break;
             }
         }
@@ -670,7 +630,8 @@ namespace CRUD
                 {
                     List<ArmaDeFuego> datos = this.ado.ObtenerListaArmas();
                     this.InstanciarArmeria(datos);
-                    resultado = "Listo";
+                    resultado = "Hecho";
+                    //Thread.Sleep(3000);
                 }
                 else
                 {
@@ -678,7 +639,6 @@ namespace CRUD
                 }
 
                 Action<string> delegado = new Action<string>(this.CargarDB);
-                //Thread.Sleep(3000);
                 this.stsEstado.Invoke(delegado, resultado);
             }
             else
@@ -686,8 +646,82 @@ namespace CRUD
                 this.ActualizarVisor();
                 this.stsLblEstadoTareas.Text = estadoFinal;
                 this.Cursor = Cursors.Default;
-                this.NotificarCambiosRealizados(this.mnuBtnCargarDB);
+                if (estadoFinal == "Hecho")
+                    this.NotificarCambiosRealizados(this.mnuBtnCargarDB);
             }
+        }
+
+        private void GuardarDB(string estadoFinal = "")
+        {
+            if (this.stsEstado.InvokeRequired)
+            {
+                string resultado;
+
+                if (this.ado.ProbarConexion())
+                {
+                    this.EfectuarCambiosDB();
+                    resultado = "Hecho";
+                    //Thread.Sleep(3000);
+                }
+                else
+                {
+                    resultado = "Error. No se pudo conectar a la base de datos.";
+                }
+
+                Action<string> delegado = new Action<string>(this.GuardarDB);
+                this.stsEstado.Invoke(delegado, resultado);
+            }
+            else
+            {
+                this.ActualizarVisor();
+                this.stsLblEstadoTareas.Text = estadoFinal;
+                this.Cursor = Cursors.Default;
+                if (estadoFinal == "Hecho")
+                    this.NotificarCambiosRealizados(this.mnuBtnGuardarDB);
+            }
+        }
+
+        private void EfectuarCambiosDB()
+        {
+            Armeria<ArmaDeFuego> armasEnDB = new Armeria<ArmaDeFuego>(this.ado.ObtenerListaArmas());
+
+            // Sólo elimino/modifico armas si la lista fue cargada desde la DB, para evitar comportamiento no deseado
+            if (this.cargadoDesdeDB)
+            {
+                foreach (ArmaDeFuego arma in this.armasEliminadas)
+                {
+                    this.ado.EliminarArma(arma);
+                }
+                foreach (ArmaDeFuego arma in this.armasModificadas)
+                {
+                    this.ado.ModificarArma(arma);
+                }
+            }
+
+            int armasAgregadas = 0;
+            int armasDuplicadas = 0;
+            int fallos = 0;
+            foreach (ArmaDeFuego arma in this.armeria)
+            {
+                if (armasEnDB.Armas.Contains(arma))
+                {
+                    armasDuplicadas++;
+                    continue;
+                }
+
+                if (this.ado.AgregarArma(arma) == true)
+                    armasAgregadas++;
+                else
+                    fallos++;
+            }
+
+            string msj = "Se actualizó la base de datos.\n";
+            msj += $"Armas agregadas: {armasAgregadas}\n";
+            msj += $"Armas NO agregadas (duplicadas): {armasDuplicadas}\n";
+            msj += $"Armas NO agregadas (fallido): {fallos}\n";
+            msj += $"Armas modificadas: {this.armasModificadas.Count}\n";
+            msj += $"Armas eliminadas: {this.armasEliminadas.Count}";
+            MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void NotificarCambiosRealizados(object sender)
