@@ -80,7 +80,7 @@ namespace CRUD
         }
         #endregion
 
-        #region Eventos
+        #region Eventos controles
         private void FrmCRUD_FormClosing(object sender, FormClosingEventArgs e)
         {
             string mensaje = "¿Seguro que desea salir de la aplicación?\nSe perderán todos los cambios sin guardar.";
@@ -96,6 +96,8 @@ namespace CRUD
                 this.RegistrarAccion("Salió de la aplicación");
             }
         }
+
+        #region Armas
         private void mnuBtnPistola_Click(object sender, EventArgs e)
         {
             FrmAgregarPistola frmAgregarPistola = new FrmAgregarPistola();
@@ -196,18 +198,9 @@ namespace CRUD
 
             this.ActualizarVisor();
         }
+        #endregion
 
-        private void mnuBtnVerDetalles_Click(object sender, EventArgs e)
-        {
-            int indiceSeleccionado = this.lstVisor.SelectedIndex;
-            if (indiceSeleccionado == -1)
-            {
-                MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            FrmVerDetalles frmVerDetalles = new FrmVerDetalles(this.armeria[indiceSeleccionado]);
-            frmVerDetalles.Show();
-        }
+        #region Serializacion/Deserializacion
 
         private void mnuBtnSerializarJson_Click(object sender, EventArgs e)
         {
@@ -259,8 +252,9 @@ namespace CRUD
             try
             {
                 string path = this.ObtenerPathCargar("xml");
-                if (path == String.Empty) { return; }
-                this.DeserializarXML(path);
+                if (path == String.Empty)
+                    return;
+                this.InstanciarArmeria(this.DeserializarXML(path));
                 this.RegistrarAccion($"Cargó una lista de armas a la armería desde {path}");
             }
             catch (Exception ex)
@@ -270,6 +264,21 @@ namespace CRUD
             }
             this.ActualizarVisor();
             this.NotificarCambiosRealizados(sender);
+        }
+        #endregion
+
+        #region Visor
+
+        private void mnuBtnVerDetalles_Click(object sender, EventArgs e)
+        {
+            int indiceSeleccionado = this.lstVisor.SelectedIndex;
+            if (indiceSeleccionado == -1)
+            {
+                MessageBox.Show("No se seleccionó ningún elemento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            FrmVerDetalles frmVerDetalles = new FrmVerDetalles(this.armeria[indiceSeleccionado]);
+            frmVerDetalles.Show();
         }
 
         private void mnuBtnOrdenar_Click(object sender, EventArgs e)
@@ -289,6 +298,34 @@ namespace CRUD
                 this.armeria.OrdenarArmeria(comparacion, true);
 
             this.ActualizarVisor();
+        }
+
+        private void lstVisor_KeyDown(object sender, KeyEventArgs e)
+        {
+            int indiceSeleccionado = this.lstVisor.SelectedIndex;
+
+            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Insert)
+            {
+                this.mnuArma.ShowDropDown();
+                this.mnuBtnAgregar.ShowDropDown();
+                this.mnuBtnPistola.ShowDropDown();
+            }
+
+            if (indiceSeleccionado == -1)
+                return;
+
+            switch (e.KeyCode)
+            {
+                case Keys.Enter or Keys.Space:
+                    this.mnuBtnVerDetalles_Click(sender, e);
+                    break;
+                case Keys.Delete:
+                    this.mnuBtnEliminar_Click(this.mnuBtnEliminar, e);
+                    break;
+                case Keys.M:
+                    this.mnuBtnModificar_Click(this.mnuBtnModificar, e);
+                    break;
+            }
         }
 
         private void mnuBtnRegistro_Click(object sender, EventArgs e)
@@ -312,6 +349,9 @@ namespace CRUD
             FrmLog frmLog = new FrmLog(log);
             frmLog.Show();
         }
+        #endregion
+
+        #region Base de datos
 
         private void mnuBtnGuardarDB_Click(object sender, EventArgs e)
         {
@@ -344,33 +384,8 @@ namespace CRUD
 
             Task.Run( () => this.CargarDB() );            
         }
+        #endregion
 
-        private void lstVisor_KeyDown(object sender, KeyEventArgs e)
-        {
-            int indiceSeleccionado = this.lstVisor.SelectedIndex;
-
-            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Insert){
-                this.mnuArma.ShowDropDown();
-                this.mnuBtnAgregar.ShowDropDown();
-                this.mnuBtnPistola.ShowDropDown();
-            }
-            
-            if (indiceSeleccionado == -1)
-                return;
-
-            switch (e.KeyCode)
-            {
-                case Keys.Enter or Keys.Space:
-                    this.mnuBtnVerDetalles_Click(sender, e);
-                    break;
-                case Keys.Delete:
-                    this.mnuBtnEliminar_Click(this.mnuBtnEliminar, e);
-                    break;
-                case Keys.M:
-                    this.mnuBtnModificar_Click(this.mnuBtnModificar, e);
-                    break;
-            }
-        }
         #endregion
 
         #region Metodos
@@ -533,6 +548,11 @@ namespace CRUD
             return path;
         }
 
+        /// <summary>
+        /// Serializa en formato .json la lista de armas de la armeria. 
+        /// Luego lo guarda en un archivo, indicado en el parametro path.
+        /// </summary>
+        /// <param name="path"></param>
         private void SerializarJson(string path)
         {
             using (StreamWriter sw = new StreamWriter(path))
@@ -546,6 +566,11 @@ namespace CRUD
             }
         }
 
+        /// <summary>
+        /// Serializa en formato .xml la lista de armas de la armeria. 
+        /// Luego lo guarda en un archivo, indicado en el parametro path.
+        /// </summary>
+        /// <param name="path"></param>
         private void SerializarXml(string path)
         {
             using (XmlTextWriter writer = new XmlTextWriter(path, Encoding.UTF8))
@@ -555,15 +580,22 @@ namespace CRUD
             }
         }
 
-        private void DeserializarXML(string path)
+        /// <summary>
+        /// Deserializa un archivo en formato .xml, cuya ruta es indicada por parametro. 
+        /// Luego guarda su informacion en una lista de armas de fuego.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>La lista de armas deserializada.</returns>
+        private List<ArmaDeFuego> DeserializarXML(string path)
         {
+            List<ArmaDeFuego> armas;
             using (XmlTextReader reader = new XmlTextReader(path))
             {
                 XmlSerializer ser = new XmlSerializer(typeof(List<ArmaDeFuego>));
 
-                List<ArmaDeFuego> armas = (List<ArmaDeFuego>)ser.Deserialize(reader);
-                this.InstanciarArmeria(armas);
+                armas = (List<ArmaDeFuego>)ser.Deserialize(reader);
             }
+            return armas;
         }
 
         /// <summary>
@@ -593,6 +625,10 @@ namespace CRUD
             }
         }
 
+        /// <summary>
+        /// Oculta y bloquea el acceso de elementos del CRUD, segun el perfil del usuario.
+        /// </summary>
+        /// <param name="usuario"></param>
         private void OcultarItemsMenu(Usuario? usuario)
         {
             if (usuario is null || usuario.perfil != "administrador" && usuario.perfil != "supervisor")
@@ -609,6 +645,11 @@ namespace CRUD
 
         }
 
+        /// <summary>
+        /// Crea una nueva instancia de la clase Armeria, vacia o con elementos, segun se indique por parametro.<br></br>
+        /// Luego se le agregan manejadores de eventos.
+        /// </summary>
+        /// <param name="armas"></param>
         private void InstanciarArmeria(List<ArmaDeFuego>? armas = null)
         {
             if (armas == null)
@@ -620,6 +661,13 @@ namespace CRUD
             this.armeria.EventoInsercion += (string msj) => MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Se intenta conectar a la base de datos para cargar los datos al programa.
+        /// Si la conexion es exitosa, se crea una nueva instancia de la armeria con los datos cargados.<br></br>
+        /// En cualquier caso, se avisa al usuario del resultado mediante cambios en los controles del CRUD.<br></br>
+        /// (Método pensado para ejecutarse de manera asincronica).
+        /// </summary>
+        /// <param name="estadoFinal"></param>
         private void CargarDB(string estadoFinal = "")
         {
             if (this.stsEstado.InvokeRequired)
@@ -651,6 +699,13 @@ namespace CRUD
             }
         }
 
+        /// <summary>
+        /// Se intenta conectar a la base de datos para actualizarla con los datos al programa.
+        /// Si la conexion es exitosa, se envian efectuan los cambios realizados.<br></br>
+        /// En cualquier caso, se avisa al usuario del resultado mediante cambios en los controles del CRUD.<br></br>
+        /// (Método pensado para ejecutarse de manera asincronica).
+        /// </summary>
+        /// <param name="estadoFinal"></param>
         private void GuardarDB(string estadoFinal = "")
         {
             if (this.stsEstado.InvokeRequired)
@@ -681,6 +736,13 @@ namespace CRUD
             }
         }
 
+        /// <summary>
+        /// Se actualiza la base de datos con los cambios realizados.<br></br>
+        /// Solo se tienen en cuenta modificaciones y eliminaciones si las armas se cargaron desde la base de datos.<br></br>
+        /// Se trae la informacion de la base de datos para evitar agregar armas que ya esten presentes alli, 
+        /// y se agregan las que no lo esten.<br></br>
+        /// Finalmente, se le informa al usuario todos los cambios realizados.
+        /// </summary>
         private void EfectuarCambiosDB()
         {
             Armeria<ArmaDeFuego> armasEnDB = new Armeria<ArmaDeFuego>(this.ado.ObtenerListaArmas());
@@ -724,6 +786,13 @@ namespace CRUD
             MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Cada vez que se agrega, elimina o modifica un elemento del visor, se agrega un asterisco *
+        /// al nombre en la ventana para informar al usuario que hay cambios sin guardar.<br></br>
+        /// Cada vez que se cargan elementos o guarda la vista actual, se elimina esta advertencia.
+        /// Opcionalmente, se registra la accion realizada.
+        /// </summary>
+        /// <param name="sender"></param>
         private void NotificarCambiosRealizados(object sender)
         {
             string? msj = null;

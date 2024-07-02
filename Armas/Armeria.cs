@@ -105,7 +105,7 @@ namespace Armas
         #region Métodos
 
         /// <summary>
-        /// Se ordena la lista de armas con el método de burbuja, según el criterio de comparación elegido.
+        /// Se ordena la lista de armas con el método de burbuja, según el criterio de comparación recibido por parametro.
         /// </summary>
         /// <param name="propiedad"></param>
         /// <param name="ordenInvertido"></param>
