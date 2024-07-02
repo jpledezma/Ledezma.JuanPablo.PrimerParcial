@@ -39,7 +39,7 @@ namespace ADO
                 rta = false;
                 if (this.EventoAdvertencia is not null)
                 {
-                    EventoAdvertencia($"No se pudo conectar a la base de datos123456.\n{ex.Message}");
+                    EventoAdvertencia($"No se pudo conectar a la base de datos.\n{ex.Message}");
                 }
             }
             finally
