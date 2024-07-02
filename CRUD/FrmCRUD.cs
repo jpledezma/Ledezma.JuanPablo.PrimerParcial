@@ -382,14 +382,6 @@ namespace CRUD
             this.Cursor = Cursors.AppStarting;
             this.stsLblEstadoTareas.Text = "Cargando desde la base de datos...";
 
-            // meter esto en el task
-            if (!this.ado.ProbarConexion())
-            {
-                this.stsLblEstadoTareas.Text = "Listo";
-                this.Cursor = Cursors.Default;
-                return;
-            }
-
             Task.Run( () => this.CargarDB() );            
         }
 
@@ -668,20 +660,31 @@ namespace CRUD
             this.armeria.EventoInsercion += (string msj) => MessageBox.Show(msj, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void CargarDB()
+        private void CargarDB(string estadoFinal = "")
         {
             if (this.stsEstado.InvokeRequired)
             {
-                Action delegado = new Action(this.CargarDB);
+                string resultado;
+
+                if (this.ado.ProbarConexion())
+                {
+                    List<ArmaDeFuego> datos = this.ado.ObtenerListaArmas();
+                    this.InstanciarArmeria(datos);
+                    resultado = "Listo";
+                }
+                else
+                {
+                    resultado = "Error. No se pudo conectar a la base de datos.";
+                }
+
+                Action<string> delegado = new Action<string>(this.CargarDB);
                 //Thread.Sleep(3000);
-                List<ArmaDeFuego> datos = this.ado.ObtenerListaArmas();
-                this.InstanciarArmeria(datos);
-                this.stsEstado.Invoke(delegado);
+                this.stsEstado.Invoke(delegado, resultado);
             }
             else
             {
                 this.ActualizarVisor();
-                this.stsLblEstadoTareas.Text = "Listo";
+                this.stsLblEstadoTareas.Text = estadoFinal;
                 this.Cursor = Cursors.Default;
                 this.NotificarCambiosRealizados(this.mnuBtnCargarDB);
             }
