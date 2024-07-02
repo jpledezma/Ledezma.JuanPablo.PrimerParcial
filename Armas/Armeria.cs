@@ -76,7 +76,7 @@ namespace Armas
             {
                 armeria.armas.Add(armaAgregada);
                 if(armeria.EventoInsercion is not null)
-                    armeria.EventoInsercion($"Se agregó {armaAgregada} de la armería");
+                    armeria.EventoInsercion.Invoke($"Se agregó {armaAgregada} de la armería");
             }
             else
             {
@@ -91,7 +91,7 @@ namespace Armas
             {
                 armeria.armas.Remove(arma);
                 if (armeria.EventoEliminacion is not null)
-                    armeria.EventoEliminacion($"Se aliminó {arma} de la armería");
+                    armeria.EventoEliminacion.Invoke($"Se aliminó {arma} de la armería");
             }
             else
             {

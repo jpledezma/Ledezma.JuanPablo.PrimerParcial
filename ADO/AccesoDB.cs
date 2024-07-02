@@ -39,7 +39,7 @@ namespace ADO
                 rta = false;
                 if (this.EventoAdvertencia is not null)
                 {
-                    EventoAdvertencia($"No se pudo conectar a la base de datos.\n{ex.Message}");
+                    EventoAdvertencia.Invoke($"No se pudo conectar a la base de datos.\n{ex.Message}");
                 }
             }
             finally
@@ -80,7 +80,7 @@ namespace ADO
             {
                 if (this.EventoAdvertencia is not null)
                 {
-                    EventoAdvertencia($"Ocurrió un error al cargar los elementos.\n{ex.Message}");
+                    EventoAdvertencia.Invoke($"Ocurrió un error al cargar los elementos.\n{ex.Message}");
                 }
             }
             finally
@@ -120,7 +120,7 @@ namespace ADO
                 rta = false;
                 if (this.EventoAdvertencia is not null)
                 {
-                    EventoAdvertencia($"Ocurrió un error inesperado.\n{ex.Message}");
+                    EventoAdvertencia.Invoke($"Ocurrió un error inesperado.\n{ex.Message}");
                 }
             }
             finally
@@ -167,7 +167,7 @@ namespace ADO
                 rta = false;
                 if (this.EventoAdvertencia is not null)
                 {
-                    EventoAdvertencia($"Ocurrió un error inesperado.\n{ex.Message}");
+                    EventoAdvertencia.Invoke($"Ocurrió un error inesperado.\n{ex.Message}");
                 }
             }
             finally
@@ -221,7 +221,7 @@ namespace ADO
                 rta = false;
                 if (this.EventoAdvertencia is not null)
                 {
-                    EventoAdvertencia($"Ocurrió un error inesperado.\n{ex.Message}");
+                    EventoAdvertencia.Invoke($"Ocurrió un error inesperado.\n{ex.Message}");
                 }
             }
             finally
