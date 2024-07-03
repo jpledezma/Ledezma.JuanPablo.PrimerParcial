@@ -305,7 +305,8 @@ namespace CRUD
         {
             int indiceSeleccionado = this.lstVisor.SelectedIndex;
 
-            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Insert)
+            if ((e.KeyCode == Keys.A || e.KeyCode == Keys.Insert) &&
+                (this.usuario.perfil == "administrador" || this.usuario.perfil == "supervisor"))
             {
                 this.mnuArma.ShowDropDown();
                 this.mnuBtnAgregar.ShowDropDown();
@@ -321,10 +322,12 @@ namespace CRUD
                     this.mnuBtnVerDetalles_Click(sender, e);
                     break;
                 case Keys.Delete:
-                    this.mnuBtnEliminar_Click(this.mnuBtnEliminar, e);
+                    if (this.usuario.perfil == "administrador")
+                        this.mnuBtnEliminar_Click(this.mnuBtnEliminar, e);
                     break;
                 case Keys.M:
-                    this.mnuBtnModificar_Click(this.mnuBtnModificar, e);
+                    if (this.usuario.perfil == "administrador" || this.usuario.perfil == "supervisor")
+                        this.mnuBtnModificar_Click(this.mnuBtnModificar, e);
                     break;
             }
         }
