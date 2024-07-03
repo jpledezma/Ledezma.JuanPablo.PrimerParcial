@@ -11,7 +11,6 @@ namespace TestArmas
         [TestMethod]
         public void TestAgregar_Ok()
         {
-            //Arrange
             Armeria<ArmaDeFuego> armeria = new Armeria<ArmaDeFuego> ();
 
             PistolaSemiautomatica pistola = new PistolaSemiautomatica();
@@ -34,7 +33,6 @@ namespace TestArmas
         [TestMethod]
         public void TeastAgregar_Falla()
         {
-            //Arrange
             Armeria<ArmaDeFuego> armeria = new Armeria<ArmaDeFuego>();
 
             PistolaSemiautomatica pistola1 = new PistolaSemiautomatica();
@@ -45,10 +43,8 @@ namespace TestArmas
 
             Action agregar = () => { armeria += pistola2; };
 
-            //Act
             armeria += pistola1;
 
-            //Assert
             Assert.ThrowsException<Exception>(agregar);
         }
 
@@ -58,7 +54,6 @@ namespace TestArmas
         [TestMethod]
         public void TestEliminar_Ok()
         {
-            //Arrange
             Armeria<ArmaDeFuego> armeria = new Armeria<ArmaDeFuego>();
 
             PistolaSemiautomatica pistola;
@@ -73,7 +68,6 @@ namespace TestArmas
                 137.99
                 );
 
-            //Act
             int cantidadAnterior;
             int cantidadSiguiente;
 
@@ -85,7 +79,6 @@ namespace TestArmas
 
             bool rta = cantidadAnterior != cantidadSiguiente && cantidadSiguiente == 0;
 
-            //Assert
             Assert.IsTrue(rta);
         }
 

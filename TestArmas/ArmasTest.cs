@@ -12,7 +12,6 @@ namespace TestArmas
         [TestMethod]
         public void TestComprobarIgualdad_Ok()
         {
-            //Arrange
             PistolaSemiautomatica pistola1;
             pistola1 = new PistolaSemiautomatica(
                 "pistola_1",
@@ -50,7 +49,6 @@ namespace TestArmas
         [TestMethod]
         public void TestComprobarIgualdad_Fallak()
         {
-            //Arrange
             PistolaSemiautomatica pistola;
             pistola = new PistolaSemiautomatica(
                 "IGUAL",
