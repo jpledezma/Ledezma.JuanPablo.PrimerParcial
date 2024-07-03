@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUD", "CRUD\CRUD.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Municion", "Municion\Municion.csproj", "{4401E6D6-CF68-4373-B85A-CAE9EF9F9E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADO", "ADO\ADO.csproj", "{99BCD589-2DB7-4883-ABAD-B58C12002526}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ADO", "ADO\ADO.csproj", "{99BCD589-2DB7-4883-ABAD-B58C12002526}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestArmas", "TestArmas\TestArmas.csproj", "{B4F1ADBF-746E-4627-BCB3-01351E7657EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{99BCD589-2DB7-4883-ABAD-B58C12002526}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99BCD589-2DB7-4883-ABAD-B58C12002526}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99BCD589-2DB7-4883-ABAD-B58C12002526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F1ADBF-746E-4627-BCB3-01351E7657EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F1ADBF-746E-4627-BCB3-01351E7657EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F1ADBF-746E-4627-BCB3-01351E7657EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F1ADBF-746E-4627-BCB3-01351E7657EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
