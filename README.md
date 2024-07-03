@@ -7,11 +7,13 @@ El script se generó suponiendo que las bases de datos estén almacenadas en C:\
 
 ![detalle_db](./assets/detalle_db.png)
 
-Si la máquina en la que se ejecute el script tiene una estructura de directorios diferente, el mismo podía no funcionar. Para solucionarlo, hay que modificar manualmente esos directorios en el archivo armas_db.sql (ver imagen anterior).
+Si la máquina en la que se ejecute el script tiene una estructura de directorios diferente, el mismo podía no funcionar. Para solucionarlo, será necesario modificar manualmente esos directorios en el archivo armas_db.sql (ver imagen anterior).
 
 Una vez dentro del programa CRUD, podría ser necesario modificar la cadena de conexión en caso de que no sea posible conectarse a la base de datos.
 
 La misma se encuentra en ./ADO/Properties/Resources.resx , con el nombre conexionEstandar.
+
+![detalle_db](./assets/cadenaConexion.png)
 
 ## Sobre mí
 Mi nombre es Juan Pablo Ledezma, tengo 22 años y soy estudiante de la carrera Tecnicatura universitaria en Programación, 
