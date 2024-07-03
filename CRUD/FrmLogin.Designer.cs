@@ -36,11 +36,12 @@
             btnIngresar = new Button();
             btnLimpiar = new Button();
             btnAutocompletar = new Button();
+            cboPerfilUsuario = new ComboBox();
             SuspendLayout();
             // 
             // txtUsuario
             // 
-            txtUsuario.BackColor = Color.FromArgb(224, 242, 241);
+            txtUsuario.BackColor = Color.FromArgb(190, 210, 210);
             txtUsuario.Location = new Point(102, 165);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(141, 23);
@@ -48,7 +49,7 @@
             // 
             // txtClave
             // 
-            txtClave.BackColor = Color.FromArgb(224, 242, 241);
+            txtClave.BackColor = Color.FromArgb(190, 210, 210);
             txtClave.Location = new Point(102, 236);
             txtClave.Name = "txtClave";
             txtClave.PasswordChar = '*';
@@ -131,12 +132,24 @@
             btnAutocompletar.UseVisualStyleBackColor = false;
             btnAutocompletar.Click += btnAutocompletar_Click;
             // 
+            // cboPerfilUsuario
+            // 
+            cboPerfilUsuario.BackColor = Color.FromArgb(190, 210, 210);
+            cboPerfilUsuario.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboPerfilUsuario.FormattingEnabled = true;
+            cboPerfilUsuario.Items.AddRange(new object[] { "Administrador", "Supervisor", "Vendedor" });
+            cboPerfilUsuario.Location = new Point(116, 438);
+            cboPerfilUsuario.Name = "cboPerfilUsuario";
+            cboPerfilUsuario.Size = new Size(116, 23);
+            cboPerfilUsuario.TabIndex = 8;
+            // 
             // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(38, 40, 51);
-            ClientSize = new Size(385, 456);
+            BackColor = Color.FromArgb(32, 36, 46);
+            ClientSize = new Size(385, 506);
+            Controls.Add(cboPerfilUsuario);
             Controls.Add(btnAutocompletar);
             Controls.Add(btnLimpiar);
             Controls.Add(btnIngresar);
@@ -164,5 +177,6 @@
         private Button btnIngresar;
         private Button btnLimpiar;
         private Button btnAutocompletar;
+        private ComboBox cboPerfilUsuario;
     }
 }

@@ -20,6 +20,7 @@ namespace CRUD
         private void FrmLogin_Load(object sender, EventArgs e)
         {
             this.LeerUsuarios();
+            this.cboPerfilUsuario.SelectedIndex = 0;
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
@@ -57,8 +58,21 @@ namespace CRUD
 
         private void btnAutocompletar_Click(object sender, EventArgs e)
         {
-            this.txtUsuario.Text = "admin@admin.com";
-            this.txtClave.Text = "12345678";
+            if (this.cboPerfilUsuario.SelectedIndex == 0)
+            {
+                this.txtUsuario.Text = "admin@admin.com";
+                this.txtClave.Text = "12345678";
+            }
+            else if (this.cboPerfilUsuario.SelectedIndex == 1)
+            {
+                this.txtUsuario.Text = "trobinson@super.com";
+                this.txtClave.Text = "12345678";
+            }
+            else
+            {
+                this.txtUsuario.Text = "sharris@maiden.com.uk";
+                this.txtClave.Text = "eddie666";
+            }
         }
 
         private void LeerUsuarios()
