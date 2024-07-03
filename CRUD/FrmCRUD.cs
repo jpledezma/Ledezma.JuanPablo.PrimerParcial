@@ -210,7 +210,7 @@ namespace CRUD
                 if (path == String.Empty) { return; }
                 this.SerializarJson(path);
                 this.RegistrarAccion($"Guardó la lista actual de armas en formato .json en {path}");
-
+                this.stsLblEstadoTareas.Text = "Guardado el estado actual";
                 this.NotificarCambiosRealizados(sender);
             }
             catch (Exception ex)
@@ -227,7 +227,7 @@ namespace CRUD
                 if (path == String.Empty) { return; }
                 this.SerializarXml(path);
                 this.RegistrarAccion($"Guardó la lista actual de armas en formato .xml en {path}");
-
+                this.stsLblEstadoTareas.Text = "Guardado el estado actual";
                 this.NotificarCambiosRealizados(sender);
             }
             catch (Exception ex)
@@ -256,6 +256,7 @@ namespace CRUD
                     return;
                 this.InstanciarArmeria(this.DeserializarXML(path));
                 this.RegistrarAccion($"Cargó una lista de armas a la armería desde {path}");
+                this.stsLblEstadoTareas.Text = "Archivo cargado";
             }
             catch (Exception ex)
             {
@@ -714,9 +715,9 @@ namespace CRUD
 
                 if (this.ado.ProbarConexion())
                 {
+                    //Thread.Sleep(3000);
                     this.EfectuarCambiosDB();
                     resultado = "Hecho";
-                    //Thread.Sleep(3000);
                 }
                 else
                 {
@@ -831,6 +832,7 @@ namespace CRUD
                 sender == this.mnuBtnModificar || sender == this.mnuBtnEliminar)
             {
                 this.Text += this.cambiosSinGuardar == false ? "*" : "";
+                this.stsLblEstadoTareas.Text = "Cambios sin guardar";
                 this.cambiosSinGuardar = true;
             }
             
