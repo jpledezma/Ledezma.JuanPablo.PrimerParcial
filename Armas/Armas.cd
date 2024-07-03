@@ -1,32 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="Armas.ArmaDeFuego">
-    <Position X="5" Y="0.5" Width="5.5" />
+    <Position X="0.5" Y="6.25" Width="10.25" />
     <TypeIdentifier>
       <HashCode>AAAAMAAAABAASABEgEIAAAASAAAQEqAAEAgQAAQIEmg=</HashCode>
       <FileName>ArmaDeFuego.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Armas.EscopetaBombeo">
-    <Position X="10.5" Y="8.75" Width="4.5" />
+    <Position X="12" Y="6.75" Width="13.5" />
+    <InheritanceLine Type="Armas.ArmaDeFuego" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.75" Y="9.875" />
+        <Point X="12" Y="9.875" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>ACAAgAAAAAAAAAAAAAIAAABABAAACDAAAAARAAAhAIA=</HashCode>
+      <HashCode>ACAAoAAAAAAAAAAEgAIAAABABAAACLAAAAARAAAhAqA=</HashCode>
       <FileName>EscopetaBombeo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Armas.FusilAsalto">
-    <Position X="5.5" Y="8.75" Width="4.5" />
+    <Position X="12" Y="13.5" Width="14.25" />
+    <InheritanceLine Type="Armas.ArmaDeFuego" ManuallyRouted="true">
+      <Path>
+        <Point X="5.625" Y="13.449" />
+        <Point X="5.625" Y="16.75" />
+        <Point X="12" Y="16.75" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAEACAAAIAgAAAAAAAADAAAAARCAAAAAg=</HashCode>
+      <HashCode>AAAAIAAAAIAAEACEgAIAgAAAAAAAALAAAAARCAAAAig=</HashCode>
       <FileName>FusilAsalto.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Armas.PistolaSemiautomatica">
-    <Position X="0.5" Y="8.75" Width="4.5" />
+    <Position X="12" Y="0.5" Width="14.25" />
+    <InheritanceLine Type="Armas.ArmaDeFuego" FixedToPoint="true">
+      <Path>
+        <Point X="5.625" Y="6.25" />
+        <Point X="5.625" Y="3.312" />
+        <Point X="12" Y="3.312" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAIAAEASAAAIAAAAAAAAAADQAAAARAAAAAAA=</HashCode>
+      <HashCode>AAAAIAAIAIAAEASEgAIAAAAAAAAAALQAAAARAAAAAiA=</HashCode>
       <FileName>PistolaSemiautomatica.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Armas.Armeria&lt;T&gt;">
+    <Position X="27.25" Y="0.5" Width="5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="Armas.Armeria&lt;T&gt;.Comparar">
+        <TypeIdentifier>
+          <NewMemberFileName>Armeria.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAABAASAEAAICAAACAAAAEACAAAAAAAAA=</HashCode>
+      <FileName>Armeria.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Armas.IProductoArmeria">
+    <Position X="27.25" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAASAAAQAAAAAAgAAAAAAEA=</HashCode>
+      <FileName>IProductoArmeria.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
