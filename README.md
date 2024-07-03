@@ -1,4 +1,18 @@
 # Armería "Dos tiros de un pájaro"
+
+## Importante
+Para esta segunda parte se agregó la manipulación de una base de datos SQL Server. El script SQL para generar la misma se encuentra en este repositorio, en ./armas_db.sql
+
+El script se generó suponiendo que las bases de datos estén almacenadas en C:\SQLData\ ; y los logs en C:\SQLData\Logs\
+
+![detalle_db](./assets/detalle_db.png)
+
+Si la máquina en la que se ejecute el script tiene una estructura de directorios diferente, el mismo podía no funcionar. Para solucionarlo, hay que modificar manualmente esos directorios en el archivo armas_db.sql (ver imagen anterior).
+
+Una vez dentro del programa CRUD, podría ser necesario modificar la cadena de conexión en caso de que no sea posible conectarse a la base de datos.
+
+La misma se encuentra en ./ADO/Properties/Resources.resx , con el nombre conexionEstandar.
+
 ## Sobre mí
 Mi nombre es Juan Pablo Ledezma, tengo 22 años y soy estudiante de la carrera Tecnicatura universitaria en Programación, 
 en la Universidad Tecnológica Nacional - Facultad Regional Avellaneda.
