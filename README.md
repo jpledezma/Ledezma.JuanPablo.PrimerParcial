@@ -14,13 +14,26 @@ se continúa al formulario principal.
 ![Login](./assets/Login.png)
 
 En el formulario principal se pueden agregar armas, modificarlas, eliminarlas, ver su información detallada, ordenar 
-los elementos, guardar el estado actual (serialización json o xml), cargar una lista de armas desde un archivo 
-(deserialización xml), y visualizar un registro de acciones de usuarios.
+los elementos, guardar el estado actual (serialización json / xml o desde una base de datos), cargar una lista de armas desde un archivo 
+(deserialización xml / base de datos), y visualizar un registro de acciones de usuarios.
 
 Todas las acciones anteriormente mencionadas se pueden realizar desde un menú en la parte superior de la pantalla, 
 el cual también muestra información sobre la sesión actual (nombre de usuario y fecha).
 
 ![CRUD](./assets/CRUD.png)
+
+### Cambios
+En la nueva versión se ordenaron los items del menú para facilitar el acceso al mismo, a la vez que se agregó una barra de estado en la parte inferior de la pantalla.
+
+También se agregaron teclas de acceso rápido (se debe hacer foco sobre el visor para ser utilizadas):
+
+- A - INS : Desplegar el item del menú Armas-Agregar
+
+- Enter - Espacio : Ver los detalles del arma seleccionada
+
+- Suprimir : Eliminar el arma seleccionada (sólo si el perfil es administrador)
+
+- M : Modificar el arma seleccionada (sólo si el perfil es administrador o supervisor)
 
 ## Diagrama de clases
 El diagrama de clases es el siguiente:
@@ -40,3 +53,16 @@ Escopeta de bombeo
 Las clases anteriores hacen uso de otras 2 clases: Cartucho y Cargador
 
 ![Municion](./assets/Municion.png)
+
+### Clase contenedora
+
+La jerarquía anterior hace uso de una clase contenedora para agrupar elementos.
+
+Armeria
+
+![Armeria](./assets/Armeria.png)
+
+Dicha clase puede contener cualquier elemento que implemente la interfaz IProductoArmeria
+
+![IProductoArmeria](./assets/IProductoArmeria.png)
+
